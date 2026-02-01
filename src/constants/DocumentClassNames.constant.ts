@@ -1,0 +1,42 @@
+/**
+ * DocumentClassNames.constant.ts
+ * Provides a readonly mapping of block class names.
+ */
+
+const ClassNames = {
+  H1: "H1",
+  H2: "H2",
+  H3: "H3",
+  H4: "H4",
+  H5: "H5",
+  H6: "H6",
+  PARAGRAPH: "PARAGRAPH",
+  CHECKBOX: "CHECKBOX",
+  QUOTE: "QUOTE",
+  CALLOUT: "CALLOUT",
+  HR: "HR",
+  LIST: "LIST",
+  TOGGLE: "TOGGLE",
+  TABLE: "TABLE",
+  CODE_BLOCK: "CODE_BLOCK",
+  IMAGE: "IMAGE",
+  VIDEO: "VIDEO",
+  AUDIO: "AUDIO",
+  HTML: "HTML",
+  EMBEDDING: "EMBEDDING",
+  LATEX: "LATEX",
+  ABBREVIATIONS: "ABBREVIATIONS",
+  ADDRESS: "ADDRESS",
+  BUTTON: "BUTTON",
+  KEYBOARD_BUTTONS: "KEYBOARD_BUTTONS",
+  HYPERLINKS: "HYPERLINKS",
+  PROGRESS_BAR: "PROGRESS_BAR",
+  HIGHLIGHT: "HIGHLIGHT",
+  BOLD: "BOLD",
+  ITALIC: "ITALIC",
+  STRIKE_THROUGH: "STRIKE_THROUGH",
+  UNDERLINE: "UNDERLINE",
+  INLINE_LATEX: "INLINE_LATEX",
+} as const;
+
+export default ClassNames;
