@@ -17,10 +17,10 @@ import { Node } from "./Node";
 
 export class Memory implements MemoryInterface {
     // ID of the first node in the document (root)
-    private _headNodeID: number | null = 0;
+    private _headNodeID: number | null = null;
 
     // ID of the last node in the main chain (tail)
-    private _tailNodeID: number | null = 0;
+    private _tailNodeID: number | null = null;
 
     // Array-based store of nodes, indexed by node ID for O(1) access
     private _memory: (NodeInterface | null)[] = [];
@@ -50,16 +50,6 @@ export class Memory implements MemoryInterface {
      */
     get TAIL_NODE_ID(): number | null {
         return this._tailNodeID;
-    }
-
-    /**
-     * Creates a new Memory instance with an optional initial node
-     * @param initialNode - The first node to add to memory (defaults to empty node at ID 0)
-     */
-    constructor(initialNode: NodeInterface = new Node(0)) {
-        this._headNodeID = initialNode.ID;
-        this._tailNodeID = initialNode.ID;
-        this._memory[initialNode.ID] = initialNode;
     }
 
     /**
@@ -143,7 +133,6 @@ export class Memory implements MemoryInterface {
         this._memory[freeSpot] = node;
 
         // link the new node to the current tail
-        node.parentNodeID = this._tailNodeID;
 
         // update the current tail to point to the new node
         if (this._tailNodeID !== null) {
@@ -152,6 +141,8 @@ export class Memory implements MemoryInterface {
                 tailNode.leftNodeID = node.ID;
             }
         }
+
+        if (this._memory.length > 1) node.parentNodeID = this._tailNodeID;
 
         // update head if this is the first node
         if (this._headNodeID === null) {
