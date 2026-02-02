@@ -3,54 +3,70 @@
  * This file provides helper functions to manipulate the node store, including deleting nodes.
  */
 
+import type { NodeInterface } from "../../../types/Node.interface";
+
 /**
- * Deletes a node from the store and frees up its memory, including all nested children.
- * This function performs a BFS traversal to remove all child nodes and updates parent references.
+ * Deletes a node from the store and frees up its memory, including all nested children (right nodes).
+ * This function performs a BFS traversal to remove all child nodes and updates parent/sibling references.
+ * Note: Only deletes right children (nested blocks), not left siblings.
+ *
  * @param nodeID - The ID of the node to delete.
  * @param store - The array-based store of nodes.
  * @param freeSpots - The array to track freed node IDs for reuse.
  */
 export function deleteNode(
     nodeID: number,
-    store: any[],
+    store: (NodeInterface | null)[],
     freeSpots: number[],
 ): void {
     // if the node is invalid or already null, return
-    if (nodeID < 1 || nodeID >= store.length || store[nodeID] === null) {
+    if (nodeID < 0 || nodeID >= store.length || store[nodeID] === null) {
         return;
     }
 
-    const currentNode = store[nodeID];
-    // remove references from parent
-    if (currentNode.parentID !== null) {
-        const parentNode = store[currentNode.parentID];
+    const targetNode = store[nodeID];
+    if (!targetNode) return;
 
-        // if the current node is the left child, replace it with its left child
-        if (parentNode.leftID === nodeID) {
-            parentNode.setLeft(currentNode.leftID);
-        }
-
-        // if the current node is the right child, replace it with its left child too
-        if (parentNode.rightID === nodeID) {
-            parentNode.setRight(currentNode.leftID);
+    // update parent's reference to skip this node
+    if (targetNode.parentNodeID !== null) {
+        const parentNode = store[targetNode.parentNodeID];
+        if (parentNode) {
+            // if this node is the left child (next sibling), link parent to this node's left
+            if (parentNode.leftNodeID === nodeID) {
+                parentNode.leftNodeID = targetNode.leftNodeID;
+            }
+            // if this node is the right child (nested head), link parent to this node's left
+            if (parentNode.rightNodeID === nodeID) {
+                parentNode.rightNodeID = targetNode.leftNodeID;
+            }
         }
     }
 
-    // BFS to remove all nested child nodes
-    let Q: number[] = [];
-    Q.push(nodeID);
+    // update the left sibling's parent reference to point to this node's parent
+    if (targetNode.leftNodeID !== null) {
+        const leftNode = store[targetNode.leftNodeID];
+        if (leftNode) {
+            leftNode.parentNodeID = targetNode.parentNodeID;
+        }
+    }
 
-    // BFS to free all child nodes
-    while (Q.length > 0) {
-        const currentNodeID = Q.shift() as number;
+    // BFS to remove only nested children (right nodes and their descendants)
+    const queue: number[] = [nodeID];
 
+    while (queue.length > 0) {
+        const currentNodeID = queue.shift() as number;
         const currentNode = store[currentNodeID];
 
-        if (currentNode.rightID !== null) {
-            Q.push(currentNode.rightID);
+        if (!currentNode) continue;
+
+        // only traverse right children (nested blocks) for deletion
+        if (currentNode.rightNodeID !== null) {
+            queue.push(currentNode.rightNodeID);
         }
-        if (currentNode.leftID !== null) {
-            Q.push(currentNode.leftID);
+
+        // for nested children, also delete their left siblings (the entire nested level)
+        if (currentNodeID !== nodeID && currentNode.leftNodeID !== null) {
+            queue.push(currentNode.leftNodeID);
         }
 
         // free the node

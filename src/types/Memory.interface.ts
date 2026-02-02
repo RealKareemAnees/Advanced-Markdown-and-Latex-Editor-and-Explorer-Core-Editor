@@ -100,26 +100,28 @@ export interface MemoryInterface {
     ): MemoryInterface;
 
     /**
-     * duplicate a node in memory
-     * @param nodeID
-     * @returns the id of the duplicated node
+     * Duplicate a node in memory, inserting the copy directly below the original
+     * @param nodeID - The ID of the node to duplicate
+     * @returns This memory instance for chaining
      */
-    dublicateNode(nodeID: number): MemoryInterface;
+    duplicateNode(nodeID: number): MemoryInterface;
 
     /**
-     *
-     * @param nodeID
+     * Duplicate multiple nodes in memory
+     * @param nodeIDs - Array of node IDs to duplicate
+     * @returns This memory instance for chaining
      */
-    dublicateMultipleNodes(nodeIDs: number[]): MemoryInterface;
+    duplicateMultipleNodes(nodeIDs: number[]): MemoryInterface;
 
     /**
-     * clear all nodes from memory
+     * Clear all nodes from memory, resetting to empty state
+     * @returns This memory instance for chaining
      */
     clearMemory(): MemoryInterface;
 
     /**
-     * export the memory as JSON string
-     * @returns
+     * Export the memory state as a JSON string for persistence
+     * @returns JSON string representation of the memory
      */
     exportMemory(): string;
 }
