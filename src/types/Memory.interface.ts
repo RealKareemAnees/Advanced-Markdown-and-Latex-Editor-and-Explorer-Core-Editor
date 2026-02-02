@@ -9,7 +9,7 @@ export interface MemoryInterface {
     /**
      * this is array of node ids representing the order of nodes in memory
      */
-    get ArrayRepresentation(): number[];
+    get ArrayRepresentation(): NodeInterface[];
 
     get HEAD_NODE_ID(): number | null;
     get TAIL_NODE_ID(): number | null;
@@ -27,61 +27,67 @@ export interface MemoryInterface {
      *
      * @param {number} nodeID - the id of the node to delete
      */
-    deleteNode(nodeID: number): void;
+    deleteNode(nodeID: number): MemoryInterface;
 
     /**
      * deletes multiple nodes from memory, no matter where they are deleting a node deletes its children as well
      * @param nodeIDs
      */
-    deleteMultipleNodes(nodeIDs: number[]): void;
+    deleteMultipleNodes(nodeIDs: number[]): MemoryInterface;
 
     /**
      * append a node to the end of memory, very often task
      * @param node
      */
-    appendNode(node: NodeInterface): void;
+    appendNode(node: NodeInterface): MemoryInterface;
 
     /**
      * insert a node below a target node
      * @param node
-     * @param targetNode
+     * @param targetNodeID
      */
-    insertNodeBelow(node: NodeInterface, targetNode: number): void;
+    insertNodeBelow(node: NodeInterface, targetNodeID: number): MemoryInterface;
 
     /**
      * insert multiple nodes below a target node
      * @param nodes
-     * @param targetNode
+     * @param targetNodeID
      */
-    insertMultipleNodesBelow(nodes: NodeInterface[], targetNode: number): void;
+    insertMultipleNodesBelow(
+        nodes: NodeInterface[],
+        targetNodeID: number,
+    ): MemoryInterface;
 
     /**
      * move a node below a target node
      * @param nodeID
      * @param targetNodeID
      */
-    moveNodeBelow(nodeID: number, targetNodeID: number): void;
+    moveNodeBelow(nodeID: number, targetNodeID: number): MemoryInterface;
 
     /**
      * move multiple nodes below a target node
      * @param nodeIDs
      * @param targetNodeID
      */
-    moveMultipleNodesBelow(nodeIDs: number[], targetNodeID: number): void;
+    moveMultipleNodesBelow(
+        nodeIDs: number[],
+        targetNodeID: number,
+    ): MemoryInterface;
 
     /**
      * create and insert a child node to a target node
      * @param node
      * @param targetNodeID
      */
-    insertChildNode(node: NodeInterface, targetNodeID: number): void;
+    insertChildNode(node: NodeInterface, targetNodeID: number): MemoryInterface;
 
     /**
      * append a child node to a parent node
      * @param parentNodeID
      * @param childNodeID
      */
-    appendChildNode(parentNodeID: number, childNodeID: number): void;
+    appendChildNode(parentNodeID: number, childNodeID: number): MemoryInterface;
 
     /**
      * append multiple child nodes to a parent node
@@ -91,19 +97,25 @@ export interface MemoryInterface {
     appendMultipleChildNodes(
         parentNodeID: number,
         childNodeIDs: number[],
-    ): void;
+    ): MemoryInterface;
 
     /**
      * duplicate a node in memory
      * @param nodeID
      * @returns the id of the duplicated node
      */
-    dublicateNode(nodeID: number): number;
+    dublicateNode(nodeID: number): MemoryInterface;
+
+    /**
+     *
+     * @param nodeID
+     */
+    dublicateMultipleNodes(nodeIDs: number[]): MemoryInterface;
 
     /**
      * clear all nodes from memory
      */
-    clearMemory(): void;
+    clearMemory(): MemoryInterface;
 
     /**
      * export the memory as JSON string
