@@ -11,16 +11,15 @@ describe("CheckboxEntity", () => {
         const entity = new CheckboxEntity();
         expect(entity.TYPE).toBe(BlockTypesEnum.CHECKBOX);
         expect(entity.DATA).toBe("");
-        expect(entity.OPTIONS).toEqual({});
+        expect(entity.OPTIONS).toBeNull();
         expect(entity.CONVERTIBLE).toBe(true);
         expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
     });
 
     it("should initialize with provided values", () => {
         const data = "Task item";
-        const options = { checked: true };
-        const entity = new CheckboxEntity(data, options);
+        const entity = new CheckboxEntity(data);
         expect(entity.DATA).toBe(data);
-        expect(entity.OPTIONS).toEqual(options);
+        expect(entity.OPTIONS).toBeNull();
     });
 });

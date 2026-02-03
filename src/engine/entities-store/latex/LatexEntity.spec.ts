@@ -11,16 +11,15 @@ describe("LatexEntity", () => {
         const entity = new LatexEntity();
         expect(entity.TYPE).toBe(BlockTypesEnum.LATEX);
         expect(entity.DATA).toBe("");
-        expect(entity.OPTIONS).toEqual({});
+        expect(entity.OPTIONS).toBeNull();
         expect(entity.CONVERTIBLE).toBe(true);
         expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
     });
 
     it("should initialize with provided values", () => {
         const data = "E = mc^2";
-        const options = { displayMode: true };
-        const entity = new LatexEntity(data, options);
+        const entity = new LatexEntity(data);
         expect(entity.DATA).toBe(data);
-        expect(entity.OPTIONS).toEqual(options);
+        expect(entity.OPTIONS).toBeNull();
     });
 });

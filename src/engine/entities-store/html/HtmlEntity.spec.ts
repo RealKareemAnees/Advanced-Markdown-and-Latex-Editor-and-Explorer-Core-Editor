@@ -11,16 +11,15 @@ describe("HtmlEntity", () => {
         const entity = new HtmlEntity();
         expect(entity.TYPE).toBe(BlockTypesEnum.HTML);
         expect(entity.DATA).toBe("");
-        expect(entity.OPTIONS).toEqual({});
+        expect(entity.OPTIONS).toBeNull();
         expect(entity.CONVERTIBLE).toBe(true);
         expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
     });
 
     it("should initialize with provided values", () => {
         const data = "<div>HTML content</div>";
-        const options = { sanitize: true };
-        const entity = new HtmlEntity(data, options);
+        const entity = new HtmlEntity(data);
         expect(entity.DATA).toBe(data);
-        expect(entity.OPTIONS).toEqual(options);
+        expect(entity.OPTIONS).toBeNull();
     });
 });

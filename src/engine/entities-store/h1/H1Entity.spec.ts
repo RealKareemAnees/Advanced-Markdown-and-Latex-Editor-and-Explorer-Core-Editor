@@ -11,7 +11,7 @@ describe("H1Entity", () => {
         const entity = new H1Entity();
         expect(entity.TYPE).toBe(BlockTypesEnum.H1);
         expect(entity.DATA).toBe("");
-        expect(entity.OPTIONS).toEqual({});
+        expect(entity.OPTIONS).toBeNull();
         expect(entity.CONVERTIBLE).toBe(true);
         expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
         expect(entity.HTML_ELEMENT.tagName.toLowerCase()).toBe("h1");
@@ -19,9 +19,8 @@ describe("H1Entity", () => {
 
     it("should initialize with provided values", () => {
         const data = "Test Heading";
-        const options = { align: "center" };
-        const entity = new H1Entity(data, options);
+        const entity = new H1Entity(data);
         expect(entity.DATA).toBe(data);
-        expect(entity.OPTIONS).toEqual(options);
+        expect(entity.OPTIONS).toBeNull();
     });
 });

@@ -11,7 +11,7 @@ describe("ParagraphEntity", () => {
         const entity = new ParagraphEntity();
         expect(entity.TYPE).toBe(BlockTypesEnum.PARAGRAPH);
         expect(entity.DATA).toBe("");
-        expect(entity.OPTIONS).toEqual({});
+        expect(entity.OPTIONS).toBeNull();
         expect(entity.CONVERTIBLE).toBe(true);
         expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
         expect(entity.HTML_ELEMENT.tagName.toLowerCase()).toBe("p");
@@ -19,9 +19,8 @@ describe("ParagraphEntity", () => {
 
     it("should initialize with provided values", () => {
         const data = "Test paragraph text";
-        const options = { align: "justify" };
-        const entity = new ParagraphEntity(data, options);
+        const entity = new ParagraphEntity(data);
         expect(entity.DATA).toBe(data);
-        expect(entity.OPTIONS).toEqual(options);
+        expect(entity.OPTIONS).toBeNull();
     });
 });

@@ -11,7 +11,11 @@ describe("CodeBlockEntity", () => {
         const entity = new CodeBlockEntity();
         expect(entity.TYPE).toBe(BlockTypesEnum.CODE_BLOCK);
         expect(entity.DATA).toBe("");
-        expect(entity.OPTIONS).toEqual({});
+        expect(entity.OPTIONS).toEqual({
+            language: "",
+            filename: "",
+            isCopyable: true,
+        });
         expect(entity.CONVERTIBLE).toBe(true);
         expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
         expect(entity.HTML_ELEMENT.tagName.toLowerCase()).toBe("pre");
@@ -19,7 +23,11 @@ describe("CodeBlockEntity", () => {
 
     it("should initialize with provided values", () => {
         const data = "console.log('Hello');";
-        const options = { language: "javascript" };
+        const options = {
+            language: "javascript",
+            filename: "",
+            isCopyable: true,
+        };
         const entity = new CodeBlockEntity(data, options);
         expect(entity.DATA).toBe(data);
         expect(entity.OPTIONS).toEqual(options);

@@ -11,17 +11,16 @@ describe("QuoteEntity", () => {
         const entity = new QuoteEntity();
         expect(entity.TYPE).toBe(BlockTypesEnum.QUOTE);
         expect(entity.DATA).toBe("");
-        expect(entity.OPTIONS).toEqual({});
+        expect(entity.OPTIONS).toBeNull();
         expect(entity.CONVERTIBLE).toBe(true);
         expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
         expect(entity.HTML_ELEMENT.tagName.toLowerCase()).toBe("blockquote");
     });
 
     it("should initialize with provided values", () => {
-        const data = "This is a quote";
-        const options = { author: "Someone" };
-        const entity = new QuoteEntity(data, options);
+        const data = "A famous quote";
+        const entity = new QuoteEntity(data);
         expect(entity.DATA).toBe(data);
-        expect(entity.OPTIONS).toEqual(options);
+        expect(entity.OPTIONS).toBeNull();
     });
 });

@@ -11,15 +11,15 @@ describe("CalloutEntity", () => {
         const entity = new CalloutEntity();
         expect(entity.TYPE).toBe(BlockTypesEnum.CALLOUT);
         expect(entity.DATA).toBe("");
-        expect(entity.OPTIONS).toEqual({});
+        expect(entity.OPTIONS).toEqual({ type: "info" });
         expect(entity.CONVERTIBLE).toBe(true);
         expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
     });
 
     it("should initialize with provided values", () => {
         const data = "Important note";
-        const options = { type: "warning" };
-        const entity = new CalloutEntity(data, options);
+        const options = { type: "warning" } as const;
+        const entity = new CalloutEntity(data, options as any);
         expect(entity.DATA).toBe(data);
         expect(entity.OPTIONS).toEqual(options);
     });

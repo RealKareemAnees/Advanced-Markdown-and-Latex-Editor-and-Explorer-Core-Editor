@@ -10,18 +10,18 @@ describe("AudioEntity", () => {
     it("should initialize with default values", () => {
         const entity = new AudioEntity();
         expect(entity.TYPE).toBe(BlockTypesEnum.AUDIO);
-        expect(entity.DATA).toBe("");
-        expect(entity.OPTIONS).toEqual({});
+        expect(entity.DATA).toEqual(new URL("about:blank"));
+        expect(entity.OPTIONS).toEqual({ autoplay: false, repeat: false });
         expect(entity.CONVERTIBLE).toBe(false);
         expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
         expect(entity.HTML_ELEMENT.tagName.toLowerCase()).toBe("audio");
     });
 
     it("should initialize with provided values", () => {
-        const data = "audio.mp3";
-        const options = { controls: true };
+        const data = new URL("https://example.com/audio.mp3");
+        const options = { autoplay: true, repeat: true };
         const entity = new AudioEntity(data, options);
-        expect(entity.DATA).toBe(data);
+        expect(entity.DATA).toEqual(data);
         expect(entity.OPTIONS).toEqual(options);
     });
 });

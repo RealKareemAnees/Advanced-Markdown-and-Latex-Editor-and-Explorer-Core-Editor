@@ -10,18 +10,17 @@ describe("ImageEntity", () => {
     it("should initialize with default values", () => {
         const entity = new ImageEntity();
         expect(entity.TYPE).toBe(BlockTypesEnum.IMAGE);
-        expect(entity.DATA).toBe("");
-        expect(entity.OPTIONS).toEqual({});
+        expect(entity.DATA).toEqual(new URL("about:blank"));
+        expect(entity.OPTIONS).toBeNull();
         expect(entity.CONVERTIBLE).toBe(false);
         expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
         expect(entity.HTML_ELEMENT.tagName.toLowerCase()).toBe("img");
     });
 
     it("should initialize with provided values", () => {
-        const data = "image.png";
-        const options = { alt: "Test image" };
-        const entity = new ImageEntity(data, options);
-        expect(entity.DATA).toBe(data);
-        expect(entity.OPTIONS).toEqual(options);
+        const data = new URL("https://example.com/image.png");
+        const entity = new ImageEntity(data);
+        expect(entity.DATA).toEqual(data);
+        expect(entity.OPTIONS).toBeNull();
     });
 });
