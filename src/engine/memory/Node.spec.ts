@@ -1,6 +1,6 @@
 /**
  * Unit tests for Node class
- * Tests node initialization, getters, setters, and entity delegation
+ * Tests node initialization, getters, setters, and entity reference
  */
 
 import { Node } from "./Node";
@@ -153,9 +153,9 @@ describe("Node", () => {
     });
 
     /**
-     * Test entity delegation
+     * Test entity reference
      */
-    describe("Entity Delegation", () => {
+    describe("Entity Reference", () => {
         it("should return the entity reference", () => {
             const entity = createMockEntity();
             const node = new Node(1, null, entity);
@@ -163,53 +163,50 @@ describe("Node", () => {
             expect(node.ENTITY).toBe(entity);
         });
 
-        it("should delegate TYPE getter to entity", () => {
+        it("should access entity TYPE property", () => {
             const entity = createMockEntity(BlockTypesEnum.H1);
             const node = new Node(1, null, entity);
 
-            expect(node.TYPE).toBe(BlockTypesEnum.H1);
+            expect(node.ENTITY.TYPE).toBe(BlockTypesEnum.H1);
         });
 
-        it("should delegate TYPE setter to entity", () => {
+        it("should modify entity TYPE property", () => {
             const entity = createMockEntity(BlockTypesEnum.PARAGRAPH);
             const node = new Node(1, null, entity);
 
-            node.TYPE = BlockTypesEnum.H2;
+            node.ENTITY.TYPE = BlockTypesEnum.H2;
 
-            expect(entity.TYPE).toBe(BlockTypesEnum.H2);
-            expect(node.TYPE).toBe(BlockTypesEnum.H2);
+            expect(node.ENTITY.TYPE).toBe(BlockTypesEnum.H2);
         });
 
-        it("should delegate DATA getter to entity", () => {
+        it("should access entity DATA property", () => {
             const entity = createMockEntity(
                 BlockTypesEnum.PARAGRAPH,
                 "Hello World",
             );
             const node = new Node(1, null, entity);
 
-            expect(node.DATA).toBe("Hello World");
+            expect(node.ENTITY.DATA).toBe("Hello World");
         });
 
-        it("should delegate DATA setter to entity", () => {
+        it("should modify entity DATA property", () => {
             const entity = createMockEntity(
                 BlockTypesEnum.PARAGRAPH,
                 "Initial",
             );
             const node = new Node(1, null, entity);
 
-            node.DATA = "Updated";
+            node.ENTITY.DATA = "Updated";
 
-            expect(entity.DATA).toBe("Updated");
-            expect(node.DATA).toBe("Updated");
+            expect(node.ENTITY.DATA).toBe("Updated");
         });
 
-        it("should delegate HTML_ELEMENT getter to entity", () => {
+        it("should access entity HTML_ELEMENT property", () => {
             const entity = createMockEntity();
             const node = new Node(1, null, entity);
 
-            expect(node.HTML_ELEMENT).toBe(entity.HTML_ELEMENT);
-            // Check it's an object (HTMLElement might not be defined in test env)
-            expect(node.HTML_ELEMENT).toBeDefined();
+            expect(node.ENTITY.HTML_ELEMENT).toBe(entity.HTML_ELEMENT);
+            expect(node.ENTITY.HTML_ELEMENT).toBeDefined();
         });
     });
 
@@ -228,7 +225,7 @@ describe("Node", () => {
             types.forEach((type) => {
                 const entity = createMockEntity(type);
                 const node = new Node(1, null, entity);
-                expect(node.TYPE).toBe(type);
+                expect(node.ENTITY.TYPE).toBe(type);
             });
         });
 
@@ -236,7 +233,7 @@ describe("Node", () => {
             const entity = createMockEntity(BlockTypesEnum.PARAGRAPH, "");
             const node = new Node(1, null, entity);
 
-            expect(node.DATA).toBe("");
+            expect(node.ENTITY.DATA).toBe("");
         });
 
         it("should handle multiline data", () => {
@@ -247,7 +244,7 @@ describe("Node", () => {
             );
             const node = new Node(1, null, entity);
 
-            expect(node.DATA).toBe(multilineData);
+            expect(node.ENTITY.DATA).toBe(multilineData);
         });
 
         it("should handle special characters in data", () => {
@@ -255,44 +252,27 @@ describe("Node", () => {
             const entity = createMockEntity(BlockTypesEnum.HTML, specialData);
             const node = new Node(1, null, entity);
 
-            expect(node.DATA).toBe(specialData);
+            expect(node.ENTITY.DATA).toBe(specialData);
+        });
+
+        it("should access entity OPTIONS property", () => {
+            const entity = createMockEntity();
+            const node = new Node(1, null, entity);
+
+            expect(node.ENTITY.OPTIONS).toBeDefined();
+            expect(typeof node.ENTITY.OPTIONS).toBe("object");
         });
     });
 
     /**
-     * Test OPTIONS property (throws not implemented)
+     * Test node with null entity
      */
-    describe("OPTIONS Property", () => {
-        it("should throw error when getting OPTIONS", () => {
-            const node = new Node();
-
-            expect(() => node.OPTIONS).toThrow("Method not implemented.");
-        });
-
-        it("should throw error when setting OPTIONS", () => {
-            const node = new Node();
-
-            expect(() => {
-                node.OPTIONS = { test: true };
-            }).toThrow("Method not implemented.");
-        });
-    });
-
-    /**
-     * Test node with null or undefined entity
-     */
-    describe("Null/Undefined Entity Handling", () => {
+    describe("Null Entity Handling", () => {
         it("should handle null entity in constructor", () => {
             const node = new Node(1, null, null);
 
             expect(node.ID).toBe(1);
-            // Entity is null but node should still be constructable
-        });
-
-        it("should return empty string for DATA when entity is null-ish", () => {
-            const node = new Node(1, null, null);
-
-            expect(node.DATA).toBe("");
+            expect(node.ENTITY).toBeNull();
         });
     });
 
@@ -330,17 +310,6 @@ describe("Node", () => {
             expect(child1.parentNodeID).toBe(1);
             expect(child1.leftNodeID).toBe(3);
             expect(child2.parentNodeID).toBe(1);
-        });
-    });
-
-    /**
-     * Test CONVERTIBLE property
-     */
-    describe("CONVERTIBLE Property", () => {
-        it("should have CONVERTIBLE property", () => {
-            const node = new Node();
-
-            expect(node).toHaveProperty("CONVERTIBLE");
         });
     });
 });

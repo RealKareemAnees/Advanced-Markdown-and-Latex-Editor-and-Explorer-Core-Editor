@@ -4,7 +4,6 @@
  */
 
 import { Memory } from "./Memory";
-import { Node } from "./Node";
 import type { NodeInterface } from "../../types/Node.interface";
 import type { BlockEntityInterface } from "../../types/BlockEntity.interface";
 import { BlockTypesEnum } from "../../types/BlockTypes.enum";
