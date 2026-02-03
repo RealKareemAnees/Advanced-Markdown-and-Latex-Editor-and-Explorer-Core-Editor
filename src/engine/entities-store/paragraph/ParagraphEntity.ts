@@ -10,13 +10,26 @@ import { getDocument } from "../lib/dom.util";
 /**
  * Paragraph block entity
  */
-export class ParagraphEntity extends BlockEntityAbstract<
-    string,
-    Record<string, unknown>
-> {
-    constructor(data: string = "", options: Record<string, unknown> = {}) {
+export class ParagraphEntity extends BlockEntityAbstract<string, null> {
+    /** Declare protected attributes from abstract class */
+    declare protected _TYPE: BlockTypesEnum;
+    declare protected _DATA: string;
+    declare protected _OPTIONS: null;
+    declare protected _HTML_ELEMENT: HTMLElement;
+
+    constructor(data: string = "", options: null = null) {
         super(BlockTypesEnum.PARAGRAPH, data, options);
+        this._TYPE = BlockTypesEnum.PARAGRAPH;
         this._HTML_ELEMENT = getDocument().createElement("p");
+    }
+
+    /**
+     * Parses the data for the paragraph entity
+     * @param data - The raw data string
+     * @returns The parsed data
+     */
+    private _parseData(data: string): string {
+        return data;
     }
 
     get TYPE(): BlockTypesEnum {
@@ -32,14 +45,14 @@ export class ParagraphEntity extends BlockEntityAbstract<
     }
 
     set DATA(data: string) {
-        this._DATA = data;
+        this._DATA = this._parseData(data);
     }
 
-    get OPTIONS(): Record<string, unknown> {
+    get OPTIONS(): null {
         return this._OPTIONS;
     }
 
-    set OPTIONS(options: Record<string, unknown>) {
+    set OPTIONS(options: null) {
         this._OPTIONS = options;
     }
 

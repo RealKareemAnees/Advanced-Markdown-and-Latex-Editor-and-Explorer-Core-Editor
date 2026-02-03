@@ -9,13 +9,18 @@ import { getDocument } from "../lib/dom.util";
 
 /**
  * HR (horizontal rule) block entity
+ * Note: HR has neither data nor options
  */
-export class HrEntity extends BlockEntityAbstract<
-    string,
-    Record<string, unknown>
-> {
-    constructor(data: string = "", options: Record<string, unknown> = {}) {
-        super(BlockTypesEnum.HR, data, options);
+export class HrEntity extends BlockEntityAbstract<null, null> {
+    /** Declare protected attributes from abstract class */
+    declare protected _TYPE: BlockTypesEnum;
+    declare protected _DATA: null;
+    declare protected _OPTIONS: null;
+    declare protected _HTML_ELEMENT: HTMLElement;
+
+    constructor() {
+        super(BlockTypesEnum.HR, null, null);
+        this._TYPE = BlockTypesEnum.HR;
         this._HTML_ELEMENT = getDocument().createElement("hr");
     }
 
@@ -27,19 +32,19 @@ export class HrEntity extends BlockEntityAbstract<
         this._TYPE = type;
     }
 
-    get DATA(): string {
+    get DATA(): null {
         return this._DATA;
     }
 
-    set DATA(data: string) {
+    set DATA(data: null) {
         this._DATA = data;
     }
 
-    get OPTIONS(): Record<string, unknown> {
+    get OPTIONS(): null {
         return this._OPTIONS;
     }
 
-    set OPTIONS(options: Record<string, unknown>) {
+    set OPTIONS(options: null) {
         this._OPTIONS = options;
     }
 

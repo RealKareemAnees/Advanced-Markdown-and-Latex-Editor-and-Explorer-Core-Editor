@@ -8,15 +8,41 @@ import { BlockTypesEnum } from "../../../types/BlockTypes.enum";
 import { getDocument } from "../lib/dom.util";
 
 /**
+ * Options type for Callout entity
+ */
+export type CalloutOptionsType = {
+    type: "info" | "warning" | "error" | "success";
+};
+
+/**
  * Callout block entity
  */
 export class CalloutEntity extends BlockEntityAbstract<
     string,
-    Record<string, unknown>
+    CalloutOptionsType
 > {
-    constructor(data: string = "", options: Record<string, unknown> = {}) {
+    /** Declare protected attributes from abstract class */
+    declare protected _TYPE: BlockTypesEnum;
+    declare protected _DATA: string;
+    declare protected _OPTIONS: CalloutOptionsType;
+    declare protected _HTML_ELEMENT: HTMLElement;
+
+    constructor(
+        data: string = "",
+        options: CalloutOptionsType = { type: "info" },
+    ) {
         super(BlockTypesEnum.CALLOUT, data, options);
+        this._TYPE = BlockTypesEnum.CALLOUT;
         this._HTML_ELEMENT = getDocument().createElement("div");
+    }
+
+    /**
+     * Parses the data for the callout entity
+     * @param data - The raw data string
+     * @returns The parsed data
+     */
+    private _parseData(data: string): string {
+        return data;
     }
 
     get TYPE(): BlockTypesEnum {
@@ -32,14 +58,14 @@ export class CalloutEntity extends BlockEntityAbstract<
     }
 
     set DATA(data: string) {
-        this._DATA = data;
+        this._DATA = this._parseData(data);
     }
 
-    get OPTIONS(): Record<string, unknown> {
+    get OPTIONS(): CalloutOptionsType {
         return this._OPTIONS;
     }
 
-    set OPTIONS(options: Record<string, unknown>) {
+    set OPTIONS(options: CalloutOptionsType) {
         this._OPTIONS = options;
     }
 

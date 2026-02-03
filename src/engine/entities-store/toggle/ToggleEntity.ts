@@ -8,15 +8,41 @@ import { BlockTypesEnum } from "../../../types/BlockTypes.enum";
 import { getDocument } from "../lib/dom.util";
 
 /**
+ * Options type for Toggle entity
+ */
+export type ToggleOptionsType = {
+    opened: boolean;
+};
+
+/**
  * Toggle block entity
  */
 export class ToggleEntity extends BlockEntityAbstract<
     string,
-    Record<string, unknown>
+    ToggleOptionsType
 > {
-    constructor(data: string = "", options: Record<string, unknown> = {}) {
+    /** Declare protected attributes from abstract class */
+    declare protected _TYPE: BlockTypesEnum;
+    declare protected _DATA: string;
+    declare protected _OPTIONS: ToggleOptionsType;
+    declare protected _HTML_ELEMENT: HTMLElement;
+
+    constructor(
+        data: string = "",
+        options: ToggleOptionsType = { opened: false },
+    ) {
         super(BlockTypesEnum.TOGGLE, data, options);
+        this._TYPE = BlockTypesEnum.TOGGLE;
         this._HTML_ELEMENT = getDocument().createElement("details");
+    }
+
+    /**
+     * Parses the data for the toggle entity
+     * @param data - The raw data string
+     * @returns The parsed data
+     */
+    private _parseData(data: string): string {
+        return data;
     }
 
     get TYPE(): BlockTypesEnum {
@@ -32,14 +58,14 @@ export class ToggleEntity extends BlockEntityAbstract<
     }
 
     set DATA(data: string) {
-        this._DATA = data;
+        this._DATA = this._parseData(data);
     }
 
-    get OPTIONS(): Record<string, unknown> {
+    get OPTIONS(): ToggleOptionsType {
         return this._OPTIONS;
     }
 
-    set OPTIONS(options: Record<string, unknown>) {
+    set OPTIONS(options: ToggleOptionsType) {
         this._OPTIONS = options;
     }
 
