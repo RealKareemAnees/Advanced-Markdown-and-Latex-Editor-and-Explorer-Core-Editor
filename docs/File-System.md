@@ -22,6 +22,7 @@ There is no magic here.
 │   └── editor-mode.css # The document.css but with some extra details to support rendering of editing features of block entities
 ├── src
 │   ├── app # The application that contains the editor
+│   ├── constants # Shared constants (DOM class names, etc.)
 │   ├── editor # The editor where all the UI is
 │   ├── engine # Here all the heavy logic
 │   │   ├── elements-store
