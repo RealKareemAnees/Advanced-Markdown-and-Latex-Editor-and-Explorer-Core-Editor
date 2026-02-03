@@ -13,8 +13,6 @@ describe("HrEntity", () => {
         expect(entity.DATA).toBeNull();
         expect(entity.OPTIONS).toBeNull();
         expect(entity.CONVERTIBLE).toBe(false);
-        expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
-        expect(entity.HTML_ELEMENT.tagName.toLowerCase()).toBe("hr");
     });
 
     it("should have null data and options", () => {

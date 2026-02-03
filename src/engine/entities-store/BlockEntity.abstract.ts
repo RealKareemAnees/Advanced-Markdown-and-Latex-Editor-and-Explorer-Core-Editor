@@ -2,7 +2,7 @@
  * src/engine/entities-store/BlockEntity.abstract.ts
  * Abstract base class for block entities in the editor engine.
  *
- * Provides the contract for block properties (TYPE, DATA, OPTIONS, HTML_ELEMENT)
+ * Provides the contract for block properties (TYPE, DATA, OPTIONS)
  * and whether a block is CONVERTIBLE. All members are left abstract so concrete
  * block entity classes must implement them.
  */
@@ -25,7 +25,6 @@ export abstract class BlockEntityAbstract<
     protected _TYPE!: BlockTypesEnum;
     protected _DATA!: DataType;
     protected _OPTIONS!: OptionsType;
-    protected _HTML_ELEMENT!: HTMLElement;
     protected readonly _CONVERTIBLE!: boolean;
 
     get CONVERTIBLE(): boolean {
@@ -46,9 +45,6 @@ export abstract class BlockEntityAbstract<
     abstract get OPTIONS(): OptionsType;
     /** Set the block's options. */
     abstract set OPTIONS(options: OptionsType);
-
-    /** The DOM element used to render this block. */
-    abstract get HTML_ELEMENT(): HTMLElement;
 
     constructor(
         type: BlockTypesEnum = BlockTypesEnum.PARAGRAPH,

@@ -13,7 +13,6 @@ describe("CalloutEntity", () => {
         expect(entity.DATA).toBe("");
         expect(entity.OPTIONS).toEqual({ type: "info" });
         expect(entity.CONVERTIBLE).toBe(true);
-        expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
     });
 
     it("should initialize with provided values", () => {

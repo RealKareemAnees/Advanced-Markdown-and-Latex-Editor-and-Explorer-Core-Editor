@@ -5,7 +5,6 @@
 
 import { BlockEntityAbstract } from "../BlockEntity.abstract";
 import { BlockTypesEnum } from "../../../types/BlockTypes.enum";
-import { getDocument } from "../lib/dom.util";
 
 /**
  * Embedding block entity
@@ -15,12 +14,10 @@ export class EmbeddingEntity extends BlockEntityAbstract<URL, null> {
     declare protected _TYPE: BlockTypesEnum;
     declare protected _DATA: URL;
     declare protected _OPTIONS: null;
-    declare protected _HTML_ELEMENT: HTMLElement;
 
     constructor(data: URL = new URL("about:blank"), options: null = null) {
         super(BlockTypesEnum.EMBEDDING, data, options);
         this._TYPE = BlockTypesEnum.EMBEDDING;
-        this._HTML_ELEMENT = getDocument().createElement("iframe");
     }
 
     /**
@@ -54,9 +51,5 @@ export class EmbeddingEntity extends BlockEntityAbstract<URL, null> {
 
     set OPTIONS(options: null) {
         this._OPTIONS = options;
-    }
-
-    get HTML_ELEMENT(): HTMLElement {
-        return this._HTML_ELEMENT;
     }
 }

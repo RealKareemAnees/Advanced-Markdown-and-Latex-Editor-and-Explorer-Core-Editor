@@ -3,7 +3,6 @@
  */
 
 import type { BlockEntityInterface } from "./BlockEntity.interface";
-import type { BlockTypesEnum } from "./BlockTypes.enum";
 
 export interface NodeInterface {
     get ENTITY(): BlockEntityInterface;

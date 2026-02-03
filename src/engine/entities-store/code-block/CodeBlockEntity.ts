@@ -5,7 +5,6 @@
 
 import { BlockEntityAbstract } from "../BlockEntity.abstract";
 import { BlockTypesEnum } from "../../../types/BlockTypes.enum";
-import { getDocument } from "../lib/dom.util";
 
 /**
  * Options type for CodeBlock entity
@@ -27,7 +26,6 @@ export class CodeBlockEntity extends BlockEntityAbstract<
     declare protected _TYPE: BlockTypesEnum;
     declare protected _DATA: string;
     declare protected _OPTIONS: CodeBlockOptionsType;
-    declare protected _HTML_ELEMENT: HTMLElement;
 
     constructor(
         data: string = "",
@@ -39,7 +37,6 @@ export class CodeBlockEntity extends BlockEntityAbstract<
     ) {
         super(BlockTypesEnum.CODE_BLOCK, data, options);
         this._TYPE = BlockTypesEnum.CODE_BLOCK;
-        this._HTML_ELEMENT = getDocument().createElement("pre");
     }
 
     /**
@@ -73,9 +70,5 @@ export class CodeBlockEntity extends BlockEntityAbstract<
 
     set OPTIONS(options: CodeBlockOptionsType) {
         this._OPTIONS = options;
-    }
-
-    get HTML_ELEMENT(): HTMLElement {
-        return this._HTML_ELEMENT;
     }
 }

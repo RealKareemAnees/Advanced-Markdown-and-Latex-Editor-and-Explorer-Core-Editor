@@ -5,7 +5,6 @@
 
 import { BlockEntityAbstract } from "../BlockEntity.abstract";
 import { BlockTypesEnum } from "../../../types/BlockTypes.enum";
-import { getDocument } from "../lib/dom.util";
 
 /**
  * Options type for Toggle entity
@@ -25,7 +24,6 @@ export class ToggleEntity extends BlockEntityAbstract<
     declare protected _TYPE: BlockTypesEnum;
     declare protected _DATA: string;
     declare protected _OPTIONS: ToggleOptionsType;
-    declare protected _HTML_ELEMENT: HTMLElement;
 
     constructor(
         data: string = "",
@@ -33,7 +31,6 @@ export class ToggleEntity extends BlockEntityAbstract<
     ) {
         super(BlockTypesEnum.TOGGLE, data, options);
         this._TYPE = BlockTypesEnum.TOGGLE;
-        this._HTML_ELEMENT = getDocument().createElement("details");
     }
 
     /**
@@ -67,9 +64,5 @@ export class ToggleEntity extends BlockEntityAbstract<
 
     set OPTIONS(options: ToggleOptionsType) {
         this._OPTIONS = options;
-    }
-
-    get HTML_ELEMENT(): HTMLElement {
-        return this._HTML_ELEMENT;
     }
 }

@@ -13,7 +13,6 @@ describe("LatexEntity", () => {
         expect(entity.DATA).toBe("");
         expect(entity.OPTIONS).toBeNull();
         expect(entity.CONVERTIBLE).toBe(true);
-        expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
     });
 
     it("should initialize with provided values", () => {

@@ -13,8 +13,6 @@ describe("TableEntity", () => {
         expect(entity.DATA).toEqual([]);
         expect(entity.OPTIONS).toEqual({ orderBy: "" });
         expect(entity.CONVERTIBLE).toBe(true);
-        expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
-        expect(entity.HTML_ELEMENT.tagName.toLowerCase()).toBe("table");
     });
 
     it("should initialize with provided values", () => {

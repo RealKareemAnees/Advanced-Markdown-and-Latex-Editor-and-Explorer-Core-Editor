@@ -18,8 +18,6 @@ describe("VideoEntity", () => {
             sound: true,
         });
         expect(entity.CONVERTIBLE).toBe(false);
-        expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
-        expect(entity.HTML_ELEMENT.tagName.toLowerCase()).toBe("video");
     });
 
     it("should initialize with provided values", () => {

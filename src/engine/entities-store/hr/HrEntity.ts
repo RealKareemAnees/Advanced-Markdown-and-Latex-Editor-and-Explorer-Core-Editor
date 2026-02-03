@@ -5,7 +5,6 @@
 
 import { BlockEntityAbstract } from "../BlockEntity.abstract";
 import { BlockTypesEnum } from "../../../types/BlockTypes.enum";
-import { getDocument } from "../lib/dom.util";
 
 /**
  * HR (horizontal rule) block entity
@@ -16,12 +15,10 @@ export class HrEntity extends BlockEntityAbstract<null, null> {
     declare protected _TYPE: BlockTypesEnum;
     declare protected _DATA: null;
     declare protected _OPTIONS: null;
-    declare protected _HTML_ELEMENT: HTMLElement;
 
     constructor() {
         super(BlockTypesEnum.HR, null, null);
         this._TYPE = BlockTypesEnum.HR;
-        this._HTML_ELEMENT = getDocument().createElement("hr");
     }
 
     get TYPE(): BlockTypesEnum {
@@ -46,9 +43,5 @@ export class HrEntity extends BlockEntityAbstract<null, null> {
 
     set OPTIONS(options: null) {
         this._OPTIONS = options;
-    }
-
-    get HTML_ELEMENT(): HTMLElement {
-        return this._HTML_ELEMENT;
     }
 }

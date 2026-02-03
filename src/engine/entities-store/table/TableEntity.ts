@@ -5,7 +5,6 @@
 
 import { BlockEntityAbstract } from "../BlockEntity.abstract";
 import { BlockTypesEnum } from "../../../types/BlockTypes.enum";
-import { getDocument } from "../lib/dom.util";
 
 /**
  * Options type for Table entity
@@ -25,7 +24,6 @@ export class TableEntity extends BlockEntityAbstract<
     declare protected _TYPE: BlockTypesEnum;
     declare protected _DATA: string[][];
     declare protected _OPTIONS: TableOptionsType;
-    declare protected _HTML_ELEMENT: HTMLElement;
 
     constructor(
         data: string[][] = [],
@@ -33,7 +31,6 @@ export class TableEntity extends BlockEntityAbstract<
     ) {
         super(BlockTypesEnum.TABLE, data, options);
         this._TYPE = BlockTypesEnum.TABLE;
-        this._HTML_ELEMENT = getDocument().createElement("table");
     }
 
     /**
@@ -67,9 +64,5 @@ export class TableEntity extends BlockEntityAbstract<
 
     set OPTIONS(options: TableOptionsType) {
         this._OPTIONS = options;
-    }
-
-    get HTML_ELEMENT(): HTMLElement {
-        return this._HTML_ELEMENT;
     }
 }

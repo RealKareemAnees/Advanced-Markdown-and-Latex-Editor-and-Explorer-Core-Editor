@@ -5,7 +5,6 @@
 
 import { BlockEntityAbstract } from "../BlockEntity.abstract";
 import { BlockTypesEnum } from "../../../types/BlockTypes.enum";
-import { getDocument } from "../lib/dom.util";
 
 /**
  * Options type for Audio entity
@@ -23,7 +22,6 @@ export class AudioEntity extends BlockEntityAbstract<URL, AudioOptionsType> {
     declare protected _TYPE: BlockTypesEnum;
     declare protected _DATA: URL;
     declare protected _OPTIONS: AudioOptionsType;
-    declare protected _HTML_ELEMENT: HTMLElement;
 
     constructor(
         data: URL = new URL("about:blank"),
@@ -31,7 +29,6 @@ export class AudioEntity extends BlockEntityAbstract<URL, AudioOptionsType> {
     ) {
         super(BlockTypesEnum.AUDIO, data, options);
         this._TYPE = BlockTypesEnum.AUDIO;
-        this._HTML_ELEMENT = getDocument().createElement("audio");
     }
 
     /**
@@ -65,9 +62,5 @@ export class AudioEntity extends BlockEntityAbstract<URL, AudioOptionsType> {
 
     set OPTIONS(options: AudioOptionsType) {
         this._OPTIONS = options;
-    }
-
-    get HTML_ELEMENT(): HTMLElement {
-        return this._HTML_ELEMENT;
     }
 }

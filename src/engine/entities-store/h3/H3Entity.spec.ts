@@ -13,8 +13,6 @@ describe("H3Entity", () => {
         expect(entity.DATA).toBe("");
         expect(entity.OPTIONS).toBeNull();
         expect(entity.CONVERTIBLE).toBe(true);
-        expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
-        expect(entity.HTML_ELEMENT.tagName.toLowerCase()).toBe("h3");
     });
 
     it("should initialize with provided values", () => {

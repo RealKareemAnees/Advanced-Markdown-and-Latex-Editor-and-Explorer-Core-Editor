@@ -13,8 +13,6 @@ describe("ParagraphEntity", () => {
         expect(entity.DATA).toBe("");
         expect(entity.OPTIONS).toBeNull();
         expect(entity.CONVERTIBLE).toBe(true);
-        expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
-        expect(entity.HTML_ELEMENT.tagName.toLowerCase()).toBe("p");
     });
 
     it("should initialize with provided values", () => {

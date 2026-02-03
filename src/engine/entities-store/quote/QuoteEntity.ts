@@ -5,7 +5,6 @@
 
 import { BlockEntityAbstract } from "../BlockEntity.abstract";
 import { BlockTypesEnum } from "../../../types/BlockTypes.enum";
-import { getDocument } from "../lib/dom.util";
 
 /**
  * Quote block entity
@@ -15,12 +14,10 @@ export class QuoteEntity extends BlockEntityAbstract<string, null> {
     declare protected _TYPE: BlockTypesEnum;
     declare protected _DATA: string;
     declare protected _OPTIONS: null;
-    declare protected _HTML_ELEMENT: HTMLElement;
 
     constructor(data: string = "", options: null = null) {
         super(BlockTypesEnum.QUOTE, data, options);
         this._TYPE = BlockTypesEnum.QUOTE;
-        this._HTML_ELEMENT = getDocument().createElement("blockquote");
     }
 
     /**
@@ -54,9 +51,5 @@ export class QuoteEntity extends BlockEntityAbstract<string, null> {
 
     set OPTIONS(options: null) {
         this._OPTIONS = options;
-    }
-
-    get HTML_ELEMENT(): HTMLElement {
-        return this._HTML_ELEMENT;
     }
 }

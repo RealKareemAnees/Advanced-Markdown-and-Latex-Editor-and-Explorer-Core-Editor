@@ -5,7 +5,6 @@
 
 import { BlockEntityAbstract } from "../BlockEntity.abstract";
 import { BlockTypesEnum } from "../../../types/BlockTypes.enum";
-import { getDocument } from "../lib/dom.util";
 
 /**
  * Options type for Video entity
@@ -25,7 +24,6 @@ export class VideoEntity extends BlockEntityAbstract<URL, VideoOptionsType> {
     declare protected _TYPE: BlockTypesEnum;
     declare protected _DATA: URL;
     declare protected _OPTIONS: VideoOptionsType;
-    declare protected _HTML_ELEMENT: HTMLElement;
 
     constructor(
         data: URL = new URL("about:blank"),
@@ -38,7 +36,6 @@ export class VideoEntity extends BlockEntityAbstract<URL, VideoOptionsType> {
     ) {
         super(BlockTypesEnum.VIDEO, data, options);
         this._TYPE = BlockTypesEnum.VIDEO;
-        this._HTML_ELEMENT = getDocument().createElement("video");
     }
 
     /**
@@ -72,9 +69,5 @@ export class VideoEntity extends BlockEntityAbstract<URL, VideoOptionsType> {
 
     set OPTIONS(options: VideoOptionsType) {
         this._OPTIONS = options;
-    }
-
-    get HTML_ELEMENT(): HTMLElement {
-        return this._HTML_ELEMENT;
     }
 }

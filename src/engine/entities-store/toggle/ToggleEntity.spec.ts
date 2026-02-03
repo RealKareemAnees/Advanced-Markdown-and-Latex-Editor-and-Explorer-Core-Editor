@@ -13,8 +13,6 @@ describe("ToggleEntity", () => {
         expect(entity.DATA).toBe("");
         expect(entity.OPTIONS).toEqual({ opened: false });
         expect(entity.CONVERTIBLE).toBe(true);
-        expect(entity.HTML_ELEMENT).toBeInstanceOf(HTMLElement);
-        expect(entity.HTML_ELEMENT.tagName.toLowerCase()).toBe("details");
     });
 
     it("should initialize with provided values", () => {

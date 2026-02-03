@@ -5,7 +5,6 @@
 
 import { BlockEntityAbstract } from "../BlockEntity.abstract";
 import { BlockTypesEnum } from "../../../types/BlockTypes.enum";
-import { getDocument } from "../lib/dom.util";
 
 /**
  * H5 heading block entity
@@ -15,12 +14,10 @@ export class H5Entity extends BlockEntityAbstract<string, null> {
     declare protected _TYPE: BlockTypesEnum;
     declare protected _DATA: string;
     declare protected _OPTIONS: null;
-    declare protected _HTML_ELEMENT: HTMLElement;
 
     constructor(data: string = "", options: null = null) {
         super(BlockTypesEnum.H5, data, options);
         this._TYPE = BlockTypesEnum.H5;
-        this._HTML_ELEMENT = getDocument().createElement("h5");
     }
 
     /**
@@ -54,9 +51,5 @@ export class H5Entity extends BlockEntityAbstract<string, null> {
 
     set OPTIONS(options: null) {
         this._OPTIONS = options;
-    }
-
-    get HTML_ELEMENT(): HTMLElement {
-        return this._HTML_ELEMENT;
     }
 }

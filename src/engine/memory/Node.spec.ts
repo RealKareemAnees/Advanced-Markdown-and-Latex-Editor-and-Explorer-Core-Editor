@@ -200,14 +200,6 @@ describe("Node", () => {
 
             expect(node.ENTITY.DATA).toBe("Updated");
         });
-
-        it("should access entity HTML_ELEMENT property", () => {
-            const entity = createMockEntity();
-            const node = new Node(1, null, entity);
-
-            expect(node.ENTITY.HTML_ELEMENT).toBe(entity.HTML_ELEMENT);
-            expect(node.ENTITY.HTML_ELEMENT).toBeDefined();
-        });
     });
 
     /**

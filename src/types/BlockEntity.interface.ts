@@ -21,6 +21,4 @@ export interface BlockEntityInterface<
 
     get OPTIONS(): OptionsType;
     set OPTIONS(options: OptionsType);
-
-    get HTML_ELEMENT(): HTMLElement;
 }
