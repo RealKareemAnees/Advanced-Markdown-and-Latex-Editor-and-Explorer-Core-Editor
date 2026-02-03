@@ -37,7 +37,9 @@ export function getDocument(): Document {
 
     // Check global (Node/Jest)
     try {
+        //@ts-ignore
         if (typeof global !== "undefined" && (global as any).document) {
+            //@ts-ignore
             return (global as any).document;
         }
     } catch (e) {
