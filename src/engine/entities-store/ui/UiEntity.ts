@@ -1,6 +1,6 @@
 /**
- * src/engine/entities-store/list/ListEntity.ts
- * List block entity implementation
+ * src/engine/entities-store/ui/UiEntity.ts
+ * Unordered List Item (UI) block entity implementation
  */
 
 import { BlockEntityAbstract } from "../BlockEntity.abstract";
@@ -8,9 +8,9 @@ import { BlockTypesEnum } from "../../../types/BlockTypes.enum";
 import { getDocument } from "../lib/dom.util";
 
 /**
- * List block entity
+ * UI (Unordered List Item) block entity
  */
-export class ListEntity extends BlockEntityAbstract<string, null> {
+export class UiEntity extends BlockEntityAbstract<string, null> {
     /** Declare protected attributes from abstract class */
     declare protected _TYPE: BlockTypesEnum;
     declare protected _DATA: string;
@@ -18,13 +18,13 @@ export class ListEntity extends BlockEntityAbstract<string, null> {
     declare protected _HTML_ELEMENT: HTMLElement;
 
     constructor(data: string = "", options: null = null) {
-        super(BlockTypesEnum.LIST, data, options);
-        this._TYPE = BlockTypesEnum.LIST;
-        this._HTML_ELEMENT = getDocument().createElement("ul");
+        super(BlockTypesEnum.UI, data, options);
+        this._TYPE = BlockTypesEnum.UI;
+        this._HTML_ELEMENT = getDocument().createElement("li");
     }
 
     /**
-     * Parses the data for the list entity
+     * Parses the data for the UI entity
      * @param data - The raw data string
      * @returns The parsed data
      */
