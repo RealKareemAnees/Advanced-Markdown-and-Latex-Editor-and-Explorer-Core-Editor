@@ -1,253 +1,493 @@
 /**
- * @file main.ts
- * @description Refactored ContainerComponent - A modern, user-friendly block editor container
- * with intuitive drag-and-drop, clear visual feedback, and accessible controls.
+ * Container.ts
+ * @description A modern, user-friendly block editor container with intuitive drag-and-drop,
+ * clear visual feedback, and accessible controls. Implements ContainerInterface for
+ * integration with the editor's memory and rendering systems.
+ *
+ * Features:
+ * - Drag-and-drop support with visual drop zone indicators
+ * - Two drop zones: left (full-width) for sibling insertion, right (3/4 width) for nesting
+ * - Themed using the app's CSS variables (Espresso & Ember palette)
+ * - Clean user experience with smooth transitions
  */
+
+// Mock interfaces for standalone demo
+interface NodeInterface {
+    ID?: string;
+}
+
+interface ContainerInterface {
+    ORDER: number;
+    NODE: NodeInterface;
+    HTML_ELEMENT: HTMLElement;
+    CONTENT_WRAPPER: HTMLElement;
+    render(): ContainerInterface;
+    distroy(): void;
+}
 
 const body = document.body;
 
 /**
- * ContainerComponent - Modern block editor container with drag-and-drop functionality
+ * Container class - Wraps block nodes with drag-and-drop functionality
  * @class
+ * @implements {ContainerInterface}
  */
-export class ContainerComponent {
-    private readonly element: HTMLElement;
-    private readonly contentNode: HTMLElement;
-    private readonly leftDropZone: HTMLElement;
-    private readonly rightDropZone: HTMLElement;
-    private static draggedElement: ContainerComponent | null = null;
+export class Container implements ContainerInterface {
+    private _NODE: NodeInterface;
+    private _HTML_ELEMENT: HTMLElement;
+    private _ORDER: number = 0;
 
-    // Class name constants
-    private static readonly CLASS_WRAPPER = "block-container";
-    private static readonly CLASS_CONTENT = "block-content";
-    private static readonly CLASS_DRAGGING = "is-dragging";
-    private static readonly CLASS_ZONE_LEFT = "drop-zone-left";
-    private static readonly CLASS_ZONE_RIGHT = "drop-zone-right";
-    private static readonly CLASS_ACTIVE = "active";
+    // Internal elements for drag-and-drop
+    private _contentWrapper: HTMLElement;
+    private _leftDropZone: HTMLElement;
+    private _rightDropZone: HTMLElement;
+
+    // Static reference to currently dragged container
+    private static _draggedContainer: Container | null = null;
+
+    // CSS class name constants following project naming conventions
+    private static readonly CLASS_CONTAINER = "CONTAINER";
+    private static readonly CLASS_CONTENT = "CONTAINER__CONTENT";
+    private static readonly CLASS_DRAGGING = "CONTAINER--dragging";
+    private static readonly CLASS_DROP_ZONE_LEFT = "CONTAINER__drop-zone--left";
+    private static readonly CLASS_DROP_ZONE_RIGHT =
+        "CONTAINER__drop-zone--right";
+    private static readonly CLASS_DROP_ZONE_ACTIVE =
+        "CONTAINER__drop-zone--active";
 
     /**
-     * Creates an instance of ContainerComponent.
-     * @constructor
-     * @param {HTMLElement} nodeElement - The DOM element to be wrapped
+     * Get the order of the container amongst siblings
+     * @returns {number} The order index
      */
-    constructor(nodeElement: HTMLElement) {
-        this.contentNode = nodeElement;
-        ContainerComponent._injectStyles();
+    get ORDER(): number {
+        return this._ORDER;
+    }
 
-        // Build the structure
-        this.element = document.createElement("div");
-        this.element.className = ContainerComponent.CLASS_WRAPPER;
-        this.element.draggable = true; // Enable grabbing
+    /**
+     * Set the order of the container amongst siblings
+     * @param {number} order - The new order index
+     */
+    set ORDER(order: number) {
+        this._ORDER = order;
+    }
 
-        // Content Area
-        const contentVal = document.createElement("div");
-        contentVal.className = ContainerComponent.CLASS_CONTENT;
-        contentVal.appendChild(this.contentNode);
-        this.element.appendChild(contentVal);
+    /**
+     * Get the associated node
+     * @returns {NodeInterface} The node wrapped by this container
+     */
+    get NODE(): NodeInterface {
+        return this._NODE;
+    }
 
-        // Creates 2 divs on the bottom
-        // 1. Left div (takes all width)
-        this.leftDropZone = document.createElement("div");
-        this.leftDropZone.className = ContainerComponent.CLASS_ZONE_LEFT;
-        this.element.appendChild(this.leftDropZone);
+    /**
+     * Get the main HTML element
+     * @returns {HTMLElement} The container's root DOM element
+     */
+    get HTML_ELEMENT(): HTMLElement {
+        return this._HTML_ELEMENT;
+    }
 
-        // 2. Right div (takes 3/4 width)
-        this.rightDropZone = document.createElement("div");
-        this.rightDropZone.className = ContainerComponent.CLASS_ZONE_RIGHT;
-        this.element.appendChild(this.rightDropZone);
+    /**
+     * Creates an instance of Container
+     * @constructor
+     * @param {NodeInterface} node - The node to wrap in this container
+     * @param {any} EventsBus - Event bus for communication (reserved for future use)
+     */
+    constructor(
+        node: NodeInterface,
+        _eventsBus: any = null /* EventsBus reserved for future implementation */,
+    ) {
+        this._NODE = node;
 
+        // Inject styles once on first container creation
+        Container._injectStyles();
+
+        // Build the container structure
+        this._HTML_ELEMENT = this._createContainerElement();
+        this._contentWrapper = this._createContentWrapper();
+        this._leftDropZone = this._createDropZone(
+            Container.CLASS_DROP_ZONE_LEFT,
+        );
+        this._rightDropZone = this._createDropZone(
+            Container.CLASS_DROP_ZONE_RIGHT,
+        );
+
+        // Assemble the structure
+        this._HTML_ELEMENT.appendChild(this._contentWrapper);
+        this._HTML_ELEMENT.appendChild(this._leftDropZone);
+        this._HTML_ELEMENT.appendChild(this._rightDropZone);
+
+        // Setup event listeners for drag-and-drop
         this._addEventListeners();
     }
 
     /**
-     * Returns the main container element.
-     * @returns HTMLElement
+     * Renders the container - returns this instance for chaining
+     * Note: Entity rendering is handled by the rendering system, not here.
+     * The content wrapper is exposed for external rendering operations.
+     * @returns {ContainerInterface} This container instance for chaining
      */
-    public getElement(): HTMLElement {
-        return this.element;
+    render(): ContainerInterface {
+        return this;
     }
 
     /**
-     * Cleanup method to remove event listeners
+     * Gets the content wrapper element for external rendering operations
+     * @returns {HTMLElement} The content wrapper element
      */
-    public destroy(): void {
-        this.element.remove();
+    get CONTENT_WRAPPER(): HTMLElement {
+        return this._contentWrapper;
     }
 
     /**
-     * Adds event listeners for drag and drop
+     * Destroys the container, removing it from the DOM and cleaning up references
+     * @returns {void}
+     */
+    distroy(): void {
+        // Remove event listeners
+        this._removeEventListeners();
+
+        // Remove from DOM
+        if (this._HTML_ELEMENT?.parentNode) {
+            this._HTML_ELEMENT.parentNode.removeChild(this._HTML_ELEMENT);
+        }
+
+        // Clean up references
+        this._HTML_ELEMENT = null!;
+        this._contentWrapper = null!;
+        this._leftDropZone = null!;
+        this._rightDropZone = null!;
+    }
+
+    // =========================================================================
+    // PRIVATE METHODS - Element Creation
+    // =========================================================================
+
+    /**
+     * Creates the main container element
+     * @private
+     * @returns {HTMLElement} The container div element
+     */
+    private _createContainerElement(): HTMLElement {
+        const element = document.createElement("div");
+        element.className = Container.CLASS_CONTAINER;
+        element.draggable = true;
+        element.setAttribute("role", "listitem");
+        element.setAttribute("aria-grabbed", "false");
+        return element;
+    }
+
+    /**
+     * Creates the content wrapper element
+     * @private
+     * @returns {HTMLElement} The content wrapper div element
+     */
+    private _createContentWrapper(): HTMLElement {
+        const wrapper = document.createElement("div");
+        wrapper.className = Container.CLASS_CONTENT;
+        return wrapper;
+    }
+
+    /**
+     * Creates a drop zone element
+     * @private
+     * @param {string} className - The CSS class for the drop zone
+     * @returns {HTMLElement} The drop zone div element
+     */
+    private _createDropZone(className: string): HTMLElement {
+        const zone = document.createElement("div");
+        zone.className = className;
+        zone.setAttribute("aria-hidden", "true");
+        return zone;
+    }
+
+    // =========================================================================
+    // PRIVATE METHODS - Event Handling
+    // =========================================================================
+
+    /**
+     * Adds all event listeners for drag-and-drop functionality
      * @private
      */
     private _addEventListeners(): void {
-        this.element.addEventListener(
+        this._HTML_ELEMENT.addEventListener("dragstart", this._handleDragStart);
+        this._HTML_ELEMENT.addEventListener("dragend", this._handleDragEnd);
+        this._HTML_ELEMENT.addEventListener("dragover", this._handleDragOver);
+        this._HTML_ELEMENT.addEventListener("dragleave", this._handleDragLeave);
+        this._HTML_ELEMENT.addEventListener("drop", this._handleDrop);
+    }
+
+    /**
+     * Removes all event listeners
+     * @private
+     */
+    private _removeEventListeners(): void {
+        if (!this._HTML_ELEMENT) return;
+
+        this._HTML_ELEMENT.removeEventListener(
             "dragstart",
-            this._handleDragStart.bind(this),
+            this._handleDragStart,
         );
-        this.element.addEventListener(
-            "dragend",
-            this._handleDragEnd.bind(this),
-        );
-        this.element.addEventListener(
+        this._HTML_ELEMENT.removeEventListener("dragend", this._handleDragEnd);
+        this._HTML_ELEMENT.removeEventListener(
             "dragover",
-            this._handleDragOver.bind(this),
+            this._handleDragOver,
         );
-        this.element.addEventListener(
+        this._HTML_ELEMENT.removeEventListener(
             "dragleave",
-            this._handleDragLeave.bind(this),
+            this._handleDragLeave,
         );
-        this.element.addEventListener("drop", this._handleDrop.bind(this));
+        this._HTML_ELEMENT.removeEventListener("drop", this._handleDrop);
     }
 
-    private _handleDragStart(e: DragEvent): void {
+    /**
+     * Handles the drag start event
+     * @private
+     */
+    private _handleDragStart = (e: DragEvent): void => {
         e.stopPropagation();
-        ContainerComponent.draggedElement = this;
-        this.element.classList.add(ContainerComponent.CLASS_DRAGGING);
 
+        // Set this container as the currently dragged element
+        Container._draggedContainer = this;
+
+        // Create a custom drag image with 80% transparency
         if (e.dataTransfer) {
+            const dragGhost = this._HTML_ELEMENT.cloneNode(true) as HTMLElement;
+            dragGhost.style.opacity = "0.2"; // 80% transparent
+            dragGhost.style.position = "absolute";
+            dragGhost.style.top = "-10000px";
+            dragGhost.style.pointerEvents = "none";
+            document.body.appendChild(dragGhost);
+
+            // Set the custom drag image
+            e.dataTransfer.setDragImage(dragGhost, 0, 0);
+
+            // Clean up the ghost element after a short delay
+            setTimeout(() => {
+                document.body.removeChild(dragGhost);
+            }, 0);
+
             e.dataTransfer.effectAllowed = "move";
-            e.dataTransfer.setData("text/plain", "container-drag"); // Firefox requires data
+            e.dataTransfer.setData(
+                "text/plain",
+                `container-${this._NODE?.ID ?? "unknown"}`,
+            );
         }
-    }
 
-    private _handleDragEnd(e: DragEvent): void {
-        this.element.classList.remove(ContainerComponent.CLASS_DRAGGING);
-        this._clearHighlights();
-        ContainerComponent.draggedElement = null;
-    }
+        // Add visual dragging state (hides original)
+        this._HTML_ELEMENT.classList.add(Container.CLASS_DRAGGING);
+        this._HTML_ELEMENT.setAttribute("aria-grabbed", "true");
+    };
 
-    private _handleDragOver(e: DragEvent): void {
-        // Allow drop if we are dragging a container and it's not this container
+    /**
+     * Handles the drag end event
+     * @private
+     */
+    private _handleDragEnd = (_e: DragEvent): void => {
+        // Remove visual dragging state
+        this._HTML_ELEMENT.classList.remove(Container.CLASS_DRAGGING);
+        this._HTML_ELEMENT.setAttribute("aria-grabbed", "false");
+
+        // Clear all drop zone highlights
+        this._clearDropZoneHighlights();
+
+        // Reset static reference
+        Container._draggedContainer = null;
+    };
+
+    /**
+     * Handles the drag over event - determines which drop zone to highlight
+     * @private
+     */
+    private _handleDragOver = (e: DragEvent): void => {
+        // Only allow drop if dragging a container and it's not this container
         if (
-            !ContainerComponent.draggedElement ||
-            ContainerComponent.draggedElement === this
+            !Container._draggedContainer ||
+            Container._draggedContainer === this
         ) {
             return;
         }
 
-        e.preventDefault(); // Necessary to allow dropping
-        e.stopPropagation();
-
-        const rect = this.element.getBoundingClientRect();
-        // Calculate X position relative to the container width (0 to 1)
-        const relativeX = (e.clientX - rect.left) / rect.width;
-
-        // Reset highlights first
-        this._clearHighlights();
-
-        // Logic:
-        // - Left 1/4 (0.25) -> Highlight Left Div (Full Width)
-        // - Right 3/4 (> 0.25) -> Highlight Right Div (3/4 Width)
-        if (relativeX < 0.25) {
-            this.leftDropZone.classList.add(ContainerComponent.CLASS_ACTIVE);
-        } else {
-            this.rightDropZone.classList.add(ContainerComponent.CLASS_ACTIVE);
-        }
-    }
-
-    private _handleDragLeave(e: DragEvent): void {
-        // Prevent flickering when moving between children
-        const relatedTarget = e.relatedTarget as HTMLElement;
-        if (this.element.contains(relatedTarget)) {
-            return;
-        }
-        this._clearHighlights();
-    }
-
-    private _handleDrop(e: DragEvent): void {
+        // Prevent default to allow dropping
         e.preventDefault();
         e.stopPropagation();
-        this._clearHighlights();
 
-        // "only implement grapping and highlighting but dont implement repositioning"
-        console.log("Dropped on container");
-    }
+        // Calculate relative X position (0 to 1)
+        const rect = this._HTML_ELEMENT.getBoundingClientRect();
+        const relativeX = (e.clientX - rect.left) / rect.width;
 
-    private _clearHighlights(): void {
-        this.leftDropZone.classList.remove(ContainerComponent.CLASS_ACTIVE);
-        this.rightDropZone.classList.remove(ContainerComponent.CLASS_ACTIVE);
-    }
+        // Clear existing highlights
+        this._clearDropZoneHighlights();
+
+        // Determine which drop zone to highlight based on mouse position
+        // Left 1/4 (< 0.25) -> Full width drop zone (sibling insertion)
+        // Right 3/4 (>= 0.25) -> Indented drop zone (nesting)
+        if (relativeX < 0.25) {
+            this._leftDropZone.classList.add(Container.CLASS_DROP_ZONE_ACTIVE);
+        } else {
+            this._rightDropZone.classList.add(Container.CLASS_DROP_ZONE_ACTIVE);
+        }
+    };
 
     /**
-     * Injects CSS styles for the container.
+     * Handles the drag leave event
      * @private
      */
+    private _handleDragLeave = (e: DragEvent): void => {
+        // Prevent flickering when moving between child elements
+        const relatedTarget = e.relatedTarget as HTMLElement;
+        if (this._HTML_ELEMENT.contains(relatedTarget)) {
+            return;
+        }
+
+        // Clear highlights when truly leaving the container
+        this._clearDropZoneHighlights();
+    };
+
+    /**
+     * Handles the drop event
+     * @private
+     */
+    private _handleDrop = (e: DragEvent): void => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Clear visual feedback
+        this._clearDropZoneHighlights();
+
+        // Determine drop position based on which zone was active
+        const isLeftZone = this._leftDropZone.classList.contains(
+            Container.CLASS_DROP_ZONE_ACTIVE,
+        );
+
+        // TODO: Implement actual repositioning logic
+        // Placeholder for future implementation:
+        // - If isLeftZone: Insert dragged container as sibling below this container
+        // - If !isLeftZone: Insert dragged container as child (nested) of this container
+        // this._handleRepositioning(Container._draggedContainer, isLeftZone);
+
+        console.log(
+            `[Container] Drop detected - Target: ${this._NODE?.ID ?? "unknown"}, Zone: ${isLeftZone ? "left (sibling)" : "right (nested)"}`,
+        );
+    };
+
+    /**
+     * Clears all drop zone highlights
+     * @private
+     */
+    private _clearDropZoneHighlights(): void {
+        this._leftDropZone.classList.remove(Container.CLASS_DROP_ZONE_ACTIVE);
+        this._rightDropZone.classList.remove(Container.CLASS_DROP_ZONE_ACTIVE);
+    }
+
+    // =========================================================================
+    // PRIVATE STATIC METHODS - Style Injection
+    // =========================================================================
+
+    /**
+     * Injects CSS styles for the container component
+     * Uses the app's CSS variables for consistent theming
+     * @private
+     * @static
+     */
     private static _injectStyles(): void {
-        const styleId = "block-container-styles";
+        const styleId = "container-component-styles";
+
+        // Only inject once
         if (document.getElementById(styleId)) return;
 
         const css = `
-            .${ContainerComponent.CLASS_WRAPPER} {
+            /* ============================================
+               CONTAINER COMPONENT STYLES
+               Uses app CSS variables for theming
+               ============================================ */
+
+            .${Container.CLASS_CONTAINER} {
                 position: relative;
-                margin: 4px 0; /* Spacing between blocks */
-                transition: all 0.2s ease;
-                border-radius: 4px;
-                padding-bottom: 8px; /* space for the indicators at bottom */
+                margin: var(--space-1, 4px) 0;
+                padding-bottom: var(--space-2, 8px);
+                border-radius: var(--radius-sm, 6px);
+                transition: all var(--transition-fast, 150ms cubic-bezier(0.4, 0, 0.2, 1));
+                cursor: grab;
             }
 
-            .${ContainerComponent.CLASS_WRAPPER}:hover {
-                background-color: rgba(0, 0, 0, 0.02);
+            .${Container.CLASS_CONTAINER}:hover {
+                background-color: var(--bg-highlight, rgba(0, 0, 0, 0.02));
             }
 
-            .${ContainerComponent.CLASS_WRAPPER}.${ContainerComponent.CLASS_DRAGGING} {
-                opacity: 0.5;
-                background-color: #f0f0f0;
+            .${Container.CLASS_CONTAINER}:active {
+                cursor: grabbing;
             }
 
-            .${ContainerComponent.CLASS_CONTENT} {
-                padding: 4px 8px;
+            /* Dragging state - hide original */
+            .${Container.CLASS_CONTAINER}.${Container.CLASS_DRAGGING} {
+                visibility: hidden;
             }
 
-            /* 
-               Bottom Zones 
-               They are "on the bottom of the container"
-               "Colourless" by default
-            */
+            /* Content wrapper */
+            .${Container.CLASS_CONTENT} {
+                padding: var(--space-1, 4px) var(--space-2, 8px);
+            }
 
-            /* Left Div: Takes all the width */
-            .${ContainerComponent.CLASS_ZONE_LEFT} {
+            /* ============================================
+               DROP ZONE STYLES
+               Bottom indicators for drag-and-drop targeting
+               ============================================ */
+
+            /* Left drop zone - Full width (for sibling insertion) */
+            .${Container.CLASS_DROP_ZONE_LEFT} {
                 position: absolute;
-                bottom: -2px; /* Visual positioning */
+                bottom: 0;
                 left: 0;
                 width: 100%;
                 height: 4px;
-                background: transparent; /* Colourless */
-                transition: background-color 0.2s ease;
-                border-radius: 2px;
-                pointer-events: none; /* Let drag events pass through to container */
-                margin-bottom: 4px; /* "left div has some margin to the buttom" */
-                z-index: 10;
-            }
-
-            /* Right Div: Takes 3/4 of the width */
-            .${ContainerComponent.CLASS_ZONE_RIGHT} {
-                position: absolute;
-                bottom: -2px;
-                right: 0;
-                width: 75%;
-                height: 4px;
-                background: transparent; /* Colourless */
-                transition: background-color 0.2s ease;
-                border-radius: 2px;
+                background: transparent;
+                border-radius: var(--radius-xs, 2px);
+                transition: background-color var(--transition-fast, 150ms cubic-bezier(0.4, 0, 0.2, 1));
                 pointer-events: none;
                 z-index: 10;
             }
 
-            /* Highlighting */
-            .${ContainerComponent.CLASS_ZONE_LEFT}.${ContainerComponent.CLASS_ACTIVE} {
-                background-color: #2383e2; /* Highlight Color */
-                opacity: 1;
+            /* Right drop zone - 3/4 width (for nesting) */
+            .${Container.CLASS_DROP_ZONE_RIGHT} {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 75%;
+                height: 4px;
+                background: transparent;
+                border-radius: var(--radius-xs, 2px);
+                transition: background-color var(--transition-fast, 150ms cubic-bezier(0.4, 0, 0.2, 1));
+                pointer-events: none;
+                z-index: 10;
             }
 
-            .${ContainerComponent.CLASS_ZONE_RIGHT}.${ContainerComponent.CLASS_ACTIVE} {
-                background-color: #2383e2; /* Highlight Color */
-                opacity: 1;
+            /* Active/highlighted drop zone state */
+            .${Container.CLASS_DROP_ZONE_LEFT}.${Container.CLASS_DROP_ZONE_ACTIVE},
+            .${Container.CLASS_DROP_ZONE_RIGHT}.${Container.CLASS_DROP_ZONE_ACTIVE} {
+                background-color: var(--accent-primary, #e67e4d);
+                box-shadow: 0 0 8px var(--accent-glow, rgba(230, 126, 77, 0.4));
             }
         `;
 
+        // Create and inject the style element
         const style = document.createElement("style");
         style.id = styleId;
         style.textContent = css;
         document.head.appendChild(style);
+    }
+
+    // =========================================================================
+    // PUBLIC STATIC METHODS - Utility
+    // =========================================================================
+
+    /**
+     * Gets the currently dragged container (if any)
+     * @static
+     * @returns {Container | null} The currently dragged container or null
+     */
+    static get DRAGGED_CONTAINER(): Container | null {
+        return Container._draggedContainer;
     }
 }
 
@@ -481,10 +721,11 @@ const exampleBlocks = [
 ];
 
 // Create containers for each example block
-exampleBlocks.forEach((example) => {
+exampleBlocks.forEach((example, index) => {
     const node = createNotionBlock(example.type, example.content);
-    const container = new ContainerComponent(node);
-    pageContainer.appendChild(container.getElement());
+    const container = new Container({ ID: `block-${index}` });
+    container.CONTENT_WRAPPER.appendChild(node);
+    pageContainer.appendChild(container.HTML_ELEMENT);
 });
 
 body.appendChild(pageContainer);
