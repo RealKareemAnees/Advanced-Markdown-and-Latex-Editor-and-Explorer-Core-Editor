@@ -3,24 +3,15 @@ import type { NodeInterface } from "../../types/Node.interface";
 
 export class History implements HistoryInterface {
     /**
-     * the key s the IDof the node, thee value is the state of the node at a given change, this is used to store the state of the nodes at each change, this is critical for undo and redo operations
-     * this increases memory usage but optimizes the performance of undo and redo operations, as we only need to apply the changes to the nodes that were affected by the change, instead of applying the changes to all nodes in the current state
-     * the first elementin the tuple is the index of the last state of change, this is used to undo the change, the second element in the tuple is the array of states
+     * Stack of memory snapshots, where each snapshot is an array of nodes
      */
-    private _map: Map<number, [number, NodeInterface[]]> = new Map();
+    private _stack: NodeInterface[][];
 
     /**
-     * the history stack, this is used to store the order of the changes, this is critical for undo and redo operations, as we need to know the order of the changes to apply them correctly.
-     * if the value is a tuple of two numbers, it represents the ID of the node and the index of the state in the map, this is used for single node changes, if the value is a tuple of two arrays, it represents the IDs of the nodes and the indices of their states in the map, this is used for multiple nodes changes,
-     * each ID has a crossponding state in the second array, the index of the state in the second array is the same as the index of the ID in the first array, this is used to apply the changes to the correct nodes when undoing and redoing changes
+     * Current position in history (0-based index into _stack)
+     * Points to the current state in the stack
      */
-    private _log: [number[], number[]][] = [[[], []]]; // Initialize with an empty state
-
-    /**
-     * Current position in history (0-based index into _log)
-     * Points to the log entry representing the current state
-     */
-    private _currentIndex: number = 0;
+    private _currentIndex: number;
 
     /**
      * Creates a new History instance
@@ -28,64 +19,40 @@ export class History implements HistoryInterface {
      */
     constructor(initial?: NodeInterface[]) {
         if (initial && initial.length > 0) {
-            this.load(initial);
+            // Initialize with the provided initial state
+            this._stack = [[], initial];
+            this._currentIndex = 1;
+        } else {
+            // Initialize with an empty state
+            this._stack = [[]];
+            this._currentIndex = 0;
         }
-    }
-
-    get CURRENT(): NodeInterface[] {
-        let current: NodeInterface[] = [];
-        for (const [, [currentIndex, states]] of this._map) {
-            // Get the state at the current index for this node
-            const currentState = states[currentIndex];
-            if (currentState) {
-                current.push(currentState); // the state at currentIndex is the current state
-            }
-        }
-        return current;
-    }
-
-    get FORWARD_LENGTH(): number {
-        return this._log.length - 1 - this._currentIndex;
-    }
-
-    get BACKWARD_LENGTH(): number {
-        return this._currentIndex; // Number of states that can be undone is the current index (since it's 0-based)
     }
 
     /**
-     * Fills the current state of the history stack with the given memory
-     * This is used to initialize the history stack with the current state of the application
-     * @param memory - The array of nodes to initialize the history with
+     * Returns the current state (the snapshot at the current index)
      */
-    load(memory: NodeInterface[]): void {
-        if (!memory || memory.length === 0) {
-            return; // No nodes to load, leave history empty
-        }
+    get CURRENT(): NodeInterface[] {
+        return this._stack[this._currentIndex] || [];
+    }
 
-        // Clear existing history if present
-        if (this._map.size > 0 || this._log.length > 0) {
-            this._map.clear();
-            this._log = [];
-            this._currentIndex = 0;
-        }
+    /**
+     * Returns the number of states that can be redone (forward in history)
+     */
+    get FORWARD_LENGTH(): number {
+        return this._stack.length - 1 - this._currentIndex;
+    }
 
-        // Initialize each node with its initial state at index 0
-        memory.forEach((node) => {
-            if (!node || typeof node.ID !== "number") {
-                throw new Error("Invalid node: missing or invalid ID");
-            }
-            const id = node.ID;
-            this._map.set(id, [0, [node]]);
-        });
-
-        // Log the initial state and set current index to 0
-        this._log.push([memory.map((node) => node.ID), memory.map(() => 0)]);
-        this._currentIndex = 1; // Set to 1 to indicate that we have one state in history (the initial state)
+    /**
+     * Returns the number of states that can be undone (backward in history)
+     */
+    get BACKWARD_LENGTH(): number {
+        return this._currentIndex;
     }
 
     /**
      * Records a new change to the history stack
-     * @param nodes - The nodes being affected by this change
+     * @param nodes - The nodes representing the new state
      */
     do(nodes: NodeInterface[]): void {
         if (!nodes || nodes.length === 0) {
@@ -93,81 +60,38 @@ export class History implements HistoryInterface {
         }
 
         // If we're in the middle of history, clear forward history
-        if (this._currentIndex < this._log.length - 1) {
-            this._log = this._log.slice(0, this._currentIndex + 1);
+        if (this._currentIndex < this._stack.length - 1) {
+            this._stack = this._stack.slice(0, this._currentIndex + 1);
         }
 
-        let ids: number[] = [];
-        let newStateIndexes: number[] = [];
+        // Add the new state to the stack
+        this._stack.push(nodes);
 
-        nodes.forEach((node) => {
-            if (!node || typeof node.ID !== "number") {
-                throw new Error("Invalid node: missing or invalid ID");
-            }
-
-            const id = node.ID;
-            ids.push(id);
-
-            // Get the current state index for this node, default to -1 if not found
-            const entry = this._map.get(id);
-            const currentStateIndex = entry ? entry[0] : -1;
-            const states = entry ? entry[1] : [];
-
-            // Remove future states if we're in the middle of history
-            const trimmedStates = states.slice(0, currentStateIndex + 1);
-
-            // Add the new state
-            const newIndex = trimmedStates.length;
-            trimmedStates.push(node);
-
-            newStateIndexes.push(newIndex);
-            this._map.set(id, [newIndex, trimmedStates]);
-        });
-
-        // Add to log and move current index forward
-        this._log.push([ids, newStateIndexes]);
+        // Move the current index forward
         this._currentIndex++;
     }
 
     /**
      * Undoes the last change, moving backward in history
+     * @returns The nodes at the new current state
      */
     undo(): NodeInterface[] {
-        if (this._currentIndex < 1) return []; // no more states to undo
-
-        // Move backward in history
-        this._currentIndex--;
-
-        // Apply the state at the new current index
-        const [ids, stateIndexs] = this._log[this._currentIndex];
-        ids.forEach((id, index) => {
-            const stateIndex = stateIndexs[index];
-            const states = this._map.get(id)?.[1];
-            if (states && states[stateIndex]) {
-                this._map.set(id, [stateIndex, states]);
-            }
-        });
+        // Can only undo if we're not at the beginning
+        if (this._currentIndex > 0) {
+            this._currentIndex--;
+        }
         return this.CURRENT;
     }
 
     /**
      * Redoes the last undone change, moving forward in history
+     * @returns The nodes at the new current state
      */
     redo(): NodeInterface[] {
-        if (this._currentIndex >= this._log.length - 1) return []; // no more states to redo
-
-        // Move forward in history
-        this._currentIndex++;
-
-        // Apply the state at the new current index
-        const [ids, stateIndexs] = this._log[this._currentIndex];
-        ids.forEach((id, index) => {
-            const stateIndex = stateIndexs[index];
-            const states = this._map.get(id)?.[1];
-            if (states && states[stateIndex]) {
-                this._map.set(id, [stateIndex, states]);
-            }
-        });
+        // Can only redo if we're not at the end
+        if (this._currentIndex < this._stack.length - 1) {
+            this._currentIndex++;
+        }
         return this.CURRENT;
     }
 
@@ -176,21 +100,6 @@ export class History implements HistoryInterface {
      * @returns JSON string representing the complete history stack
      */
     export(): string {
-        const history = this._log.map(([ids, stateIndexs]) => {
-            return ids
-                .map((id, index) => {
-                    const stateIndex = stateIndexs[index];
-                    const states = this._map.get(id)?.[1];
-                    if (states && states[stateIndex]) {
-                        return {
-                            id,
-                            state: states[stateIndex],
-                        };
-                    }
-                    return null;
-                })
-                .filter((item) => item !== null); // Remove null entries
-        });
-        return JSON.stringify(history);
+        return JSON.stringify(this._stack);
     }
 }

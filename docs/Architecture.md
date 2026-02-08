@@ -223,21 +223,77 @@ This is how it should work so far:
 
 ## History
 
+The History system manages undo/redo functionality using a simple stack-based architecture.
+
+### Architecture
+
+The new implementation uses a straightforward approach:
+
 ```ts
 /**
- * the key s the IDof the node, thee value is the state of the node at a given change, this is used to store the state of the nodes at each change, this is critical for undo and redo operations
- * this increases memory usage but optimizes the performance of undo and redo operations, as we only need to apply the changes to the nodes that were affected by the change, instead of applying the changes to all nodes in the current state
+ * Stack of memory snapshots, where each snapshot is an array of nodes
  */
-_map: Map<number, NodeInterface[]> = new Map();
+private _stack: NodeInterface[][];
+
+/**
+ * Current position in history (0-based index into _stack)
+ * Points to the current state in the stack
+ */
+private _currentIndex: number;
 ```
 
-```ts
-    /**
-     * the history stack, this is used to store the order of the changes, this is critical for undo and redo operations, as we need to know the order of the changes to apply them correctly.
-     * if the value is a tuple of two numbers, it represents the ID of the node and the index of the state in the map, this is used for single node changes, if the value is a tuple of two arrays, it represents the IDs of the nodes and the indices of their states in the map, this is used for multiple nodes changes,
-     * each ID has a crossponding state in the second array, the index of the state in the second array is the same as the index of the ID in the first array, this is used to apply the changes to the correct nodes when undoing and redoing changes
-     */
-_log: ([number, number] | [number[], number[]])[] = [];
+### How It Works
+
+The history system maintains a stack of complete memory snapshots:
+
+1. **Stack Structure**: Each entry in `_stack` is a complete snapshot of all nodes at a specific point in time
+2. **Current Index**: `_currentIndex` points to the current state in the stack
+3. **Navigation**: Undo/redo operations simply move the index backward or forward
+
+### Operations
+
+#### do(nodes: NodeInterface[])
+
+- Adds a new snapshot to the stack
+- If in the middle of history (after undo), clears forward history
+- Increments current index
+
+#### undo()
+
+- Decrements the current index (if not at beginning)
+- Returns nodes at the new current position
+
+#### redo()
+
+- Increments the current index (if not at end)
+- Returns nodes at the new current position
+
+### Memory Model
+
+```
+_stack:  [[], [node1], [node1, node2], [node1, node2, node3]]
+           ↑                                      ↑
+      index 0                               index 3 (current)
+
+BACKWARD_LENGTH = 3  (can undo 3 times)
+FORWARD_LENGTH = 0   (cannot redo)
 ```
 
-![alt text](image-4.png)
+After undo twice:
+
+```
+_stack:  [[], [node1], [node1, node2], [node1, node2, node3]]
+           ↑       ↑
+      index 0  index 1 (current)
+
+BACKWARD_LENGTH = 1  (can undo 1 time)
+FORWARD_LENGTH = 2   (can redo 2 times)
+```
+
+### Key Features
+
+- **Simplicity**: Single stack structure, no complex mappings
+- **Complete Snapshots**: Each state is a full snapshot of memory
+- **Efficient Navigation**: O(1) undo/redo operations (just index manipulation)
+- **Branching**: When doing after undo, forward history is automatically cleared
+- **Export**: Full history can be exported as JSON for persistence
