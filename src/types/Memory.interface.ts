@@ -14,6 +14,8 @@ export interface MemoryInterface {
     get HEAD_NODE_ID(): number | null;
     get TAIL_NODE_ID(): number | null;
 
+    update(memory: NodeInterface[]): MemoryInterface;
+
     /**
      * get a node by its ID
      *

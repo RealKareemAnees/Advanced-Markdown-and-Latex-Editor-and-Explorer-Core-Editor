@@ -34,14 +34,24 @@ function createMockEntity(
  * Creates a mock node for testing
  */
 function createMockNode(
-    entity: string = null,
+    entityOrId: string | number = null,
     id: number | null = null,
     leftNodeID: number | null = null,
     rightNodeID: number | null = null,
     parentNodeID: number | null = null,
 ): NodeInterface {
+    let entity: string | null = null;
+    let nodeId: number | null = id;
+
+    // Support calling createMockNode(id) or createMockNode(entity)
+    if (typeof entityOrId === "number") {
+        nodeId = entityOrId;
+    } else {
+        entity = entityOrId;
+    }
+
     return {
-        ID: id,
+        ID: nodeId,
         leftNodeID,
         rightNodeID,
         parentNodeID,
@@ -571,6 +581,49 @@ describe("Memory", () => {
             expect(parsed.nodes[1]).toBeNull();
             expect(parsed.nodes[0]).not.toBeNull();
             expect(parsed.nodes[2]).not.toBeNull();
+        });
+    });
+
+    describe("update", () => {
+        it("should update memory with empty array and reset state", () => {
+            memory.appendNode(node_a);
+            memory.appendNode(node_b);
+
+            memory.update([]);
+
+            expect(memory.ArrayRepresentation).toEqual([]);
+            expect(memory.HEAD_NODE_ID).toBeNull();
+            expect(memory.TAIL_NODE_ID).toBeNull();
+        });
+
+        it("should update memory with nodes and reset head/tail to null", () => {
+            const node1: NodeInterface = {
+                ID: 0,
+                leftNodeID: 1,
+                rightNodeID: null,
+                parentNodeID: null,
+                ENTITY: createMockEntity(BlockTypesEnum.PARAGRAPH, "node1"),
+            } as NodeInterface;
+            const node2: NodeInterface = {
+                ID: 1,
+                leftNodeID: null,
+                rightNodeID: null,
+                parentNodeID: 0,
+                ENTITY: createMockEntity(BlockTypesEnum.PARAGRAPH, "node2"),
+            } as NodeInterface;
+            const nodes: NodeInterface[] = [node1, node2];
+
+            memory.update(nodes);
+
+            expect(memory.ArrayRepresentation).toEqual(nodes);
+            expect(memory.HEAD_NODE_ID).toBeNull();
+            expect(memory.TAIL_NODE_ID).toBeNull();
+        });
+
+        it("should return the memory instance for chaining", () => {
+            const result = memory.update([]);
+
+            expect(result).toBe(memory);
         });
     });
 });

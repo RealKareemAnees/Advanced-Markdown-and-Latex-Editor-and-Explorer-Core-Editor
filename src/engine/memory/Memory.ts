@@ -52,6 +52,15 @@ export class Memory implements MemoryInterface {
         return this._tailNodeID;
     }
 
+    update(memory: NodeInterface[]): MemoryInterface {
+        this._memory = memory;
+        this._freeSpots = [];
+        this._headNodeID = null;
+        this._tailNodeID = null;
+
+        return this;
+    }
+
     /**
      * Retrieves a node by its ID
      * @param nodeID - The ID of the node to retrieve
