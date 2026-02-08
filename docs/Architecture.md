@@ -220,3 +220,24 @@ Containers are what the **_Renderer_** gives us on the screen. They are wrappers
 This is how it should work so far:
 
 ![alt text](image-2.png)
+
+## History
+
+```ts
+/**
+ * the key s the IDof the node, thee value is the state of the node at a given change, this is used to store the state of the nodes at each change, this is critical for undo and redo operations
+ * this increases memory usage but optimizes the performance of undo and redo operations, as we only need to apply the changes to the nodes that were affected by the change, instead of applying the changes to all nodes in the current state
+ */
+_map: Map<number, NodeInterface[]> = new Map();
+```
+
+```ts
+    /**
+     * the history stack, this is used to store the order of the changes, this is critical for undo and redo operations, as we need to know the order of the changes to apply them correctly.
+     * if the value is a tuple of two numbers, it represents the ID of the node and the index of the state in the map, this is used for single node changes, if the value is a tuple of two arrays, it represents the IDs of the nodes and the indices of their states in the map, this is used for multiple nodes changes,
+     * each ID has a crossponding state in the second array, the index of the state in the second array is the same as the index of the ID in the first array, this is used to apply the changes to the correct nodes when undoing and redoing changes
+     */
+_log: ([number, number] | [number[], number[]])[] = [];
+```
+
+![alt text](image-4.png)
