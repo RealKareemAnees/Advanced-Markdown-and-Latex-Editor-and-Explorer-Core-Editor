@@ -32,12 +32,12 @@ export interface HistoryInterface {
     /**
      * get the previous state from the history stack and apply it to the current state
      */
-    undo(): void;
+    undo(): NodeInterface[];
 
     /**
      * get the next state from the history stack and apply it to the current state
      */
-    redo(): void;
+    redo(): NodeInterface[];
 
     /**
      * exports JSON string representing the history stack, this can be used to save the history to a file or databases
