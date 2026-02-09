@@ -1,8 +1,11 @@
 import { ExportMemoryHandlerStrategy } from "./ExportMemoryHandler.strategy";
+import { MockMemory } from "./memory.mock";
 
 describe("ExportMemoryHandlerStrategy", () => {
-    it("should be defined", () => {
+    it("should call handle and return memory array", () => {
         const strategy = new ExportMemoryHandlerStrategy();
-        expect(strategy).toBeDefined();
+        const memory = new MockMemory();
+        const result = strategy.handle(memory);
+        expect(result).toBe(memory.ArrayRepresentation);
     });
 });

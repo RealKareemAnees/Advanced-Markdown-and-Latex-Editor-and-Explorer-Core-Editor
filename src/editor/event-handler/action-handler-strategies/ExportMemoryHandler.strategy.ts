@@ -1,15 +1,15 @@
 import type { ActionHandlerStrategyInterface } from "../../../types/ActionHandler.strategy.interface";
-import type { NodeInterface } from "../../../types/Node.interface";
 import type { MemoryInterface } from "../../../types/Memory.interface";
+import type { NodeInterface } from "../../../types/Node.interface";
 
-type T = {
-    memory: MemoryInterface;
-    
-};
-
-export class ExportMemoryHandlerStrategy implements ActionHandlerStrategyInterface<T> {
-    handle(data: T): NodeInterface[] {
-        data.memory.exportMemory();
-        return data.memory.ArrayRepresentation;
+export class ExportMemoryHandlerStrategy implements ActionHandlerStrategyInterface {
+    constructor() {}
+    handle(
+        memory: MemoryInterface,
+        selectedNodes?: NodeInterface["ID"][] | undefined,
+        targetNode?: NodeInterface["ID"] | undefined,
+    ): MemoryInterface["ArrayRepresentation"] {
+        memory.exportMemory();
+        return memory.ArrayRepresentation;
     }
 }

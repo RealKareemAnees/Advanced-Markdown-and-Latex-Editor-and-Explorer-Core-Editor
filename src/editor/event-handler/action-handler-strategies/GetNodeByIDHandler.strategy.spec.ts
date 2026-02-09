@@ -1,8 +1,11 @@
 import { GetNodeByIDHandlerStrategy } from "./GetNodeByIDHandler.strategy";
+import { MockMemory } from "./memory.mock";
 
 describe("GetNodeByIDHandlerStrategy", () => {
-    it("should be defined", () => {
-        const strategy = new GetNodeByIDHandlerStrategy();
-        expect(strategy).toBeDefined();
+    it("should call handle and return memory array", () => {
+        const strategy = new GetNodeByIDHandlerStrategy({ nodeID: 1 });
+        const memory = new MockMemory();
+        const result = strategy.handle(memory);
+        expect(result).toBe(memory.ArrayRepresentation);
     });
 });

@@ -2,14 +2,17 @@ import type { ActionHandlerStrategyInterface } from "../../../types/ActionHandle
 import type { NodeInterface } from "../../../types/Node.interface";
 import type { MemoryInterface } from "../../../types/Memory.interface";
 
-type T = {
-    memory: MemoryInterface;
-    node: NodeInterface;
-    targetNodeID: number;
-};
-
-export class InsertNodeBelowHandlerStrategy implements ActionHandlerStrategyInterface<T> {
-    handle(data: T): NodeInterface[] {
-        return data.memory.insertNodeBelow(data.node, data.targetNodeID).ArrayRepresentation;
+export class InsertNodeBelowHandlerStrategy implements ActionHandlerStrategyInterface {
+    private data: { node: NodeInterface; targetNodeID: number };
+    constructor(data: { node: NodeInterface; targetNodeID: number }) {
+        this.data = data;
+    }
+    handle(
+        memory: MemoryInterface,
+        selectedNodes?: NodeInterface["ID"][] | undefined,
+        targetNode?: NodeInterface["ID"] | undefined,
+    ): MemoryInterface["ArrayRepresentation"] {
+        return memory.insertNodeBelow(this.data.node, this.data.targetNodeID)
+            .ArrayRepresentation;
     }
 }
