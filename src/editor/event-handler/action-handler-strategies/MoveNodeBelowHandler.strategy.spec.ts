@@ -2,13 +2,26 @@ import { MoveNodeBelowHandlerStrategy } from "./MoveNodeBelowHandler.strategy";
 import { MockMemory } from "./memory.mock";
 
 describe("MoveNodeBelowHandlerStrategy", () => {
-    it("should call handle and return memory array", () => {
-        const strategy = new MoveNodeBelowHandlerStrategy({
-            nodeID: 1,
-            targetNodeID: 2,
-        });
+    it("should move selected node below target node", () => {
+        const strategy = new MoveNodeBelowHandlerStrategy();
         const memory = new MockMemory();
-        const result = strategy.handle(memory);
+        const result = strategy.handle(memory, [1], 2);
         expect(result).toBe(memory.ArrayRepresentation);
+    });
+
+    it("should throw error when no node is selected", () => {
+        const strategy = new MoveNodeBelowHandlerStrategy();
+        const memory = new MockMemory();
+        expect(() => strategy.handle(memory, [], 2)).toThrow(
+            "No node selected to move",
+        );
+    });
+
+    it("should throw error when no target node is specified", () => {
+        const strategy = new MoveNodeBelowHandlerStrategy();
+        const memory = new MockMemory();
+        expect(() => strategy.handle(memory, [1])).toThrow(
+            "No target node specified",
+        );
     });
 });

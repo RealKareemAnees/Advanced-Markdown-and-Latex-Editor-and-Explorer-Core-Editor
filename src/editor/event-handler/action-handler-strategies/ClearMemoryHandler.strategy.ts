@@ -6,8 +6,8 @@ export class ClearMemoryHandlerStrategy implements ActionHandlerStrategyInterfac
     constructor() {}
     handle(
         memory: MemoryInterface,
-        selectedNodes?: NodeInterface["ID"][] | undefined,
-        targetNode?: NodeInterface["ID"] | undefined,
+        _selectedNodes?: NodeInterface["ID"][] | undefined,
+        _targetNode?: NodeInterface["ID"] | undefined,
     ): MemoryInterface["ArrayRepresentation"] {
         return memory.clearMemory().ArrayRepresentation;
     }

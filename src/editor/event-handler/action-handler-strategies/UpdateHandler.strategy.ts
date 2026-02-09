@@ -9,8 +9,8 @@ export class UpdateHandlerStrategy implements ActionHandlerStrategyInterface {
     }
     handle(
         memory: MemoryInterface,
-        selectedNodes?: NodeInterface["ID"][] | undefined,
-        targetNode?: NodeInterface["ID"] | undefined,
+        _selectedNodes?: NodeInterface["ID"][] | undefined,
+        _targetNode?: NodeInterface["ID"] | undefined,
     ): MemoryInterface["ArrayRepresentation"] {
         return memory.update(this.data.nodes).ArrayRepresentation;
     }

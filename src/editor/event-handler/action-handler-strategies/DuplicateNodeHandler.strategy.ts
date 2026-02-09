@@ -2,16 +2,20 @@ import type { ActionHandlerStrategyInterface } from "../../../types/ActionHandle
 import type { MemoryInterface } from "../../../types/Memory.interface";
 import type { NodeInterface } from "../../../types/Node.interface";
 
+/**
+ * Strategy for duplicating a single node.
+ * Uses the first selected node ID from selectedNodes parameter.
+ */
 export class DuplicateNodeHandlerStrategy implements ActionHandlerStrategyInterface {
-    private data: { nodeID: number };
-    constructor(data: { nodeID: number }) {
-        this.data = data;
-    }
+    constructor() {}
     handle(
         memory: MemoryInterface,
         selectedNodes?: NodeInterface["ID"][] | undefined,
-        targetNode?: NodeInterface["ID"] | undefined,
+        _targetNode?: NodeInterface["ID"] | undefined,
     ): MemoryInterface["ArrayRepresentation"] {
-        return memory.duplicateNode(this.data.nodeID).ArrayRepresentation;
+        if (!selectedNodes || selectedNodes.length === 0) {
+            throw new Error("No node selected for duplication");
+        }
+        return memory.duplicateNode(selectedNodes[0]).ArrayRepresentation;
     }
 }

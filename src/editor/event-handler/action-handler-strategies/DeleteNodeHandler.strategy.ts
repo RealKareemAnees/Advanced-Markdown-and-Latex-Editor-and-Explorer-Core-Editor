@@ -2,16 +2,20 @@ import type { ActionHandlerStrategyInterface } from "../../../types/ActionHandle
 import type { MemoryInterface } from "../../../types/Memory.interface";
 import type { NodeInterface } from "../../../types/Node.interface";
 
+/**
+ * Strategy for deleting a single node.
+ * Uses the first selected node ID from selectedNodes parameter.
+ */
 export class DeleteNodeHandlerStrategy implements ActionHandlerStrategyInterface {
-    private data: { nodeID: number };
-    constructor(data: { nodeID: number }) {
-        this.data = data;
-    }
+    constructor() {}
     handle(
         memory: MemoryInterface,
         selectedNodes?: NodeInterface["ID"][] | undefined,
-        targetNode?: NodeInterface["ID"] | undefined,
+        _targetNode?: NodeInterface["ID"] | undefined,
     ): MemoryInterface["ArrayRepresentation"] {
-        return memory.deleteNode(this.data.nodeID).ArrayRepresentation;
+        if (!selectedNodes || selectedNodes.length === 0) {
+            throw new Error("No node selected for deletion");
+        }
+        return memory.deleteNode(selectedNodes[0]).ArrayRepresentation;
     }
 }

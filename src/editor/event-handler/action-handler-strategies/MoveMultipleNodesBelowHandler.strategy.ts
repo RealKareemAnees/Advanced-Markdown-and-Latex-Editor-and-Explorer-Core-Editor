@@ -2,19 +2,24 @@ import type { ActionHandlerStrategyInterface } from "../../../types/ActionHandle
 import type { MemoryInterface } from "../../../types/Memory.interface";
 import type { NodeInterface } from "../../../types/Node.interface";
 
+/**
+ * Strategy for moving multiple nodes below a target node.
+ * Uses all selected node IDs from selectedNodes and targetNode parameter.
+ */
 export class MoveMultipleNodesBelowHandlerStrategy implements ActionHandlerStrategyInterface {
-    private data: { nodeIDs: number[]; targetNodeID: number };
-    constructor(data: { nodeIDs: number[]; targetNodeID: number }) {
-        this.data = data;
-    }
+    constructor() {}
     handle(
         memory: MemoryInterface,
         selectedNodes?: NodeInterface["ID"][] | undefined,
         targetNode?: NodeInterface["ID"] | undefined,
     ): MemoryInterface["ArrayRepresentation"] {
-        return memory.moveMultipleNodesBelow(
-            this.data.nodeIDs,
-            this.data.targetNodeID,
-        ).ArrayRepresentation;
+        if (!selectedNodes || selectedNodes.length === 0) {
+            throw new Error("No nodes selected to move");
+        }
+        if (targetNode === undefined) {
+            throw new Error("No target node specified");
+        }
+        return memory.moveMultipleNodesBelow(selectedNodes, targetNode)
+            .ArrayRepresentation;
     }
 }

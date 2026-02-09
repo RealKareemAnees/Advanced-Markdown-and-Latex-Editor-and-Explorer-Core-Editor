@@ -2,13 +2,26 @@ import { MoveMultipleNodesBelowHandlerStrategy } from "./MoveMultipleNodesBelowH
 import { MockMemory } from "./memory.mock";
 
 describe("MoveMultipleNodesBelowHandlerStrategy", () => {
-    it("should call handle and return memory array", () => {
-        const strategy = new MoveMultipleNodesBelowHandlerStrategy({
-            nodeIDs: [1],
-            targetNodeID: 2,
-        });
+    it("should move selected nodes below target node", () => {
+        const strategy = new MoveMultipleNodesBelowHandlerStrategy();
         const memory = new MockMemory();
-        const result = strategy.handle(memory);
+        const result = strategy.handle(memory, [1, 2], 3);
         expect(result).toBe(memory.ArrayRepresentation);
+    });
+
+    it("should throw error when no nodes are selected", () => {
+        const strategy = new MoveMultipleNodesBelowHandlerStrategy();
+        const memory = new MockMemory();
+        expect(() => strategy.handle(memory, [], 3)).toThrow(
+            "No nodes selected to move",
+        );
+    });
+
+    it("should throw error when no target node is specified", () => {
+        const strategy = new MoveMultipleNodesBelowHandlerStrategy();
+        const memory = new MockMemory();
+        expect(() => strategy.handle(memory, [1, 2])).toThrow(
+            "No target node specified",
+        );
     });
 });

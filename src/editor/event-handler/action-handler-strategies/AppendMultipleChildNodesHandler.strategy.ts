@@ -2,19 +2,24 @@ import type { ActionHandlerStrategyInterface } from "../../../types/ActionHandle
 import type { MemoryInterface } from "../../../types/Memory.interface";
 import type { NodeInterface } from "../../../types/Node.interface";
 
+/**
+ * Strategy for appending multiple child nodes to a parent node.
+ * Uses all selected node IDs as children and targetNode as parent.
+ */
 export class AppendMultipleChildNodesHandlerStrategy implements ActionHandlerStrategyInterface {
-    private data: { parentNodeID: number; childNodeIDs: number[] };
-    constructor(data: { parentNodeID: number; childNodeIDs: number[] }) {
-        this.data = data;
-    }
+    constructor() {}
     handle(
         memory: MemoryInterface,
         selectedNodes?: NodeInterface["ID"][] | undefined,
         targetNode?: NodeInterface["ID"] | undefined,
     ): MemoryInterface["ArrayRepresentation"] {
-        return memory.appendMultipleChildNodes(
-            this.data.parentNodeID,
-            this.data.childNodeIDs,
-        ).ArrayRepresentation;
+        if (!selectedNodes || selectedNodes.length === 0) {
+            throw new Error("No child nodes selected");
+        }
+        if (targetNode === undefined) {
+            throw new Error("No parent node specified");
+        }
+        return memory.appendMultipleChildNodes(targetNode, selectedNodes)
+            .ArrayRepresentation;
     }
 }

@@ -6,8 +6,8 @@ export class ExportMemoryHandlerStrategy implements ActionHandlerStrategyInterfa
     constructor() {}
     handle(
         memory: MemoryInterface,
-        selectedNodes?: NodeInterface["ID"][] | undefined,
-        targetNode?: NodeInterface["ID"] | undefined,
+        _selectedNodes?: NodeInterface["ID"][] | undefined,
+        _targetNode?: NodeInterface["ID"] | undefined,
     ): MemoryInterface["ArrayRepresentation"] {
         memory.exportMemory();
         return memory.ArrayRepresentation;

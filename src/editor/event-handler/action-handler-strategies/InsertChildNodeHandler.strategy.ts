@@ -2,17 +2,24 @@ import type { ActionHandlerStrategyInterface } from "../../../types/ActionHandle
 import type { NodeInterface } from "../../../types/Node.interface";
 import type { MemoryInterface } from "../../../types/Memory.interface";
 
+/**
+ * Strategy for inserting a new child node to a target parent node.
+ * Uses constructor data for the node to insert and targetNode parameter for the parent.
+ */
 export class InsertChildNodeHandlerStrategy implements ActionHandlerStrategyInterface {
-    private data: { node: NodeInterface; targetNodeID: number };
-    constructor(data: { node: NodeInterface; targetNodeID: number }) {
+    private data: { node: NodeInterface };
+    constructor(data: { node: NodeInterface }) {
         this.data = data;
     }
     handle(
         memory: MemoryInterface,
-        selectedNodes?: NodeInterface["ID"][] | undefined,
+        _selectedNodes?: NodeInterface["ID"][] | undefined,
         targetNode?: NodeInterface["ID"] | undefined,
     ): MemoryInterface["ArrayRepresentation"] {
-        return memory.insertChildNode(this.data.node, this.data.targetNodeID)
+        if (targetNode === undefined) {
+            throw new Error("No target parent node specified");
+        }
+        return memory.insertChildNode(this.data.node, targetNode)
             .ArrayRepresentation;
     }
 }

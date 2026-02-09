@@ -2,17 +2,24 @@ import type { ActionHandlerStrategyInterface } from "../../../types/ActionHandle
 import type { MemoryInterface } from "../../../types/Memory.interface";
 import type { NodeInterface } from "../../../types/Node.interface";
 
+/**
+ * Strategy for moving a single node below a target node.
+ * Uses the first selected node ID from selectedNodes and targetNode parameter.
+ */
 export class MoveNodeBelowHandlerStrategy implements ActionHandlerStrategyInterface {
-    private data: { nodeID: number; targetNodeID: number };
-    constructor(data: { nodeID: number; targetNodeID: number }) {
-        this.data = data;
-    }
+    constructor() {}
     handle(
         memory: MemoryInterface,
         selectedNodes?: NodeInterface["ID"][] | undefined,
         targetNode?: NodeInterface["ID"] | undefined,
     ): MemoryInterface["ArrayRepresentation"] {
-        return memory.moveNodeBelow(this.data.nodeID, this.data.targetNodeID)
+        if (!selectedNodes || selectedNodes.length === 0) {
+            throw new Error("No node selected to move");
+        }
+        if (targetNode === undefined) {
+            throw new Error("No target node specified");
+        }
+        return memory.moveNodeBelow(selectedNodes[0], targetNode)
             .ArrayRepresentation;
     }
 }

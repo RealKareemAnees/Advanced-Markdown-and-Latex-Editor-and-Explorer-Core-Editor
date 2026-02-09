@@ -9,8 +9,8 @@ export class AppendNodeHandlerStrategy implements ActionHandlerStrategyInterface
     }
     handle(
         memory: MemoryInterface,
-        selectedNodes?: NodeInterface["ID"][] | undefined,
-        targetNode?: NodeInterface["ID"] | undefined,
+        _selectedNodes?: NodeInterface["ID"][] | undefined,
+        _targetNode?: NodeInterface["ID"] | undefined,
     ): MemoryInterface["ArrayRepresentation"] {
         return memory.appendNode(this.data.node).ArrayRepresentation;
     }

@@ -2,17 +2,20 @@ import type { ActionHandlerStrategyInterface } from "../../../types/ActionHandle
 import type { MemoryInterface } from "../../../types/Memory.interface";
 import type { NodeInterface } from "../../../types/Node.interface";
 
+/**
+ * Strategy for deleting multiple nodes.
+ * Uses all selected node IDs from selectedNodes parameter.
+ */
 export class DeleteMultipleNodesHandlerStrategy implements ActionHandlerStrategyInterface {
-    private data: { nodeIDs: number[] };
-    constructor(data: { nodeIDs: number[] }) {
-        this.data = data;
-    }
+    constructor() {}
     handle(
         memory: MemoryInterface,
         selectedNodes?: NodeInterface["ID"][] | undefined,
-        targetNode?: NodeInterface["ID"] | undefined,
+        _targetNode?: NodeInterface["ID"] | undefined,
     ): MemoryInterface["ArrayRepresentation"] {
-        return memory.deleteMultipleNodes(this.data.nodeIDs)
-            .ArrayRepresentation;
+        if (!selectedNodes || selectedNodes.length === 0) {
+            throw new Error("No nodes selected for deletion");
+        }
+        return memory.deleteMultipleNodes(selectedNodes).ArrayRepresentation;
     }
 }
