@@ -12,19 +12,28 @@ export function getFreeSpots<T>(
     store: (T | null)[],
     amount: number,
 ): number[] {
-    // extract the required number of free spots from the array
-    const spots: number[] = freeSpots.splice(0, amount);
+    const availableCount = freeSpots.length;
 
-    // if not enough spots, expand the store
-    if (spots.length < amount) {
-        const needed = amount - spots.length;
-        const startIndex = store.length;
+    // If we have enough free spots, extract and return them
+    if (availableCount >= amount) {
+        return freeSpots.splice(0, amount);
+    }
 
-        for (let i = 0; i < needed; i++) {
-            // add null to the store and record the new index
-            store.push(null);
-            spots.push(startIndex + i);
-        }
+    // Extract all available spots
+    const spots = freeSpots.splice(0, availableCount);
+
+    // Calculate how many new spots we need
+    const needed = amount - availableCount;
+    const startIndex = store.length;
+
+    // Pre-allocate space in store (more efficient than pushing one at a time)
+    const newLength = startIndex + needed;
+    store.length = newLength;
+
+    // Fill the new slots with null and record their indices
+    for (let i = 0; i < needed; i++) {
+        store[startIndex + i] = null;
+        spots.push(startIndex + i);
     }
 
     return spots;

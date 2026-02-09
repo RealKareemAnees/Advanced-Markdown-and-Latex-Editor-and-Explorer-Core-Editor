@@ -626,4 +626,107 @@ describe("Memory", () => {
             expect(result).toBe(memory);
         });
     });
+    describe("Memory – performance", () => {
+        // Increase timeout for heavy tests
+        jest.setTimeout(30000);
+
+        function createManyNodes(count: number): NodeInterface[] {
+            const nodes: NodeInterface[] = [];
+            for (let i = 0; i < count; i++) {
+                nodes.push(createMockNode(`node_${i}`));
+            }
+            return nodes;
+        }
+
+        it("should append 50k nodes within reasonable time", () => {
+            const COUNT = 50_000;
+            const nodes = createManyNodes(COUNT);
+
+            const start = performance.now();
+
+            for (let i = 0; i < COUNT; i++) {
+                memory.appendNode(nodes[i]);
+            }
+
+            const end = performance.now();
+            const duration = end - start;
+
+            console.log(`append ${COUNT} nodes took ${duration.toFixed(2)} ms`);
+
+            expect(memory.ArrayRepresentation.length).toBe(COUNT);
+            // Adjust this threshold to your environment
+            expect(duration).toBeLessThan(1500);
+        });
+
+        it("should delete 10k nodes efficiently", () => {
+            const COUNT = 20_000;
+            const DELETE_COUNT = 10_000;
+
+            const nodes = createManyNodes(COUNT);
+            nodes.forEach((n) => memory.appendNode(n));
+
+            const idsToDelete: number[] = [];
+            for (let i = 0; i < DELETE_COUNT; i++) {
+                idsToDelete.push(i * 2); // delete every other node
+            }
+
+            const start = performance.now();
+            memory.deleteMultipleNodes(idsToDelete);
+            const end = performance.now();
+
+            const duration = end - start;
+
+            console.log(
+                `delete ${DELETE_COUNT} nodes took ${duration.toFixed(2)} ms`,
+            );
+
+            expect(duration).toBeLessThan(1500);
+        });
+
+        it("should insert 10k nodes below a target efficiently", () => {
+            const BASE_COUNT = 10_000;
+            const INSERT_COUNT = 10_000;
+
+            const baseNodes = createManyNodes(BASE_COUNT);
+            baseNodes.forEach((n) => memory.appendNode(n));
+
+            const insertNodes = createManyNodes(INSERT_COUNT);
+
+            const start = performance.now();
+            memory.insertMultipleNodesBelow(insertNodes, 0);
+            const end = performance.now();
+
+            const duration = end - start;
+
+            console.log(
+                `insert ${INSERT_COUNT} nodes took ${duration.toFixed(2)} ms`,
+            );
+
+            expect(memory.ArrayRepresentation.length).toBe(
+                BASE_COUNT + INSERT_COUNT,
+            );
+            expect(duration).toBeLessThan(2000);
+        });
+
+        it("should duplicate 10k nodes efficiently", () => {
+            const COUNT = 10_000;
+            const nodes = createManyNodes(COUNT);
+            nodes.forEach((n) => memory.appendNode(n));
+
+            const idsToDuplicate = Array.from({ length: COUNT }, (_, i) => i);
+
+            const start = performance.now();
+            memory.duplicateMultipleNodes(idsToDuplicate);
+            const end = performance.now();
+
+            const duration = end - start;
+
+            console.log(
+                `duplicate ${COUNT} nodes took ${duration.toFixed(2)} ms`,
+            );
+
+            expect(memory.ArrayRepresentation.length).toBe(COUNT * 2);
+            expect(duration).toBeLessThan(2000);
+        });
+    });
 });

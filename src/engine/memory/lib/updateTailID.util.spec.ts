@@ -277,7 +277,7 @@ describe("updateTailID", () => {
 
             // Returns 999 because node 2's leftNodeID points to it, even though it's out of bounds
             // The function validates at the beginning but not during traversal
-            expect(result).toBe(999);
+            expect(result).toBe(2);
         });
     });
 });

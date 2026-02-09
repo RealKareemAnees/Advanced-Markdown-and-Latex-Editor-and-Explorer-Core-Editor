@@ -479,7 +479,6 @@ describe("History", () => {
         it("should handle branching history (do after undo)", () => {
             const node1 = createMockNode(1, "Node 1");
             const node2 = createMockNode(2, "Node 2");
-            const node3 = createMockNode(3, "Node 3");
 
             history.do([node1]);
             history.do([node2]);

@@ -1,5 +1,5 @@
 /**
- * Memory.ts
+ * Memory.ts (Optimized)
  *
  * This class manages the in-memory storage and relationships between nodes in the document.
  * Nodes are stored in an array indexed by their ID for O(1) access.
@@ -67,10 +67,10 @@ export class Memory implements MemoryInterface {
      * @returns The node if found, null otherwise
      */
     getNodeByID(nodeID: number): NodeInterface | null {
-        if (nodeID < 0 || nodeID >= this._memory.length) {
-            return null;
-        }
-        return this._memory[nodeID] ?? null;
+        // Single bounds check and return
+        return nodeID >= 0 && nodeID < this._memory.length
+            ? (this._memory[nodeID] ?? null)
+            : null;
     }
 
     /**
@@ -80,38 +80,34 @@ export class Memory implements MemoryInterface {
      * @returns This memory instance for chaining
      */
     deleteNode(nodeID: number): MemoryInterface {
-        const nodeToDelete = this._memory[nodeID];
+        const memory = this._memory;
+        const nodeToDelete = memory[nodeID];
         if (!nodeToDelete) return this;
 
-        // update tail reference if deleting the tail node
-        if (nodeID === this._tailNodeID) {
-            if (nodeToDelete.parentNodeID !== null) {
-                this._tailNodeID = nodeToDelete.parentNodeID;
-            } else {
-                // recalculate tail from head
-                this._tailNodeID =
-                    this._headNodeID !== null
-                        ? updateTailID(this._memory, this._headNodeID)
-                        : null;
-            }
+        const tailID = this._tailNodeID;
+        const headID = this._headNodeID;
+
+        // Update tail reference if deleting the tail node
+        if (nodeID === tailID) {
+            this._tailNodeID =
+                nodeToDelete.parentNodeID ??
+                (headID !== null ? updateTailID(memory, headID) : null);
         }
 
-        // update head reference if deleting the head node
-        if (nodeID === this._headNodeID) {
+        // Update head reference if deleting the head node
+        if (nodeID === headID) {
             this._headNodeID = nodeToDelete.leftNodeID;
         }
 
-        // perform the actual deletion
-        deleteNode(nodeID, this._memory, this._freeSpots);
+        // Perform the actual deletion
+        deleteNode(nodeID, memory, this._freeSpots);
 
-        // recalculate tail if it was deleted or is now invalid
-        if (
-            this._tailNodeID !== null &&
-            this._memory[this._tailNodeID] === null
-        ) {
+        // Recalculate tail if it was deleted or is now invalid
+        const currentTailID = this._tailNodeID;
+        if (currentTailID !== null && memory[currentTailID] === null) {
             this._tailNodeID =
                 this._headNodeID !== null
-                    ? updateTailID(this._memory, this._headNodeID)
+                    ? updateTailID(memory, this._headNodeID)
                     : null;
         }
 
@@ -119,14 +115,44 @@ export class Memory implements MemoryInterface {
     }
 
     /**
-     * Deletes multiple nodes from memory
+     * Deletes multiple nodes from memory (optimized for batch operations)
      * @param nodeIDs - Array of node IDs to delete
      * @returns This memory instance for chaining
      */
     deleteMultipleNodes(nodeIDs: number[]): MemoryInterface {
-        for (const nodeID of nodeIDs) {
-            this.deleteNode(nodeID);
+        if (nodeIDs.length === 0) return this;
+
+        const memory = this._memory;
+        let headID = this._headNodeID;
+        let tailID = this._tailNodeID;
+
+        // Delete all nodes first
+        for (let i = 0; i < nodeIDs.length; i++) {
+            const nodeID = nodeIDs[i];
+            const nodeToDelete = memory[nodeID];
+            if (!nodeToDelete) continue;
+
+            // Update head if deleting head node
+            if (nodeID === headID) {
+                headID = nodeToDelete.leftNodeID;
+            }
+
+            // Update tail tracking if deleting tail
+            if (nodeID === tailID) {
+                tailID = nodeToDelete.parentNodeID;
+            }
+
+            deleteNode(nodeID, memory, this._freeSpots);
         }
+
+        this._headNodeID = headID;
+
+        // Recalculate tail once after all deletions
+        if (tailID !== null && memory[tailID] === null) {
+            tailID = headID !== null ? updateTailID(memory, headID) : null;
+        }
+        this._tailNodeID = tailID;
+
         return this;
     }
 
@@ -136,30 +162,30 @@ export class Memory implements MemoryInterface {
      * @returns This memory instance for chaining
      */
     appendNode(node: NodeInterface): MemoryInterface {
-        // get a free spot and assign the node's ID
-        const [freeSpot] = getFreeSpots(this._freeSpots, this._memory, 1);
+        const memory = this._memory;
+        const [freeSpot] = getFreeSpots(this._freeSpots, memory, 1);
+
         node.ID = freeSpot;
-        this._memory[freeSpot] = node;
+        memory[freeSpot] = node;
 
-        // link the new node to the current tail
+        const tailID = this._tailNodeID;
 
-        // update the current tail to point to the new node
-        if (this._tailNodeID !== null) {
-            const tailNode = this._memory[this._tailNodeID];
+        // Link the new node to the current tail
+        if (tailID !== null) {
+            const tailNode = memory[tailID];
             if (tailNode) {
-                tailNode.leftNodeID = node.ID;
+                tailNode.leftNodeID = freeSpot;
             }
+            node.parentNodeID = tailID;
         }
 
-        if (this._memory.length > 1) node.parentNodeID = this._tailNodeID;
-
-        // update head if this is the first node
+        // Update head if this is the first node
         if (this._headNodeID === null) {
-            this._headNodeID = node.ID;
+            this._headNodeID = freeSpot;
         }
 
-        // update the tail reference
-        this._tailNodeID = node.ID;
+        // Update the tail reference
+        this._tailNodeID = freeSpot;
 
         return this;
     }
@@ -174,32 +200,32 @@ export class Memory implements MemoryInterface {
         node: NodeInterface,
         targetNodeID: number,
     ): MemoryInterface {
-        const targetNode = this._memory[targetNodeID];
+        const memory = this._memory;
+        const targetNode = memory[targetNodeID];
         if (!targetNode) return this;
 
-        // if inserting after the tail, just append
+        // If inserting after the tail, just append
         if (targetNodeID === this._tailNodeID) {
             return this.appendNode(node);
         }
 
-        // get a free spot and assign the node's ID
-        const [freeSpot] = getFreeSpots(this._freeSpots, this._memory, 1);
+        const [freeSpot] = getFreeSpots(this._freeSpots, memory, 1);
         node.ID = freeSpot;
-        this._memory[freeSpot] = node;
+        memory[freeSpot] = node;
 
-        // save reference to the old left node
+        // Cache the old left node ID
         const oldLeftID = targetNode.leftNodeID;
 
-        // link the new node to the target node
+        // Link the new node to the target node
         node.parentNodeID = targetNodeID;
-        targetNode.leftNodeID = node.ID;
+        targetNode.leftNodeID = freeSpot;
 
-        // link the old left node to the new node
+        // Link the old left node to the new node
         if (oldLeftID !== null) {
-            const oldLeftNode = this._memory[oldLeftID];
+            const oldLeftNode = memory[oldLeftID];
             if (oldLeftNode) {
                 node.leftNodeID = oldLeftID;
-                oldLeftNode.parentNodeID = node.ID;
+                oldLeftNode.parentNodeID = freeSpot;
             }
         }
 
@@ -217,10 +243,9 @@ export class Memory implements MemoryInterface {
         targetNodeID: number,
     ): MemoryInterface {
         let currentTargetID = targetNodeID;
-        for (const node of nodes) {
-            this.insertNodeBelow(node, currentTargetID);
-            // update target so next node is inserted after the one we just added
-            currentTargetID = node.ID;
+        for (let i = 0; i < nodes.length; i++) {
+            this.insertNodeBelow(nodes[i], currentTargetID);
+            currentTargetID = nodes[i].ID;
         }
         return this;
     }
@@ -235,13 +260,13 @@ export class Memory implements MemoryInterface {
         const sourceNode = this._memory[nodeID];
         if (!sourceNode) return this;
 
-        // create a new node with the same entity
+        // Create a new node with the same entity
         const node = new Node(0, null, sourceNode.ENTITY);
 
-        // delete the original node first
+        // Delete the original node first
         this.deleteNode(nodeID);
 
-        // insert the new node below target
+        // Insert the new node below target
         this.insertNodeBelow(node, targetNodeID);
 
         return this;
@@ -257,9 +282,12 @@ export class Memory implements MemoryInterface {
         nodeIDs: number[],
         targetNodeID: number,
     ): MemoryInterface {
+        const memory = this._memory;
         let currentTargetID = targetNodeID;
-        for (const nodeID of nodeIDs) {
-            const sourceNode = this._memory[nodeID];
+
+        for (let i = 0; i < nodeIDs.length; i++) {
+            const nodeID = nodeIDs[i];
+            const sourceNode = memory[nodeID];
             if (!sourceNode) continue;
 
             const node = new Node(0, null, sourceNode.ENTITY);
@@ -280,27 +308,27 @@ export class Memory implements MemoryInterface {
         node: NodeInterface,
         targetNodeID: number,
     ): MemoryInterface {
-        const targetNode = this._memory[targetNodeID];
+        const memory = this._memory;
+        const targetNode = memory[targetNodeID];
         if (!targetNode) return this;
 
-        // get a free spot and assign the node's ID
-        const [freeSpot] = getFreeSpots(this._freeSpots, this._memory, 1);
+        const [freeSpot] = getFreeSpots(this._freeSpots, memory, 1);
         node.ID = freeSpot;
-        this._memory[freeSpot] = node;
+        memory[freeSpot] = node;
 
-        // save reference to the old right (child) node
+        // Cache the old right (child) node ID
         const oldRightID = targetNode.rightNodeID;
 
-        // link the new node as the right child of the target node
+        // Link the new node as the right child of the target node
         node.parentNodeID = targetNodeID;
-        targetNode.rightNodeID = node.ID;
+        targetNode.rightNodeID = freeSpot;
 
-        // push down the old right node as a sibling of the new node
+        // Push down the old right node as a sibling of the new node
         if (oldRightID !== null) {
-            const oldRightNode = this._memory[oldRightID];
+            const oldRightNode = memory[oldRightID];
             if (oldRightNode) {
                 node.leftNodeID = oldRightID;
-                oldRightNode.parentNodeID = node.ID;
+                oldRightNode.parentNodeID = freeSpot;
             }
         }
 
@@ -321,13 +349,13 @@ export class Memory implements MemoryInterface {
         const sourceNode = this._memory[childNodeID];
         if (!sourceNode) return this;
 
-        // create a new node with the same entity
+        // Create a new node with the same entity
         const node = new Node(0, null, sourceNode.ENTITY);
 
-        // delete the original node
+        // Delete the original node
         this.deleteNode(childNodeID);
 
-        // insert as child of target
+        // Insert as child of target
         this.insertChildNode(node, targetNodeID);
 
         return this;
@@ -343,8 +371,8 @@ export class Memory implements MemoryInterface {
         parentNodeID: number,
         childNodeIDs: number[],
     ): MemoryInterface {
-        for (const childNodeID of childNodeIDs) {
-            this.appendChildNode(childNodeID, parentNodeID);
+        for (let i = 0; i < childNodeIDs.length; i++) {
+            this.appendChildNode(childNodeIDs[i], parentNodeID);
         }
         return this;
     }
@@ -358,10 +386,10 @@ export class Memory implements MemoryInterface {
         const sourceNode = this._memory[nodeID];
         if (!sourceNode) return this;
 
-        // create a new node with the same entity
+        // Create a new node with the same entity
         const node = new Node(0, null, sourceNode.ENTITY);
 
-        // insert below the original node
+        // Insert below the original node
         this.insertNodeBelow(node, nodeID);
 
         return this;
@@ -373,8 +401,8 @@ export class Memory implements MemoryInterface {
      * @returns This memory instance for chaining
      */
     duplicateMultipleNodes(nodeIDs: number[]): MemoryInterface {
-        for (const nodeID of nodeIDs) {
-            this.duplicateNode(nodeID);
+        for (let i = 0; i < nodeIDs.length; i++) {
+            this.duplicateNode(nodeIDs[i]);
         }
         return this;
     }
@@ -396,20 +424,25 @@ export class Memory implements MemoryInterface {
      * @returns JSON string representation of the memory
      */
     exportMemory(): string {
-        const output = {
+        const memory = this._memory;
+        const nodes = new Array(memory.length);
+
+        for (let i = 0; i < memory.length; i++) {
+            const node = memory[i];
+            nodes[i] = node
+                ? {
+                      ID: node.ID,
+                      DATA: node.ENTITY?.DATA ?? "",
+                      TYPE: node.ENTITY?.TYPE ?? null,
+                      OPTIONS: node.ENTITY?.OPTIONS ?? {},
+                  }
+                : null;
+        }
+
+        return JSON.stringify({
             headID: this._headNodeID,
             tailID: this._tailNodeID,
-            nodes: this._memory.map((node) =>
-                node
-                    ? {
-                          ID: node.ID,
-                          DATA: node.ENTITY?.DATA ?? "",
-                          TYPE: node.ENTITY?.TYPE ?? null,
-                          OPTIONS: node.ENTITY?.OPTIONS ?? {},
-                      }
-                    : null,
-            ),
-        };
-        return JSON.stringify(output);
+            nodes,
+        });
     }
 }

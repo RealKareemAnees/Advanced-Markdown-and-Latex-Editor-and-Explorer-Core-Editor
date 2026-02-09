@@ -18,7 +18,7 @@ export class History implements HistoryInterface {
      * @param initial - Optional initial state to load into history
      */
     constructor(initial?: NodeInterface[]) {
-        if (initial && initial.length > 0) {
+        if (initial?.length) {
             // Initialize with the provided initial state
             this._stack = [[], initial];
             this._currentIndex = 1;
@@ -33,7 +33,7 @@ export class History implements HistoryInterface {
      * Returns the current state (the snapshot at the current index)
      */
     get CURRENT(): NodeInterface[] {
-        return this._stack[this._currentIndex] || [];
+        return this._stack[this._currentIndex];
     }
 
     /**
@@ -55,20 +55,24 @@ export class History implements HistoryInterface {
      * @param nodes - The nodes representing the new state
      */
     do(nodes: NodeInterface[]): void {
-        if (!nodes || nodes.length === 0) {
+        if (!nodes?.length) {
             return; // No nodes to record, do nothing
         }
 
-        // If we're in the middle of history, clear forward history
-        if (this._currentIndex < this._stack.length - 1) {
-            this._stack = this._stack.slice(0, this._currentIndex + 1);
+        const currentIndex = this._currentIndex;
+        const stack = this._stack;
+
+        // If we're in the middle of history, clear forward history in-place
+        if (currentIndex < stack.length - 1) {
+            // Use splice for O(1) truncation instead of slice + reassignment
+            stack.splice(currentIndex + 1);
         }
 
         // Add the new state to the stack
-        this._stack.push(nodes);
+        stack.push(nodes);
 
         // Move the current index forward
-        this._currentIndex++;
+        this._currentIndex = currentIndex + 1;
     }
 
     /**
@@ -80,7 +84,7 @@ export class History implements HistoryInterface {
         if (this._currentIndex > 0) {
             this._currentIndex--;
         }
-        return this.CURRENT;
+        return this._stack[this._currentIndex];
     }
 
     /**
@@ -88,11 +92,14 @@ export class History implements HistoryInterface {
      * @returns The nodes at the new current state
      */
     redo(): NodeInterface[] {
+        const currentIndex = this._currentIndex;
+        const maxIndex = this._stack.length - 1;
+
         // Can only redo if we're not at the end
-        if (this._currentIndex < this._stack.length - 1) {
-            this._currentIndex++;
+        if (currentIndex < maxIndex) {
+            this._currentIndex = currentIndex + 1;
         }
-        return this.CURRENT;
+        return this._stack[this._currentIndex];
     }
 
     /**

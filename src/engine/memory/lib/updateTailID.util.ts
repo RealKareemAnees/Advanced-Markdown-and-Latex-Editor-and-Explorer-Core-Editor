@@ -17,32 +17,34 @@ export function updateTailID(
     store: (NodeInterface | null)[],
     headID: number,
 ): number {
-    // validate headID
+    // Validate headID
     if (headID < 0 || headID >= store.length || store[headID] === null) {
         return headID;
     }
 
-    // start with the head node
-    let currentNode = store[headID];
-    // initialize tailID to headID in case there are no left nodes
     let tailID = headID;
+    let currentNode = store[headID];
 
-    // traverse the left chain until no more left nodes or a null node is found
-    while (currentNode && currentNode.leftNodeID !== null) {
+    // Traverse the left chain until no more left nodes or a null node is found
+    while (currentNode) {
         const nextNodeID = currentNode.leftNodeID;
-        const nextNode = store[nextNodeID];
 
-        if (nextNode === null) {
-            // if the next node is null (deleted), stop traversal
+        // If no more left nodes, we've found the tail
+        if (nextNodeID === null) {
             break;
         }
 
-        // update tailID to the next node's ID
+        const nextNode = store[nextNodeID];
+
+        // If the next node is null (deleted), stop traversal
+        if (!nextNode) {
+            break;
+        }
+
+        // Move to the next node
         tailID = nextNodeID;
-        // move to the next node
         currentNode = nextNode;
     }
 
-    // return the computed tail ID
     return tailID;
 }
