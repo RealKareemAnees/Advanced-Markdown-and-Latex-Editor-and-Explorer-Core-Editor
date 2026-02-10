@@ -1,11 +1,16 @@
 import type { MemoryInterface } from "../../types/Memory.interface";
-import { Container } from "../../entities/container/Container";
 
 /**
- * this takes memory, renders it into conainers, shipls it to the dom
+ * this takes memory, renders it into containers, ships it to the dom
  */
 export class Renderer {
+    private _memory: MemoryInterface;
+
     constructor(memory: MemoryInterface) {
-        // Initialize any necessary properties or state here
+        this._memory = memory;
+    }
+
+    get MEMORY(): MemoryInterface {
+        return this._memory;
     }
 }
