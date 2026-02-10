@@ -11,6 +11,11 @@ export interface ContainerInterface {
     set ORDER(order: number);
 
     /**
+     * Gets the content wrapper element for external rendering operations
+     */
+    get CONTENT_WRAPPER(): HTMLElement;
+
+    /**
      * creates the HTML element for the container, ships it to the DOM, thats it
      */
     render(): ContainerInterface;
