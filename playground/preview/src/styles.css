@@ -566,7 +566,6 @@ body {
     font-size: 21px;
     line-height: 1.6;
     color: var(--text-secondary);
-    box-shadow: var(--shadow-md);
     border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 
@@ -696,11 +695,10 @@ body {
 .editor-content pre {
     position: relative;
     background: var(--bg-card);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     padding: var(--space-6);
     margin: var(--space-6) 0;
     overflow-x: auto;
-    box-shadow: var(--shadow-md);
     border: 1px solid var(--border-subtle);
 }
 
@@ -736,9 +734,8 @@ body {
     border-radius: var(--radius-md);
     overflow: hidden;
     margin: var(--space-8) 0;
-    box-shadow: var(--shadow-sm);
     background-color: var(--bg-card);
-    border: 1px solid var(--border-medium);
+    border: 1px solid var(--border-subtle);
 }
 
 .editor-content th {
@@ -880,9 +877,8 @@ body {
 .editor-content img {
     max-width: 100%;
     height: auto;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     margin: var(--space-8) 0;
-    box-shadow: var(--shadow-lg);
 }
 
 /* ============================================
@@ -937,7 +933,7 @@ body {
 
 .toggle-menu {
     background: var(--bg-card);
-    border: 1px solid var(--border-medium);
+    border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
     margin: var(--space-6) 0;
     overflow: hidden;
@@ -1050,7 +1046,6 @@ body {
     margin: var(--space-8) 0;
     border-radius: var(--radius-md);
     overflow: hidden;
-    box-shadow: var(--shadow-md);
     background-color: transparent;
 }
 
@@ -1078,7 +1073,7 @@ body {
 
 .audio-player {
     background: var(--bg-card);
-    border: 1px solid var(--border-medium);
+    border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
     padding: var(--space-4);
     margin: var(--space-6) 0;
@@ -1195,11 +1190,10 @@ body {
 
 .video-player {
     background: var(--bg-card);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     overflow: hidden;
     margin: var(--space-8) 0;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border-medium);
+    border: 1px solid var(--border-subtle);
 }
 
 .video-player-viewport {
@@ -1332,9 +1326,11 @@ body {
     margin: var(--space-8) 0;
     border-radius: var(--radius-md);
     overflow: hidden;
-    border: 1px solid var(--border-medium);
+    border: 1px solid var(--border-subtle);
     background: var(--bg-card);
     height: 600px;
+    display: flex;
+    flex-direction: column;
 }
 
 .embed-header {
@@ -1406,12 +1402,13 @@ body {
     width: 100%;
     min-height: 300px;
     background: white;
+    flex: 1;
+    overflow: hidden;
 }
 
 .embed-body iframe {
     width: 100%;
     height: 100%;
-    min-height: 300px;
     border: none;
     display: block;
 }
@@ -1439,19 +1436,21 @@ body {
 .doc-embed {
     margin: var(--space-6) 0;
     background: var(--bg-card);
-    border: 1px solid var(--border-medium);
-    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
     overflow: hidden;
-    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
 }
 
 .doc-embed-header {
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    padding: var(--space-4) var(--space-5);
+    padding: var(--space-3) var(--space-4);
     background: var(--bg-elevated);
-    border-bottom: 1px solid var(--border-subtle);
+    border-top: 1px solid var(--border-subtle);
+    order: 2;
 }
 
 .doc-embed-icon {
@@ -1527,6 +1526,68 @@ body {
     font-family: var(--font-serif);
     font-size: 15px;
     line-height: 1.7;
+    order: 1;
+}
+
+/* Document Toolbar (bottom bar variant) */
+.doc-embed-toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border-subtle);
+    order: 2;
+}
+
+/* Common Viewer Controls */
+.viewer-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-left: auto;
+}
+
+.viewer-btn {
+    width: 32px;
+    height: 32px;
+    background: var(--bg-code);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition:
+        background-color var(--transition-base),
+        color var(--transition-base);
+}
+
+.viewer-btn:hover {
+    background: var(--bg-highlight);
+    color: var(--text-primary);
+}
+
+.viewer-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.viewer-page-label {
+    font-size: 13px;
+    font-family: var(--font-mono);
+    color: var(--text-tertiary);
+    min-width: 50px;
+    text-align: center;
+}
+
+.doc-page-indicator {
+    text-align: center;
+    color: #999;
+    font-size: 13px;
+    margin-top: var(--space-8);
 }
 
 /* ============================================
@@ -1535,11 +1596,12 @@ body {
 
 .pdf-embed {
     margin: var(--space-8) 0;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     overflow: hidden;
-    border: 1px solid var(--border-medium);
-    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-subtle);
     background: var(--bg-card);
+    display: flex;
+    flex-direction: column;
 }
 
 .pdf-toolbar {
@@ -1548,8 +1610,9 @@ body {
     gap: var(--space-3);
     padding: var(--space-3) var(--space-4);
     background: var(--bg-elevated);
-    border-bottom: 1px solid var(--border-subtle);
+    border-top: 1px solid var(--border-subtle);
     flex-wrap: wrap;
+    order: 2;
 }
 
 .pdf-toolbar-group {
@@ -1641,7 +1704,6 @@ body {
     width: 100%;
     max-width: 520px;
     background: white;
-    box-shadow: var(--shadow-xl);
     border-radius: var(--radius-xs);
     padding: var(--space-10);
     color: #333;
@@ -1665,15 +1727,724 @@ body {
 }
 
 /* ============================================
+   EPUB Reader
+   ============================================ */
+
+.epub-reader {
+    margin: var(--space-8) 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    display: flex;
+    flex-direction: column;
+}
+
+.epub-toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border-subtle);
+    flex-wrap: wrap;
+    order: 2;
+}
+
+.epub-toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.epub-toolbar-separator {
+    width: 1px;
+    height: 24px;
+    background: var(--border-medium);
+    margin: 0 var(--space-2);
+}
+
+.epub-toolbar-btn {
+    width: 32px;
+    height: 32px;
+    background: var(--bg-code);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition:
+        background-color var(--transition-base),
+        color var(--transition-base);
+}
+
+.epub-toolbar-btn:hover {
+    background: var(--bg-highlight);
+    color: var(--text-primary);
+}
+
+.epub-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.epub-chapter-label {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    font-family: var(--font-sans);
+    min-width: 100px;
+}
+
+.epub-viewport {
+    background: #f8f6f1;
+    padding: var(--space-8) var(--space-6);
+    min-height: 500px;
+}
+
+.epub-content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: var(--space-8);
+    background: white;
+    border-radius: var(--radius-sm);
+    color: #333;
+    font-family: var(--font-serif);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.epub-content h2 {
+    font-size: 28px;
+    color: #1a1a1a;
+    margin-bottom: var(--space-6);
+    font-weight: 700;
+    border: none;
+    padding: 0;
+}
+
+.epub-content p {
+    margin-bottom: var(--space-5);
+    color: #444;
+}
+
+.epub-progress {
+    max-width: 600px;
+    margin: var(--space-6) auto 0;
+}
+
+.epub-progress-bar {
+    height: 6px;
+    background: var(--border-medium);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    margin-bottom: var(--space-2);
+}
+
+.epub-progress-fill {
+    height: 100%;
+    background: var(--accent-primary);
+    border-radius: var(--radius-full);
+    transition: width var(--transition-base);
+}
+
+.epub-progress-text {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    text-align: center;
+}
+
+/* ============================================
+   PowerPoint Viewer (PPTX)
+   ============================================ */
+
+.pptx-viewer {
+    margin: var(--space-8) 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    display: flex;
+    flex-direction: column;
+}
+
+.pptx-toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border-subtle);
+    flex-wrap: wrap;
+    order: 2;
+}
+
+.pptx-toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.pptx-toolbar-separator {
+    width: 1px;
+    height: 24px;
+    background: var(--border-medium);
+    margin: 0 var(--space-2);
+}
+
+.pptx-toolbar-btn {
+    width: 32px;
+    height: 32px;
+    background: var(--bg-code);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition:
+        background-color var(--transition-base),
+        color var(--transition-base);
+}
+
+.pptx-toolbar-btn:hover {
+    background: var(--bg-highlight);
+    color: var(--text-primary);
+}
+
+.pptx-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pptx-slide-input {
+    width: 48px;
+    height: 28px;
+    background: var(--bg-code);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-xs);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-family: var(--font-mono);
+    text-align: center;
+}
+
+.pptx-slide-input:focus {
+    border-color: var(--accent-primary);
+    outline: none;
+}
+
+.pptx-slide-label {
+    font-size: 13px;
+    color: var(--text-tertiary);
+}
+
+.pptx-viewport {
+    background: #2a2a2a;
+    padding: var(--space-8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
+}
+
+.pptx-slide {
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16/9;
+    background: white;
+    border-radius: var(--radius-sm);
+}
+
+/* ============================================
+   OpenDocument Presentation Viewer (ODP)
+   ============================================ */
+
+.odp-viewer {
+    margin: var(--space-8) 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    display: flex;
+    flex-direction: column;
+}
+
+.odp-toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border-subtle);
+    flex-wrap: wrap;
+    order: 2;
+}
+
+.odp-toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.odp-toolbar-separator {
+    width: 1px;
+    height: 24px;
+    background: var(--border-medium);
+    margin: 0 var(--space-2);
+}
+
+.odp-toolbar-btn {
+    width: 32px;
+    height: 32px;
+    background: var(--bg-code);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition:
+        background-color var(--transition-base),
+        color var(--transition-base);
+}
+
+.odp-toolbar-btn:hover {
+    background: var(--bg-highlight);
+    color: var(--text-primary);
+}
+
+.odp-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.odp-slide-input {
+    width: 48px;
+    height: 28px;
+    background: var(--bg-code);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-xs);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-family: var(--font-mono);
+    text-align: center;
+}
+
+.odp-slide-input:focus {
+    border-color: var(--accent-primary);
+    outline: none;
+}
+
+.odp-slide-label {
+    font-size: 13px;
+    color: var(--text-tertiary);
+}
+
+.odp-viewport {
+    background: #2a2a2a;
+    padding: var(--space-8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
+}
+
+.odp-slide {
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16/9;
+    background: white;
+    border-radius: var(--radius-sm);
+}
+
+/* ============================================
+   Excel Spreadsheet Viewer (XLSX)
+   ============================================ */
+
+.xlsx-viewer {
+    margin: var(--space-8) 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    display: flex;
+    flex-direction: column;
+}
+
+.xlsx-toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border-subtle);
+    flex-wrap: wrap;
+    order: 2;
+}
+
+.xlsx-toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.xlsx-toolbar-separator {
+    width: 1px;
+    height: 24px;
+    background: var(--border-medium);
+    margin: 0 var(--space-2);
+}
+
+.xlsx-toolbar-btn {
+    height: 32px;
+    padding: 0 var(--space-3);
+    background: var(--bg-code);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-family: var(--font-sans);
+    transition:
+        background-color var(--transition-base),
+        color var(--transition-base);
+}
+
+.xlsx-toolbar-btn:hover {
+    background: var(--bg-highlight);
+    color: var(--text-primary);
+}
+
+.xlsx-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.xlsx-viewport {
+    background: white;
+    overflow-x: auto;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.xlsx-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    color: #333;
+    font-family: var(--font-sans);
+}
+
+.xlsx-table thead th {
+    background: #f0f0f0;
+    color: #333;
+    font-weight: 600;
+    text-align: left;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.xlsx-table tbody td {
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid #e5e5e5;
+    color: #444;
+}
+
+.xlsx-table tbody tr:hover {
+    background: #f9f9f9;
+}
+
+.xlsx-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.xlsx-badge.high {
+    background: #fee;
+    color: #c33;
+}
+
+.xlsx-badge.medium {
+    background: #fef6e6;
+    color: #c77700;
+}
+
+.xlsx-badge.low {
+    background: #e8f4fd;
+    color: #0066cc;
+}
+
+.xlsx-badge.progress {
+    background: #e6f2ff;
+    color: #0050b3;
+}
+
+.xlsx-badge.pending {
+    background: #fff4e6;
+    color: #ad6800;
+}
+
+.xlsx-badge.done {
+    background: #e6f7ed;
+    color: #0b7a3a;
+}
+
+/* ============================================
+   OpenDocument Spreadsheet Viewer (ODS)
+   ============================================ */
+
+.ods-viewer {
+    margin: var(--space-8) 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    display: flex;
+    flex-direction: column;
+}
+
+.ods-toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border-subtle);
+    flex-wrap: wrap;
+    order: 2;
+}
+
+.ods-toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.ods-toolbar-separator {
+    width: 1px;
+    height: 24px;
+    background: var(--border-medium);
+    margin: 0 var(--space-2);
+}
+
+.ods-toolbar-btn {
+    height: 32px;
+    padding: 0 var(--space-3);
+    background: var(--bg-code);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-family: var(--font-sans);
+    transition:
+        background-color var(--transition-base),
+        color var(--transition-base);
+}
+
+.ods-toolbar-btn:hover {
+    background: var(--bg-highlight);
+    color: var(--text-primary);
+}
+
+.ods-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.ods-viewport {
+    background: white;
+    overflow-x: auto;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.ods-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    color: #333;
+    font-family: var(--font-sans);
+}
+
+.ods-table thead th {
+    background: #f0f0f0;
+    color: #333;
+    font-weight: 600;
+    text-align: left;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.ods-table tbody td {
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid #e5e5e5;
+    color: #444;
+}
+
+.ods-table tbody tr:hover {
+    background: #f9f9f9;
+}
+
+/* ============================================
+   ZIP Archive Viewer
+   ============================================ */
+
+.zip-viewer {
+    margin: var(--space-6) 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.zip-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border-subtle);
+    order: 2;
+}
+
+.zip-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.zip-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.zip-meta {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    display: flex;
+    gap: var(--space-3);
+}
+
+.zip-actions {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.zip-contents {
+    padding: var(--space-3);
+    background: var(--bg-card);
+    order: 1;
+}
+
+.zip-file {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-2);
+    transition: background-color var(--transition-base);
+}
+
+.zip-file:hover {
+    background: var(--bg-highlight);
+}
+
+.zip-file-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.zip-file-name {
+    flex: 1;
+    font-size: 14px;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+}
+
+.zip-file-size {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-family: var(--font-mono);
+    min-width: 60px;
+    text-align: right;
+}
+
+.zip-file-btn {
+    width: 28px;
+    height: 28px;
+    background: var(--bg-code);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition:
+        background-color var(--transition-base),
+        color var(--transition-base);
+}
+
+.zip-file-btn:hover {
+    background: var(--accent-primary);
+    color: white;
+    border-color: var(--accent-primary);
+}
+
+/* ============================================
    Slideshow Embedding
    ============================================ */
 
 .slideshow {
     margin: var(--space-8) 0;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     overflow: hidden;
-    border: 1px solid var(--border-medium);
-    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-subtle);
     background: var(--bg-card);
 }
 
@@ -1811,10 +2582,9 @@ body {
 
 .window {
     margin: var(--space-8) 0;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     overflow: hidden;
-    border: 1px solid var(--border-medium);
-    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-subtle);
     background: var(--bg-card);
 }
 
@@ -1881,7 +2651,7 @@ body {
 .editor-content address {
     font-style: normal;
     background: var(--bg-card);
-    border: 1px solid var(--border-medium);
+    border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
     padding: var(--space-5);
     margin: var(--space-6) 0;

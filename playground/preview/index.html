@@ -1037,57 +1037,40 @@ function applyTokens(element: HTMLElement, tokens: DesignToken[]) {
                                     a preview area:
                                 </p>
 
-                                <div class="doc-embed">
-                                    <div class="doc-embed-header">
-                                        <div class="doc-embed-icon">W</div>
-                                        <div class="doc-embed-info">
-                                            <div class="doc-embed-name">
-                                                Project_Proposal_2026.docx
-                                            </div>
-                                            <div class="doc-embed-meta">
-                                                <span>245 KB</span>
-                                                <span>•</span>
-                                                <span
-                                                    >Modified Feb 8, 2026</span
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="doc-embed-actions">
-                                            <button class="doc-embed-btn">
-                                                📥 Download
-                                            </button>
-                                            <button class="doc-embed-btn">
-                                                ↗ Open
-                                            </button>
-                                        </div>
-                                    </div>
+                                <div class="doc-embed" data-doc-viewer data-pages="12" data-current-page="1">
                                     <div class="doc-embed-preview">
-                                        <h3
-                                            style="
-                                                color: #111;
-                                                margin-bottom: 8px;
-                                                font-family: var(--font-serif);
-                                            "
-                                        >
-                                            Project Proposal: Design System
-                                            Overhaul
-                                        </h3>
-                                        <p
-                                            style="
-                                                color: #555;
-                                                margin-bottom: 12px;
-                                            "
-                                        >
+                                        <h3>Project Proposal: Design System Overhaul</h3>
+                                        <p>
                                             This document outlines the
                                             comprehensive redesign of our
                                             component library, transitioning
                                             from ad-hoc styles to a token-based
                                             design system built on the Espresso
-                                            & Ember theme.
+                                            &amp; Ember theme.
                                         </p>
-                                        <p style="color: #777; font-size: 13px">
-                                            <em>— Preview of page 1 of 12</em>
+                                        <p class="doc-page-indicator">
+                                            <em>— Page 1 of 12 —</em>
                                         </p>
+                                    </div>
+                                    <div class="doc-embed-toolbar">
+                                        <div class="doc-embed-icon">W</div>
+                                        <div class="doc-embed-info">
+                                            <div class="doc-embed-name">Project_Proposal_2026.docx</div>
+                                            <div class="doc-embed-meta">
+                                                <span>245 KB</span>
+                                                <span>•</span>
+                                                <span>Modified Feb 8, 2026</span>
+                                            </div>
+                                        </div>
+                                        <div class="viewer-controls">
+                                            <button class="viewer-btn" data-action="prev-page" title="Previous page" disabled>◀</button>
+                                            <span class="viewer-page-label">1 / 12</span>
+                                            <button class="viewer-btn" data-action="next-page" title="Next page">▶</button>
+                                        </div>
+                                        <div class="doc-embed-actions">
+                                            <button class="viewer-btn" title="Download">📥</button>
+                                            <button class="viewer-btn" title="Open in new tab">↗</button>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -1216,6 +1199,1180 @@ function applyTokens(element: HTMLElement, tokens: DesignToken[]) {
                                                 "
                                             >
                                                 — Page 1 of 24 —
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- EPUB Reader -->
+                                <h2>EPUB Reader</h2>
+
+                                <p>
+                                    Interactive eBook reader with chapter
+                                    navigation, text customization, and reading
+                                    progress:
+                                </p>
+
+                                <div class="epub-reader" data-epub-reader>
+                                    <div class="epub-toolbar">
+                                        <div class="epub-toolbar-group">
+                                            <div
+                                                class="doc-embed-icon"
+                                                style="
+                                                    background: #8e44ad;
+                                                    width: 28px;
+                                                    height: 28px;
+                                                    font-size: 10px;
+                                                "
+                                            >
+                                                EPUB
+                                            </div>
+                                            <span class="epub-title"
+                                                >Brochure.epub</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="epub-toolbar-separator"
+                                        ></div>
+                                        <div class="epub-toolbar-group">
+                                            <button
+                                                class="epub-toolbar-btn"
+                                                title="Previous chapter"
+                                            >
+                                                ◀
+                                            </button>
+                                            <span class="epub-chapter-label"
+                                                >Chapter 1 of 8</span
+                                            >
+                                            <button
+                                                class="epub-toolbar-btn"
+                                                title="Next chapter"
+                                            >
+                                                ▶
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="epub-toolbar-separator"
+                                        ></div>
+                                        <div class="epub-toolbar-group">
+                                            <button
+                                                class="epub-toolbar-btn"
+                                                title="Table of contents"
+                                            >
+                                                📑
+                                            </button>
+                                            <button
+                                                class="epub-toolbar-btn"
+                                                title="Font size"
+                                            >
+                                                A
+                                            </button>
+                                            <button
+                                                class="epub-toolbar-btn"
+                                                title="Bookmark"
+                                            >
+                                                🔖
+                                            </button>
+                                            <button
+                                                class="epub-toolbar-btn"
+                                                title="Download"
+                                            >
+                                                📥
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="epub-viewport">
+                                        <div class="epub-content">
+                                            <h2>
+                                                Chapter 1: Introduction to
+                                                Modern Design
+                                            </h2>
+                                            <p>
+                                                In the realm of digital design,
+                                                the marriage of form and
+                                                function has never been more
+                                                critical. As we navigate an
+                                                increasingly complex landscape
+                                                of devices, platforms, and user
+                                                expectations, the need for
+                                                systematic, thoughtful design
+                                                approaches becomes paramount.
+                                            </p>
+                                            <p>
+                                                This brochure explores the
+                                                foundational principles that
+                                                underpin effective design
+                                                systems, examining how
+                                                token-based architectures,
+                                                consistent visual languages, and
+                                                user-centered methodologies
+                                                converge to create experiences
+                                                that are both beautiful and
+                                                functional.
+                                            </p>
+                                            <p>
+                                                Through careful consideration of
+                                                typography, color theory,
+                                                spatial relationships, and
+                                                interactive patterns, we can
+                                                craft interfaces that not only
+                                                meet but exceed user
+                                                expectations, providing
+                                                intuitive, accessible, and
+                                                delightful experiences across
+                                                every touchpoint.
+                                            </p>
+                                        </div>
+                                        <div class="epub-progress">
+                                            <div class="epub-progress-bar">
+                                                <div
+                                                    class="epub-progress-fill"
+                                                    style="width: 12.5%"
+                                                ></div>
+                                            </div>
+                                            <div class="epub-progress-text">
+                                                12% complete
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- DOCX Viewer -->
+                                <h2>Word Document Viewer</h2>
+
+                                <p>
+                                    Microsoft Word documents with full
+                                    formatting and metadata display:
+                                </p>
+
+                                <div class="doc-embed">
+                                    <div class="doc-embed-header">
+                                        <div class="doc-embed-icon">W</div>
+                                        <div class="doc-embed-info">
+                                            <div class="doc-embed-name">
+                                                Brochure.docx
+                                            </div>
+                                            <div class="doc-embed-meta">
+                                                <span>127 KB</span>
+                                                <span>•</span>
+                                                <span
+                                                    >Modified Feb 9, 2026</span
+                                                >
+                                                <span>•</span>
+                                                <span>8 pages</span>
+                                            </div>
+                                        </div>
+                                        <div class="doc-embed-actions">
+                                            <button class="doc-embed-btn">
+                                                📤 Share
+                                            </button>
+                                            <button class="doc-embed-btn">
+                                                📥 Download
+                                            </button>
+                                            <button class="doc-embed-btn">
+                                                ↗ Open
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="doc-embed-preview">
+                                        <h2
+                                            style="
+                                                color: #1a1a1a;
+                                                font-size: 28px;
+                                                margin-bottom: 16px;
+                                                font-weight: 700;
+                                            "
+                                        >
+                                            Modern Design Systems: A
+                                            Comprehensive Guide
+                                        </h2>
+                                        <p
+                                            style="
+                                                color: #666;
+                                                font-size: 14px;
+                                                margin-bottom: 24px;
+                                            "
+                                        >
+                                            <em
+                                                >A detailed exploration of
+                                                token-based design
+                                                architectures</em
+                                            >
+                                        </p>
+                                        <p style="margin-bottom: 16px">
+                                            Design systems have evolved from
+                                            simple style guides into
+                                            comprehensive ecosystems that govern
+                                            every aspect of product design and
+                                            development. At their core, modern
+                                            design systems leverage design
+                                            tokens—named entities that store
+                                            visual design attributes—to maintain
+                                            consistency across platforms and
+                                            products.
+                                        </p>
+                                        <p style="margin-bottom: 16px">
+                                            This document outlines the
+                                            fundamental principles,
+                                            implementation strategies, and best
+                                            practices for creating and
+                                            maintaining scalable design systems
+                                            that serve organizations of any
+                                            size.
+                                        </p>
+                                        <p
+                                            style="
+                                                color: #999;
+                                                font-size: 13px;
+                                                text-align: center;
+                                                margin-top: 32px;
+                                            "
+                                        >
+                                            <em>— Preview of page 1 of 8 —</em>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- PowerPoint Viewer -->
+                                <h2>PowerPoint Presentation Viewer</h2>
+
+                                <p>
+                                    Interactive presentation viewer with slide
+                                    thumbnails and navigation:
+                                </p>
+
+                                <div class="pptx-viewer" data-pptx-viewer>
+                                    <div class="pptx-toolbar">
+                                        <div class="pptx-toolbar-group">
+                                            <div
+                                                class="doc-embed-icon"
+                                                style="
+                                                    background: #d24726;
+                                                    width: 28px;
+                                                    height: 28px;
+                                                    font-size: 10px;
+                                                "
+                                            >
+                                                PPT
+                                            </div>
+                                            <span class="pptx-title"
+                                                >Photo album.pptx</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="pptx-toolbar-separator"
+                                        ></div>
+                                        <div class="pptx-toolbar-group">
+                                            <button
+                                                class="pptx-toolbar-btn"
+                                                title="Previous slide"
+                                            >
+                                                ◀
+                                            </button>
+                                            <input
+                                                type="text"
+                                                class="pptx-slide-input"
+                                                value="1"
+                                            />
+                                            <span class="pptx-slide-label"
+                                                >/ 12</span
+                                            >
+                                            <button
+                                                class="pptx-toolbar-btn"
+                                                title="Next slide"
+                                            >
+                                                ▶
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="pptx-toolbar-separator"
+                                        ></div>
+                                        <div class="pptx-toolbar-group">
+                                            <button
+                                                class="pptx-toolbar-btn"
+                                                title="Thumbnails"
+                                            >
+                                                🖼
+                                            </button>
+                                            <button
+                                                class="pptx-toolbar-btn"
+                                                title="Fullscreen"
+                                            >
+                                                ⛶
+                                            </button>
+                                            <button
+                                                class="pptx-toolbar-btn"
+                                                title="Download"
+                                            >
+                                                📥
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="pptx-viewport">
+                                        <div class="pptx-slide">
+                                            <div
+                                                style="
+                                                    text-align: center;
+                                                    padding: 80px 40px;
+                                                "
+                                            >
+                                                <div
+                                                    style="
+                                                        font-size: 48px;
+                                                        margin-bottom: 24px;
+                                                    "
+                                                >
+                                                    📸
+                                                </div>
+                                                <h2
+                                                    style="
+                                                        font-size: 42px;
+                                                        color: #1a1a1a;
+                                                        margin-bottom: 16px;
+                                                        font-weight: 700;
+                                                    "
+                                                >
+                                                    Photo Album 2026
+                                                </h2>
+                                                <p
+                                                    style="
+                                                        font-size: 24px;
+                                                        color: #666;
+                                                    "
+                                                >
+                                                    A Collection of Memorable
+                                                    Moments
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ODP Viewer -->
+                                <h2>OpenDocument Presentation Viewer</h2>
+
+                                <p>
+                                    LibreOffice Impress presentations with full
+                                    controls:
+                                </p>
+
+                                <div class="odp-viewer" data-odp-viewer>
+                                    <div class="odp-toolbar">
+                                        <div class="odp-toolbar-group">
+                                            <div
+                                                class="doc-embed-icon"
+                                                style="
+                                                    background: #f89c1c;
+                                                    width: 28px;
+                                                    height: 28px;
+                                                    font-size: 10px;
+                                                "
+                                            >
+                                                ODP
+                                            </div>
+                                            <span class="odp-title"
+                                                >Screenshot from 2026-02-09
+                                                08-19-54 (6 files
+                                                merged).odp</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="odp-toolbar-separator"
+                                        ></div>
+                                        <div class="odp-toolbar-group">
+                                            <button
+                                                class="odp-toolbar-btn"
+                                                title="Previous slide"
+                                            >
+                                                ◀
+                                            </button>
+                                            <input
+                                                type="text"
+                                                class="odp-slide-input"
+                                                value="1"
+                                            />
+                                            <span class="odp-slide-label"
+                                                >/ 6</span
+                                            >
+                                            <button
+                                                class="odp-toolbar-btn"
+                                                title="Next slide"
+                                            >
+                                                ▶
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="odp-toolbar-separator"
+                                        ></div>
+                                        <div class="odp-toolbar-group">
+                                            <button
+                                                class="odp-toolbar-btn"
+                                                title="Thumbnails"
+                                            >
+                                                🖼
+                                            </button>
+                                            <button
+                                                class="odp-toolbar-btn"
+                                                title="Fullscreen"
+                                            >
+                                                ⛶
+                                            </button>
+                                            <button
+                                                class="odp-toolbar-btn"
+                                                title="Download"
+                                            >
+                                                📥
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="odp-viewport">
+                                        <div class="odp-slide">
+                                            <div style="padding: 40px">
+                                                <div
+                                                    style="
+                                                        font-size: 36px;
+                                                        margin-bottom: 20px;
+                                                    "
+                                                >
+                                                    🖼️
+                                                </div>
+                                                <h2
+                                                    style="
+                                                        font-size: 32px;
+                                                        color: #1a1a1a;
+                                                        margin-bottom: 12px;
+                                                        font-weight: 700;
+                                                    "
+                                                >
+                                                    Merged Screenshots
+                                                    Collection
+                                                </h2>
+                                                <p
+                                                    style="
+                                                        font-size: 18px;
+                                                        color: #666;
+                                                        margin-bottom: 24px;
+                                                    "
+                                                >
+                                                    6 screenshots captured on
+                                                    February 9, 2026
+                                                </p>
+                                                <div
+                                                    style="
+                                                        background: #f5f5f5;
+                                                        border-radius: 8px;
+                                                        padding: 24px;
+                                                        border: 2px dashed #ccc;
+                                                    "
+                                                >
+                                                    <p
+                                                        style="
+                                                            color: #888;
+                                                            text-align: center;
+                                                        "
+                                                    >
+                                                        Screenshot preview area
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Excel Viewer -->
+                                <h2>Excel Spreadsheet Viewer</h2>
+
+                                <p>
+                                    Interactive spreadsheet with cell
+                                    navigation, formulas, and data
+                                    visualization:
+                                </p>
+
+                                <div class="xlsx-viewer" data-xlsx-viewer>
+                                    <div class="xlsx-toolbar">
+                                        <div class="xlsx-toolbar-group">
+                                            <div
+                                                class="doc-embed-icon"
+                                                style="
+                                                    background: #217346;
+                                                    width: 28px;
+                                                    height: 28px;
+                                                    font-size: 10px;
+                                                "
+                                            >
+                                                XLS
+                                            </div>
+                                            <span class="xlsx-title"
+                                                >To-do list.xlsx</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="xlsx-toolbar-separator"
+                                        ></div>
+                                        <div class="xlsx-toolbar-group">
+                                            <button
+                                                class="xlsx-toolbar-btn"
+                                                title="Sheet 1"
+                                            >
+                                                Sheet1
+                                            </button>
+                                            <button
+                                                class="xlsx-toolbar-btn"
+                                                title="Sheet 2"
+                                            >
+                                                Sheet2
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="xlsx-toolbar-separator"
+                                        ></div>
+                                        <div class="xlsx-toolbar-group">
+                                            <button
+                                                class="xlsx-toolbar-btn"
+                                                title="Sort"
+                                            >
+                                                ⇅
+                                            </button>
+                                            <button
+                                                class="xlsx-toolbar-btn"
+                                                title="Filter"
+                                            >
+                                                🔻
+                                            </button>
+                                            <button
+                                                class="xlsx-toolbar-btn"
+                                                title="Download"
+                                            >
+                                                📥
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="xlsx-viewport">
+                                        <table class="xlsx-table">
+                                            <thead>
+                                                <tr>
+                                                    <th
+                                                        style="
+                                                            width: 50px;
+                                                            background: #f5f5f5;
+                                                        "
+                                                    >
+                                                        #
+                                                    </th>
+                                                    <th>Task</th>
+                                                    <th style="width: 120px">
+                                                        Priority
+                                                    </th>
+                                                    <th style="width: 120px">
+                                                        Status
+                                                    </th>
+                                                    <th style="width: 140px">
+                                                        Due Date
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td
+                                                        style="
+                                                            background: #f9f9f9;
+                                                            text-align: center;
+                                                        "
+                                                    >
+                                                        1
+                                                    </td>
+                                                    <td>
+                                                        Complete design system
+                                                        documentation
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            class="xlsx-badge high"
+                                                            >High</span
+                                                        >
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            class="xlsx-badge progress"
+                                                            >In Progress</span
+                                                        >
+                                                    </td>
+                                                    <td>Feb 12, 2026</td>
+                                                </tr>
+                                                <tr>
+                                                    <td
+                                                        style="
+                                                            background: #f9f9f9;
+                                                            text-align: center;
+                                                        "
+                                                    >
+                                                        2
+                                                    </td>
+                                                    <td>
+                                                        Review component library
+                                                        updates
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            class="xlsx-badge medium"
+                                                            >Medium</span
+                                                        >
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            class="xlsx-badge pending"
+                                                            >Pending</span
+                                                        >
+                                                    </td>
+                                                    <td>Feb 14, 2026</td>
+                                                </tr>
+                                                <tr>
+                                                    <td
+                                                        style="
+                                                            background: #f9f9f9;
+                                                            text-align: center;
+                                                        "
+                                                    >
+                                                        3
+                                                    </td>
+                                                    <td>
+                                                        Test responsive
+                                                        breakpoints
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            class="xlsx-badge high"
+                                                            >High</span
+                                                        >
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            class="xlsx-badge done"
+                                                            >Done</span
+                                                        >
+                                                    </td>
+                                                    <td>Feb 10, 2026</td>
+                                                </tr>
+                                                <tr>
+                                                    <td
+                                                        style="
+                                                            background: #f9f9f9;
+                                                            text-align: center;
+                                                        "
+                                                    >
+                                                        4
+                                                    </td>
+                                                    <td>Update icon set</td>
+                                                    <td>
+                                                        <span
+                                                            class="xlsx-badge low"
+                                                            >Low</span
+                                                        >
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            class="xlsx-badge pending"
+                                                            >Pending</span
+                                                        >
+                                                    </td>
+                                                    <td>Feb 20, 2026</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- ODS Viewer -->
+                                <h2>OpenDocument Spreadsheet Viewer</h2>
+
+                                <p>
+                                    LibreOffice Calc spreadsheets with full
+                                    functionality:
+                                </p>
+
+                                <div class="ods-viewer" data-ods-viewer>
+                                    <div class="ods-toolbar">
+                                        <div class="ods-toolbar-group">
+                                            <div
+                                                class="doc-embed-icon"
+                                                style="
+                                                    background: #18a303;
+                                                    width: 28px;
+                                                    height: 28px;
+                                                    font-size: 10px;
+                                                "
+                                            >
+                                                ODS
+                                            </div>
+                                            <span class="ods-title"
+                                                >To-do list.ods</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="ods-toolbar-separator"
+                                        ></div>
+                                        <div class="ods-toolbar-group">
+                                            <button
+                                                class="ods-toolbar-btn"
+                                                title="Sheet 1"
+                                            >
+                                                Sheet1
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="ods-toolbar-separator"
+                                        ></div>
+                                        <div class="ods-toolbar-group">
+                                            <button
+                                                class="ods-toolbar-btn"
+                                                title="Sort"
+                                            >
+                                                ⇅
+                                            </button>
+                                            <button
+                                                class="ods-toolbar-btn"
+                                                title="Filter"
+                                            >
+                                                🔻
+                                            </button>
+                                            <button
+                                                class="ods-toolbar-btn"
+                                                title="Download"
+                                            >
+                                                📥
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="ods-viewport">
+                                        <table class="ods-table">
+                                            <thead>
+                                                <tr>
+                                                    <th
+                                                        style="
+                                                            width: 50px;
+                                                            background: #f5f5f5;
+                                                        "
+                                                    >
+                                                        #
+                                                    </th>
+                                                    <th>Task</th>
+                                                    <th style="width: 120px">
+                                                        Category
+                                                    </th>
+                                                    <th style="width: 100px">
+                                                        Completed
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td
+                                                        style="
+                                                            background: #f9f9f9;
+                                                            text-align: center;
+                                                        "
+                                                    >
+                                                        1
+                                                    </td>
+                                                    <td>Buy groceries</td>
+                                                    <td>Personal</td>
+                                                    <td
+                                                        style="
+                                                            text-align: center;
+                                                        "
+                                                    >
+                                                        ✓
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td
+                                                        style="
+                                                            background: #f9f9f9;
+                                                            text-align: center;
+                                                        "
+                                                    >
+                                                        2
+                                                    </td>
+                                                    <td>
+                                                        Finish project proposal
+                                                    </td>
+                                                    <td>Work</td>
+                                                    <td
+                                                        style="
+                                                            text-align: center;
+                                                        "
+                                                    >
+                                                        ✓
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td
+                                                        style="
+                                                            background: #f9f9f9;
+                                                            text-align: center;
+                                                        "
+                                                    >
+                                                        3
+                                                    </td>
+                                                    <td>
+                                                        Schedule team meeting
+                                                    </td>
+                                                    <td>Work</td>
+                                                    <td
+                                                        style="
+                                                            text-align: center;
+                                                        "
+                                                    ></td>
+                                                </tr>
+                                                <tr>
+                                                    <td
+                                                        style="
+                                                            background: #f9f9f9;
+                                                            text-align: center;
+                                                        "
+                                                    >
+                                                        4
+                                                    </td>
+                                                    <td>Call dentist</td>
+                                                    <td>Personal</td>
+                                                    <td
+                                                        style="
+                                                            text-align: center;
+                                                        "
+                                                    ></td>
+                                                </tr>
+                                                <tr>
+                                                    <td
+                                                        style="
+                                                            background: #f9f9f9;
+                                                            text-align: center;
+                                                        "
+                                                    >
+                                                        5
+                                                    </td>
+                                                    <td>Review code changes</td>
+                                                    <td>Work</td>
+                                                    <td
+                                                        style="
+                                                            text-align: center;
+                                                        "
+                                                    >
+                                                        ✓
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- ZIP Archive Viewer -->
+                                <h2>ZIP Archive Viewer</h2>
+
+                                <p>
+                                    Archive browser with file list, sizes, and
+                                    extraction options:
+                                </p>
+
+                                <div class="zip-viewer">
+                                    <div class="zip-header">
+                                        <div
+                                            class="doc-embed-icon"
+                                            style="background: #666"
+                                        >
+                                            ZIP
+                                        </div>
+                                        <div class="zip-info">
+                                            <div class="zip-name">
+                                                To-do list-HTML.zip
+                                            </div>
+                                            <div class="zip-meta">
+                                                <span>42.3 KB</span>
+                                                <span>•</span>
+                                                <span>5 files</span>
+                                                <span>•</span>
+                                                <span
+                                                    >Modified Feb 10, 2026</span
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="zip-actions">
+                                            <button class="doc-embed-btn">
+                                                📥 Download
+                                            </button>
+                                            <button class="doc-embed-btn">
+                                                📦 Extract All
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="zip-contents">
+                                        <div class="zip-file">
+                                            <span class="zip-file-icon"
+                                                >📄</span
+                                            >
+                                            <span class="zip-file-name"
+                                                >index.html</span
+                                            >
+                                            <span class="zip-file-size"
+                                                >8.2 KB</span
+                                            >
+                                            <button class="zip-file-btn">
+                                                ↓
+                                            </button>
+                                        </div>
+                                        <div class="zip-file">
+                                            <span class="zip-file-icon"
+                                                >🎨</span
+                                            >
+                                            <span class="zip-file-name"
+                                                >styles.css</span
+                                            >
+                                            <span class="zip-file-size"
+                                                >12.4 KB</span
+                                            >
+                                            <button class="zip-file-btn">
+                                                ↓
+                                            </button>
+                                        </div>
+                                        <div class="zip-file">
+                                            <span class="zip-file-icon"
+                                                >⚙️</span
+                                            >
+                                            <span class="zip-file-name"
+                                                >script.js</span
+                                            >
+                                            <span class="zip-file-size"
+                                                >15.7 KB</span
+                                            >
+                                            <button class="zip-file-btn">
+                                                ↓
+                                            </button>
+                                        </div>
+                                        <div class="zip-file">
+                                            <span class="zip-file-icon"
+                                                >🖼️</span
+                                            >
+                                            <span class="zip-file-name"
+                                                >logo.png</span
+                                            >
+                                            <span class="zip-file-size"
+                                                >4.1 KB</span
+                                            >
+                                            <button class="zip-file-btn">
+                                                ↓
+                                            </button>
+                                        </div>
+                                        <div class="zip-file">
+                                            <span class="zip-file-icon"
+                                                >📝</span
+                                            >
+                                            <span class="zip-file-name"
+                                                >README.md</span
+                                            >
+                                            <span class="zip-file-size"
+                                                >1.9 KB</span
+                                            >
+                                            <button class="zip-file-btn">
+                                                ↓
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Updated PDF with actual file -->
+                                <h2>PDF Document</h2>
+
+                                <p>
+                                    View the actual PDF file from the public
+                                    folder:
+                                </p>
+
+                                <div class="pdf-embed">
+                                    <div class="pdf-toolbar">
+                                        <div class="pdf-toolbar-group">
+                                            <div
+                                                class="doc-embed-icon pdf"
+                                                style="
+                                                    width: 28px;
+                                                    height: 28px;
+                                                    font-size: 10px;
+                                                "
+                                            >
+                                                PDF
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="pdf-toolbar-separator"
+                                        ></div>
+                                        <div class="pdf-toolbar-group">
+                                            <button
+                                                class="pdf-toolbar-btn"
+                                                title="Previous page"
+                                            >
+                                                ◀
+                                            </button>
+                                            <input
+                                                type="text"
+                                                class="pdf-page-input"
+                                                value="1"
+                                            />
+                                            <span class="pdf-page-label"
+                                                >/ 3</span
+                                            >
+                                            <button
+                                                class="pdf-toolbar-btn"
+                                                title="Next page"
+                                            >
+                                                ▶
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="pdf-toolbar-separator"
+                                        ></div>
+                                        <div class="pdf-toolbar-group">
+                                            <button
+                                                class="pdf-toolbar-btn"
+                                                title="Zoom out"
+                                            >
+                                                −
+                                            </button>
+                                            <span class="pdf-zoom-label"
+                                                >100%</span
+                                            >
+                                            <button
+                                                class="pdf-toolbar-btn"
+                                                title="Zoom in"
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                        <span class="pdf-toolbar-title"
+                                            >To-do list - To do.pdf</span
+                                        >
+                                        <div class="pdf-toolbar-group">
+                                            <button
+                                                class="pdf-toolbar-btn"
+                                                title="Search"
+                                            >
+                                                🔍
+                                            </button>
+                                            <button
+                                                class="pdf-toolbar-btn"
+                                                title="Download"
+                                            >
+                                                📥
+                                            </button>
+                                            <button
+                                                class="pdf-toolbar-btn"
+                                                title="Print"
+                                            >
+                                                🖨
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="pdf-viewport">
+                                        <div class="pdf-page">
+                                            <h2
+                                                style="
+                                                    font-size: 24px;
+                                                    color: #111;
+                                                    margin-bottom: 20px;
+                                                    text-align: center;
+                                                "
+                                            >
+                                                Daily To-Do List
+                                            </h2>
+                                            <h3
+                                                style="
+                                                    font-size: 18px;
+                                                    color: #444;
+                                                    margin-bottom: 16px;
+                                                "
+                                            >
+                                                February 10, 2026
+                                            </h3>
+                                            <div style="margin: 24px 0">
+                                                <h4
+                                                    style="
+                                                        color: #666;
+                                                        font-size: 14px;
+                                                        margin-bottom: 12px;
+                                                        text-transform: uppercase;
+                                                        letter-spacing: 0.5px;
+                                                    "
+                                                >
+                                                    High Priority
+                                                </h4>
+                                                <p style="margin-bottom: 8px">
+                                                    ☐ Complete design system
+                                                    documentation
+                                                </p>
+                                                <p style="margin-bottom: 8px">
+                                                    ☐ Review pull requests
+                                                </p>
+                                                <p style="margin-bottom: 20px">
+                                                    ☐ Update project timeline
+                                                </p>
+
+                                                <h4
+                                                    style="
+                                                        color: #666;
+                                                        font-size: 14px;
+                                                        margin-bottom: 12px;
+                                                        text-transform: uppercase;
+                                                        letter-spacing: 0.5px;
+                                                    "
+                                                >
+                                                    Medium Priority
+                                                </h4>
+                                                <p style="margin-bottom: 8px">
+                                                    ☐ Team sync meeting at 2 PM
+                                                </p>
+                                                <p style="margin-bottom: 8px">
+                                                    ☐ Test new component library
+                                                </p>
+                                                <p style="margin-bottom: 20px">
+                                                    ☐ Update dependencies
+                                                </p>
+
+                                                <h4
+                                                    style="
+                                                        color: #666;
+                                                        font-size: 14px;
+                                                        margin-bottom: 12px;
+                                                        text-transform: uppercase;
+                                                        letter-spacing: 0.5px;
+                                                    "
+                                                >
+                                                    Completed
+                                                </h4>
+                                                <p
+                                                    style="
+                                                        margin-bottom: 8px;
+                                                        text-decoration: line-through;
+                                                        color: #999;
+                                                    "
+                                                >
+                                                    ☑ Morning standup
+                                                </p>
+                                                <p
+                                                    style="
+                                                        margin-bottom: 8px;
+                                                        text-decoration: line-through;
+                                                        color: #999;
+                                                    "
+                                                >
+                                                    ☑ Email responses
+                                                </p>
+                                            </div>
+                                            <p
+                                                style="
+                                                    color: #888;
+                                                    font-size: 12px;
+                                                    text-align: center;
+                                                    margin-top: 2em;
+                                                "
+                                            >
+                                                — Page 1 of 3 —
                                             </p>
                                         </div>
                                     </div>
