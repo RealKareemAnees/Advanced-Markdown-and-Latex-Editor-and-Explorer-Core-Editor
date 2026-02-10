@@ -1,0 +1,1751 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Markdown Editor - Complete Style Guide</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+        />
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+        ></script>
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        ></script>
+    </head>
+    <body>
+        <div class="app-container">
+            <!-- Sidebar Component -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <div class="sidebar-logo">
+                        <div class="sidebar-logo-icon">✎</div>
+                        <div class="sidebar-logo-text">Markdown</div>
+                    </div>
+                    <div class="sidebar-subtitle">Style Guide Demo</div>
+                </div>
+
+                <div class="sidebar-content">
+                    <!-- Recent Section -->
+                    <div class="sidebar-section">
+                        <div class="sidebar-section-title">Recent</div>
+                        <button class="sidebar-btn active">
+                            <span class="sidebar-btn-icon">📄</span>
+                            <span>Style Guide</span>
+                        </button>
+                        <button class="sidebar-btn">
+                            <span class="sidebar-btn-icon">📝</span>
+                            <span>Getting Started</span>
+                        </button>
+                        <button class="sidebar-btn">
+                            <span class="sidebar-btn-icon">📋</span>
+                            <span>Documentation</span>
+                        </button>
+                    </div>
+
+                    <div class="sidebar-divider"></div>
+
+                    <!-- Projects Section -->
+                    <div class="sidebar-section">
+                        <div class="sidebar-section-title">Projects</div>
+                        <button class="sidebar-btn">
+                            <span class="sidebar-btn-icon">📁</span>
+                            <span>Personal Notes</span>
+                        </button>
+                        <button class="sidebar-btn">
+                            <span class="sidebar-btn-icon">💼</span>
+                            <span>Work Documents</span>
+                        </button>
+                        <button class="sidebar-btn">
+                            <span class="sidebar-btn-icon">🎨</span>
+                            <span>Design System</span>
+                        </button>
+                    </div>
+
+                    <div class="sidebar-divider"></div>
+
+                    <!-- Settings Section -->
+                    <div class="sidebar-section">
+                        <div class="sidebar-section-title">Settings</div>
+                        <button class="sidebar-btn">
+                            <span class="sidebar-btn-icon">⚙️</span>
+                            <span>Preferences</span>
+                        </button>
+                        <button class="sidebar-btn">
+                            <span class="sidebar-btn-icon">🎨</span>
+                            <span>Appearance</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sidebar-footer">
+                    <div class="user-profile">
+                        <div class="user-avatar">JD</div>
+                        <div class="user-info">
+                            <div class="user-name">John Doe</div>
+                            <div class="user-email">john@example.com</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="main-content">
+                <!-- Top Bar -->
+                <div class="top-bar">
+                    <div class="document-title">
+                        <input
+                            type="text"
+                            value="Complete Style Guide - Espresso & Ember Theme"
+                            placeholder="Document title..."
+                        />
+                    </div>
+                    <div class="document-actions">
+                        <button class="btn">
+                            <span>👁️</span>
+                            <span>Preview</span>
+                        </button>
+                        <button class="btn">
+                            <span>💾</span>
+                            <span>Save</span>
+                        </button>
+                        <button class="btn btn-primary">
+                            <span>📤</span>
+                            <span>Export</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Editor Area -->
+                <div class="editor-area">
+                    <div class="editor-wrapper">
+                        <div class="editor-container">
+                            <div class="editor-content">
+                                <!-- Main Title -->
+                                <h1>Complete Style Guide</h1>
+
+                                <p class="lead">
+                                    This comprehensive style guide showcases all
+                                    design elements, components, and typography
+                                    styles available in the Espresso & Ember
+                                    markdown editor theme. Every element has
+                                    been carefully crafted to create a warm,
+                                    focused writing environment.
+                                </p>
+
+                                <div class="callout success">
+                                    <div class="callout-content">
+                                        <p>
+                                            This page uses real, accessible
+                                            resources: images from Lorem Picsum,
+                                            embedded content from MDN and
+                                            Wikipedia, and functional LaTeX
+                                            rendering via KaTeX. All interactive
+                                            components are fully operational!
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Typography Examples -->
+                                <h2>Typography System</h2>
+
+                                <p>
+                                    The typography system features three
+                                    carefully selected font families:
+                                    <strong>Charter</strong> for editorial
+                                    warmth in headings and quotes,
+                                    <strong>Inter</strong> for clean UI
+                                    readability, and
+                                    <strong>JetBrains Mono</strong> for
+                                    technical content. Body text is set at 18px
+                                    with a generous 1.8 line-height for optimal
+                                    readability.
+                                </p>
+
+                                <h3>Heading Level Three</h3>
+
+                                <p>
+                                    This is a standard paragraph demonstrating
+                                    body text styling. The color palette uses
+                                    warm browns and beiges (#f0ede1) instead of
+                                    harsh white, reducing eye strain during
+                                    extended writing sessions. The burnt orange
+                                    accent (#e67e4d) provides energy without
+                                    being aggressive.
+                                </p>
+
+                                <h4>Heading Level Four</h4>
+
+                                <p>
+                                    All spacing in this design system follows a
+                                    <strong>4px base grid</strong>, ensuring
+                                    mathematical consistency throughout. Each
+                                    spacing step is a multiple of 4, making
+                                    layouts predictable and harmonious. This
+                                    paragraph demonstrates standard text with
+                                    <em>italic emphasis</em> and
+                                    <strong>bold weight</strong>.
+                                </p>
+
+                                <h5>Heading Level Five</h5>
+
+                                <p>
+                                    H5 headings use a sans-serif font with
+                                    uppercase styling for a distinct label
+                                    appearance. This creates clear visual
+                                    hierarchy while maintaining readability.
+                                </p>
+
+                                <h6>Heading Level Six</h6>
+
+                                <!-- Lists -->
+                                <h2>List Styles</h2>
+
+                                <h3>Unordered Lists</h3>
+
+                                <p>
+                                    Lists feature accent-colored markers that
+                                    add visual interest:
+                                </p>
+
+                                <ul>
+                                    <li>
+                                        Design tokens provide atomic values for
+                                        the visual language
+                                    </li>
+                                    <li>
+                                        Token-based systems ensure consistency
+                                        across components
+                                    </li>
+                                    <li>
+                                        Nested lists maintain proper hierarchy
+                                        <ul>
+                                            <li>
+                                                Second-level items are properly
+                                                indented
+                                            </li>
+                                            <li>
+                                                Markers remain consistent
+                                                throughout
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        Generous line-height improves
+                                        scannability
+                                    </li>
+                                </ul>
+
+                                <h3>Ordered Lists</h3>
+
+                                <ol>
+                                    <li>
+                                        First, establish your design tokens in
+                                        CSS variables
+                                    </li>
+                                    <li>
+                                        Second, create a consistent spacing
+                                        scale
+                                    </li>
+                                    <li>
+                                        Third, define typography hierarchy
+                                        <ol>
+                                            <li>
+                                                Choose appropriate font families
+                                            </li>
+                                            <li>
+                                                Set readable sizes and
+                                                line-heights
+                                            </li>
+                                        </ol>
+                                    </li>
+                                    <li>
+                                        Finally, implement interactive states
+                                    </li>
+                                </ol>
+
+                                <h3>Task Lists</h3>
+
+                                <p>
+                                    Custom-styled checkboxes with smooth
+                                    animations:
+                                </p>
+
+                                <p>
+                                    <input type="checkbox" checked /> Implement
+                                    design tokens<br />
+                                    <input type="checkbox" checked /> Create
+                                    component library<br />
+                                    <input type="checkbox" /> Add accessibility
+                                    features<br />
+                                    <input type="checkbox" /> Write
+                                    comprehensive documentation
+                                </p>
+
+                                <!-- Blockquotes -->
+                                <h2>Blockquotes</h2>
+
+                                <blockquote>
+                                    <p>
+                                        Good design is as little design as
+                                        possible. Less, but better – because it
+                                        concentrates on the essential aspects,
+                                        and the products are not burdened with
+                                        non-essentials.
+                                    </p>
+                                    <cite>Dieter Rams, Designer</cite>
+                                </blockquote>
+
+                                <p>
+                                    Blockquotes feature a left accent border,
+                                    elevated background, and a subtle decorative
+                                    quote mark. The serif italic font creates an
+                                    editorial feel appropriate for highlighted
+                                    quotations.
+                                </p>
+
+                                <!-- Callouts -->
+                                <h2>Callout Components</h2>
+
+                                <p>
+                                    Callouts provide contextual information with
+                                    semantic color coding:
+                                </p>
+
+                                <div class="callout">
+                                    <div class="callout-content">
+                                        <p>
+                                            This is a standard callout using the
+                                            primary accent color. Perfect for
+                                            highlighting important information
+                                            or tips.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="callout info">
+                                    <div class="callout-content">
+                                        <p>
+                                            Info callouts use blue accent for
+                                            informational content, hints, and
+                                            helpful suggestions.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="callout success">
+                                    <div class="callout-content">
+                                        <p>
+                                            Success callouts use green for
+                                            confirmations, completed tasks, and
+                                            positive outcomes.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="callout warning">
+                                    <div class="callout-content">
+                                        <p>
+                                            Warning callouts use yellow-orange
+                                            for cautions, important notices, and
+                                            things requiring attention.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="callout error">
+                                    <div class="callout-content">
+                                        <p>
+                                            Error callouts use red for errors,
+                                            destructive actions, and critical
+                                            warnings.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Code Examples -->
+                                <h2>Code Formatting</h2>
+
+                                <p>
+                                    Inline code uses a monospace font with
+                                    subtle background:
+                                    <code>const example = 'inline code'</code>.
+                                    This makes technical content stand out
+                                    within paragraphs.
+                                </p>
+
+                                <p>
+                                    Code blocks feature elevated styling with a
+                                    "CODE" label:
+                                </p>
+
+                                <pre><code>// Example TypeScript code
+interface DesignToken {
+  name: string;
+  value: string;
+  category: 'color' | 'spacing' | 'typography';
+}
+
+const tokens: DesignToken[] = [
+  { name: 'accent-primary', value: '#e67e4d', category: 'color' },
+  { name: 'space-4', value: '16px', category: 'spacing' },
+  { name: 'font-serif', value: 'Charter', category: 'typography' }
+];
+
+function applyTokens(element: HTMLElement, tokens: DesignToken[]) {
+  tokens.forEach(token => {
+    element.style.setProperty(`--${token.name}`, token.value);
+  });
+}</code></pre>
+
+                                <!-- Links -->
+                                <h2>Link Styles</h2>
+
+                                <p>
+                                    Links use the accent color with an underline
+                                    appearing on hover:
+                                    <a href="#">example link</a>,
+                                    <a href="#">another link</a>, and
+                                    <a href="#">documentation reference</a>. The
+                                    hover state provides clear feedback without
+                                    being distracting.
+                                </p>
+
+                                <!-- Tables -->
+                                <h2>Table Styling</h2>
+
+                                <p>
+                                    Tables feature rounded corners, hover
+                                    states, and clear hierarchy:
+                                </p>
+
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Design Token</th>
+                                            <th>Value</th>
+                                            <th>Category</th>
+                                            <th>Usage</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>--bg-body</code></td>
+                                            <td>#1a1614</td>
+                                            <td>Color</td>
+                                            <td>Main background</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <code>--accent-primary</code>
+                                            </td>
+                                            <td>#e67e4d</td>
+                                            <td>Color</td>
+                                            <td>Brand accent</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>--space-4</code></td>
+                                            <td>16px</td>
+                                            <td>Spacing</td>
+                                            <td>Base unit</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>--font-serif</code></td>
+                                            <td>Charter</td>
+                                            <td>Typography</td>
+                                            <td>Headings, quotes</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>--radius-md</code></td>
+                                            <td>10px</td>
+                                            <td>Border Radius</td>
+                                            <td>Cards, containers</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- Badges -->
+                                <h2>Badge Components</h2>
+
+                                <p>
+                                    Badges provide compact labels with semantic
+                                    coloring:
+                                    <span class="badge">Default</span>
+                                    <span class="badge accent">Accent</span>
+                                    <span class="badge info">Info</span>
+                                    <span class="badge success">Success</span>
+                                    <span class="badge warning">Warning</span>
+                                    <span class="badge error">Error</span>
+                                </p>
+
+                                <!-- Horizontal Rule -->
+                                <hr />
+
+                                <!-- Color System -->
+                                <h2>Color System Deep Dive</h2>
+
+                                <h3>Background Layers</h3>
+
+                                <p>
+                                    The espresso theme uses progressive layering
+                                    to create depth. Each background level is
+                                    slightly lighter than the previous,
+                                    establishing clear visual hierarchy:
+                                </p>
+
+                                <ul>
+                                    <li>
+                                        <strong>Body (#1a1614):</strong> Deepest
+                                        layer for main background
+                                    </li>
+                                    <li>
+                                        <strong>Card (#252220):</strong>
+                                        Elevated surfaces like sidebar and cards
+                                    </li>
+                                    <li>
+                                        <strong>Code (#2d2926):</strong> Code
+                                        blocks and input fields
+                                    </li>
+                                    <li>
+                                        <strong>Highlight (#2e2a27):</strong>
+                                        Hover states and emphasis
+                                    </li>
+                                    <li>
+                                        <strong>Elevated (#2a2522):</strong>
+                                        Footer and special sections
+                                    </li>
+                                </ul>
+
+                                <h3>Text Hierarchy</h3>
+
+                                <p>
+                                    Four text color tiers ensure proper contrast
+                                    and readability:
+                                </p>
+
+                                <ol>
+                                    <li>
+                                        <strong>Primary (#f0ede1):</strong> Main
+                                        content text - highest contrast
+                                    </li>
+                                    <li>
+                                        <strong>Secondary (#b8b2a7):</strong>
+                                        Supporting text and icons
+                                    </li>
+                                    <li>
+                                        <strong>Tertiary (#7a7469):</strong>
+                                        Metadata and timestamps
+                                    </li>
+                                    <li>
+                                        <strong>Muted (#5a544c):</strong>
+                                        Disabled states and placeholders
+                                    </li>
+                                </ol>
+
+                                <!-- Design Principles -->
+                                <h2>Design Philosophy</h2>
+
+                                <p>
+                                    This design system is built on four core
+                                    principles:
+                                </p>
+
+                                <h3>1. Minimalism</h3>
+
+                                <blockquote>
+                                    <p>
+                                        A clean, distraction-free interface that
+                                        puts content first. Excessive gradients,
+                                        glows, and decorative effects have been
+                                        removed in favor of purposeful design.
+                                    </p>
+                                </blockquote>
+
+                                <h3>2. Consistency</h3>
+
+                                <p>
+                                    Token-based design ensures predictable
+                                    spacing (4px base), systematic color
+                                    hierarchy, and mathematical consistency
+                                    throughout the interface.
+                                </p>
+
+                                <h3>3. Accessibility</h3>
+
+                                <ul>
+                                    <li>
+                                        WCAG-compliant contrast ratios (AA and
+                                        AAA)
+                                    </li>
+                                    <li>
+                                        Clear focus-visible states for keyboard
+                                        navigation
+                                    </li>
+                                    <li>Semantic HTML structure support</li>
+                                    <li>
+                                        Reduced motion preferences respected
+                                    </li>
+                                </ul>
+
+                                <h3>4. Performance</h3>
+
+                                <p>
+                                    Efficient CSS selectors, GPU-accelerated
+                                    transforms, and minimal complexity ensure
+                                    smooth performance across devices.
+                                </p>
+
+                                <!-- Interactive Elements -->
+                                <h2>Interactive States</h2>
+
+                                <p>
+                                    Buttons and interactive elements use subtle
+                                    transforms and color shifts to provide
+                                    feedback. Try interacting with the buttons
+                                    in the top bar or sidebar to see hover and
+                                    active states in action.
+                                </p>
+
+                                <div class="callout info">
+                                    <div class="callout-content">
+                                        <p>
+                                            Press <code>Tab</code> to navigate
+                                            through interactive elements. Focus
+                                            indicators use the accent color with
+                                            a subtle glow effect for clear
+                                            visibility.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Spacing System -->
+                                <h2>Spacing & Layout</h2>
+
+                                <p>
+                                    All spacing uses multiples of 4px, from
+                                    micro adjustments (4px) to major layout
+                                    spacing (80px). The editor content is
+                                    constrained to 760px maximum width,
+                                    providing 65-75 characters per line for
+                                    optimal readability.
+                                </p>
+
+                                <pre><code>/* Spacing Scale Showcase */
+--space-1:  4px   /* Micro adjustments */
+--space-2:  8px   /* Compact spacing */
+--space-3:  12px  /* Standard gaps */
+--space-4:  16px  /* Base unit */
+--space-5:  20px  /* Comfortable spacing */
+--space-6:  24px  /* Section spacing */
+--space-8:  32px  /* Large gaps */
+--space-10: 40px  /* Component separation */
+--space-12: 48px  /* Major sections */
+--space-16: 64px  /* Layout spacing */
+--space-20: 80px  /* Maximum spacing */</code></pre>
+
+                                <!-- Toggle Menu -->
+                                <h2>Toggle Menu</h2>
+
+                                <p>
+                                    Collapsible accordion sections for
+                                    organizing content into expandable groups.
+                                    Click any header to reveal its content:
+                                </p>
+
+                                <div class="toggle-menu">
+                                    <div class="toggle-menu-item open">
+                                        <div class="toggle-menu-header">
+                                            <h4>
+                                                What is the design token system?
+                                            </h4>
+                                            <span class="toggle-menu-icon"
+                                                >▶</span
+                                            >
+                                        </div>
+                                        <div class="toggle-menu-body">
+                                            <div class="toggle-menu-body-inner">
+                                                <p>
+                                                    Design tokens are the atomic
+                                                    values that define the
+                                                    visual language. They
+                                                    include colors, spacing,
+                                                    typography, shadows, and
+                                                    border radii — all defined
+                                                    as CSS custom properties in
+                                                    <code>:root</code>.
+                                                </p>
+                                                <p>
+                                                    By using tokens instead of
+                                                    hard-coded values, we ensure
+                                                    consistency across every
+                                                    component and make theme
+                                                    updates trivial.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="toggle-menu-item">
+                                        <div class="toggle-menu-header">
+                                            <h4>
+                                                How does the spacing system
+                                                work?
+                                            </h4>
+                                            <span class="toggle-menu-icon"
+                                                >▶</span
+                                            >
+                                        </div>
+                                        <div class="toggle-menu-body">
+                                            <div class="toggle-menu-body-inner">
+                                                <p>
+                                                    All spacing uses a 4px base
+                                                    grid. Each step is a
+                                                    multiple of 4, from micro
+                                                    adjustments (4px) to maximum
+                                                    spacing (80px). This
+                                                    mathematical consistency
+                                                    ensures harmonious layouts
+                                                    at every scale.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="toggle-menu-item">
+                                        <div class="toggle-menu-header">
+                                            <h4>
+                                                Can I customize the color
+                                                palette?
+                                            </h4>
+                                            <span class="toggle-menu-icon"
+                                                >▶</span
+                                            >
+                                        </div>
+                                        <div class="toggle-menu-body">
+                                            <div class="toggle-menu-body-inner">
+                                                <p>
+                                                    Absolutely! All colors are
+                                                    defined as CSS variables.
+                                                    Simply update the values in
+                                                    the <code>:root</code> block
+                                                    to create an entirely new
+                                                    theme while preserving the
+                                                    structural hierarchy and
+                                                    contrast ratios.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Inline LaTeX -->
+                                <h2>Inline LaTeX</h2>
+
+                                <p>
+                                    LaTeX expressions render beautifully inline
+                                    with text. For example, the quadratic
+                                    formula is
+                                    <span
+                                        class="latex-inline"
+                                        data-latex="x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}"
+                                        >x = (-b ± √(b²-4ac)) / 2a</span
+                                    >, and Euler's identity states
+                                    <span
+                                        class="latex-inline"
+                                        data-latex="e^{i\pi} + 1 = 0"
+                                        >e^(iπ) + 1 = 0</span
+                                    >.
+                                </p>
+
+                                <div
+                                    class="latex-block"
+                                    data-latex="\int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi}"
+                                >
+                                    ∫ from -∞ to ∞ of e^(-x²) dx = √π
+                                </div>
+
+                                <div
+                                    class="latex-block"
+                                    data-latex="\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}"
+                                >
+                                    Σ (n=1 to ∞) 1/n² = π²/6
+                                </div>
+
+                                <p>
+                                    The Schrödinger equation
+                                    <span
+                                        class="latex-inline"
+                                        data-latex="i\hbar\frac{\partial}{\partial t}\Psi = \hat{H}\Psi"
+                                        >iℏ ∂Ψ/∂t = ĤΨ</span
+                                    >
+                                    governs quantum mechanics, while
+                                    <span
+                                        class="latex-inline"
+                                        data-latex="E = mc^2"
+                                        >E = mc²</span
+                                    >
+                                    defines mass-energy equivalence.
+                                </p>
+
+                                <!-- Image -->
+                                <h2>Image</h2>
+
+                                <p>
+                                    Images are displayed with rounded corners,
+                                    elevation shadows, and optional captions:
+                                </p>
+
+                                <figure class="image-figure">
+                                    <img
+                                        src="https://picsum.photos/760/400?random=1"
+                                        alt="Mountain landscape with dramatic clouds at golden hour"
+                                        loading="lazy"
+                                    />
+                                    <figcaption>
+                                        A breathtaking mountain landscape at
+                                        golden hour — Photo via Lorem Picsum
+                                    </figcaption>
+                                </figure>
+
+                                <!-- Custom Audio Player -->
+                                <h2>Audio Player</h2>
+
+                                <p>
+                                    A minimal audio player with playback control
+                                    and progress tracking:
+                                </p>
+
+                                <div class="audio-player" data-audio-player>
+                                    <button
+                                        class="audio-player-btn"
+                                        title="Play/Pause"
+                                        data-playing="false"
+                                    >
+                                        ▶
+                                    </button>
+                                    <div class="audio-player-meta">
+                                        <div class="audio-player-title">
+                                            Ambient Focus — Lofi Concentration
+                                        </div>
+                                        <div class="audio-player-artist">
+                                            Studio Espresso
+                                        </div>
+                                    </div>
+                                    <div class="audio-player-progress">
+                                        <span class="audio-player-time"
+                                            >1:24</span
+                                        >
+                                        <div class="audio-progress-bar">
+                                            <div
+                                                class="audio-progress-fill"
+                                                style="width: 35%"
+                                            ></div>
+                                        </div>
+                                        <span class="audio-player-time"
+                                            >4:02</span
+                                        >
+                                    </div>
+                                </div>
+
+                                <!-- Custom Video Player -->
+                                <h2>Video Player</h2>
+
+                                <div class="callout info">
+                                    <div class="callout-content">
+                                        <p>
+                                            To display actual video content, add
+                                            a <code>&lt;video&gt;</code> element
+                                            inside the viewport. Place your MP4,
+                                            WebM, or Ogg video files in the
+                                            <code>/public</code> folder.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <p>
+                                    A custom video player with playback
+                                    controls, timeline, and fullscreen support:
+                                </p>
+
+                                <div class="video-player" data-video-player>
+                                    <div class="video-player-viewport">
+                                        <div class="video-placeholder">
+                                            <span class="video-placeholder-icon"
+                                                >🎬</span
+                                            >
+                                            <span
+                                                >Introduction to Design
+                                                Systems</span
+                                            >
+                                        </div>
+                                        <div class="video-play-overlay">
+                                            <div class="video-play-overlay-btn">
+                                                ▶
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="video-player-controls">
+                                        <button
+                                            class="audio-player-btn play-btn"
+                                            title="Play/Pause"
+                                            data-playing="false"
+                                        >
+                                            ▶
+                                        </button>
+                                        <span class="audio-player-time"
+                                            >0:00</span
+                                        >
+                                        <div class="video-progress-bar">
+                                            <div
+                                                class="video-progress-fill"
+                                                style="width: 0%"
+                                            ></div>
+                                        </div>
+                                        <span class="audio-player-time"
+                                            >12:34</span
+                                        >
+                                        <button
+                                            class="audio-player-btn"
+                                            title="Volume"
+                                        >
+                                            🔊
+                                        </button>
+                                        <button
+                                            class="video-fullscreen-btn"
+                                            title="Fullscreen"
+                                        >
+                                            ⛶
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Web Embedding -->
+                                <h2>Web Embedding</h2>
+
+                                <p>
+                                    Embed external websites with a browser-like
+                                    chrome, complete with traffic-light buttons
+                                    and a URL bar:
+                                </p>
+
+                                <div class="embed-container">
+                                    <div class="embed-header">
+                                        <div class="embed-dots">
+                                            <span class="embed-dot red"></span>
+                                            <span
+                                                class="embed-dot yellow"
+                                            ></span>
+                                            <span
+                                                class="embed-dot green"
+                                            ></span>
+                                        </div>
+                                        <div class="embed-url">
+                                            https://developer.mozilla.org/en-US/docs/Web/CSS
+                                        </div>
+                                        <div class="embed-actions">
+                                            <button
+                                                class="embed-action-btn"
+                                                title="Refresh"
+                                            >
+                                                ↻
+                                            </button>
+                                            <button
+                                                class="embed-action-btn"
+                                                title="Open in new tab"
+                                                onclick="
+                                                    window.open(
+                                                        'https://developer.mozilla.org/en-US/docs/Web/CSS',
+                                                        '_blank',
+                                                    )
+                                                "
+                                            >
+                                                ↗
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="embed-body">
+                                        <iframe
+                                            src="https://developer.mozilla.org/en-US/docs/Web/CSS"
+                                            title="MDN CSS Documentation"
+                                            loading="lazy"
+                                        ></iframe>
+                                    </div>
+                                </div>
+
+                                <p style="margin-top: var(--space-6)">
+                                    Another example with Wikipedia:
+                                </p>
+
+                                <div class="embed-container">
+                                    <div class="embed-header">
+                                        <div class="embed-dots">
+                                            <span class="embed-dot red"></span>
+                                            <span
+                                                class="embed-dot yellow"
+                                            ></span>
+                                            <span
+                                                class="embed-dot green"
+                                            ></span>
+                                        </div>
+                                        <div class="embed-url">
+                                            https://en.wikipedia.org/wiki/Design_system
+                                        </div>
+                                        <div class="embed-actions">
+                                            <button
+                                                class="embed-action-btn"
+                                                title="Refresh"
+                                            >
+                                                ↻
+                                            </button>
+                                            <button
+                                                class="embed-action-btn"
+                                                title="Open in new tab"
+                                                onclick="
+                                                    window.open(
+                                                        'https://en.wikipedia.org/wiki/Design_system',
+                                                        '_blank',
+                                                    )
+                                                "
+                                            >
+                                                ↗
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="embed-body">
+                                        <iframe
+                                            src="https://en.wikipedia.org/wiki/Design_system"
+                                            title="Wikipedia - Design System"
+                                            loading="lazy"
+                                        ></iframe>
+                                    </div>
+                                </div>
+
+                                <!-- Document Embedding -->
+                                <h2>Document Embedding</h2>
+
+                                <p>
+                                    Embed Word documents with file metadata and
+                                    a preview area:
+                                </p>
+
+                                <div class="doc-embed">
+                                    <div class="doc-embed-header">
+                                        <div class="doc-embed-icon">W</div>
+                                        <div class="doc-embed-info">
+                                            <div class="doc-embed-name">
+                                                Project_Proposal_2026.docx
+                                            </div>
+                                            <div class="doc-embed-meta">
+                                                <span>245 KB</span>
+                                                <span>•</span>
+                                                <span
+                                                    >Modified Feb 8, 2026</span
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="doc-embed-actions">
+                                            <button class="doc-embed-btn">
+                                                📥 Download
+                                            </button>
+                                            <button class="doc-embed-btn">
+                                                ↗ Open
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="doc-embed-preview">
+                                        <h3
+                                            style="
+                                                color: #111;
+                                                margin-bottom: 8px;
+                                                font-family: var(--font-serif);
+                                            "
+                                        >
+                                            Project Proposal: Design System
+                                            Overhaul
+                                        </h3>
+                                        <p
+                                            style="
+                                                color: #555;
+                                                margin-bottom: 12px;
+                                            "
+                                        >
+                                            This document outlines the
+                                            comprehensive redesign of our
+                                            component library, transitioning
+                                            from ad-hoc styles to a token-based
+                                            design system built on the Espresso
+                                            & Ember theme.
+                                        </p>
+                                        <p style="color: #777; font-size: 13px">
+                                            <em>— Preview of page 1 of 12</em>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- PDF Embedding -->
+                                <h2>PDF Embedding</h2>
+
+                                <p>
+                                    PDFs are rendered with a custom toolbar
+                                    including pagination, zoom, search, and
+                                    download controls:
+                                </p>
+
+                                <div class="pdf-embed">
+                                    <div class="pdf-toolbar">
+                                        <div class="pdf-toolbar-group">
+                                            <div
+                                                class="doc-embed-icon pdf"
+                                                style="
+                                                    width: 28px;
+                                                    height: 28px;
+                                                    font-size: 10px;
+                                                "
+                                            >
+                                                PDF
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="pdf-toolbar-separator"
+                                        ></div>
+                                        <div class="pdf-toolbar-group">
+                                            <button
+                                                class="pdf-toolbar-btn"
+                                                title="Previous page"
+                                            >
+                                                ◀
+                                            </button>
+                                            <input
+                                                type="text"
+                                                class="pdf-page-input"
+                                                value="1"
+                                            />
+                                            <span class="pdf-page-label"
+                                                >/ 24</span
+                                            >
+                                            <button
+                                                class="pdf-toolbar-btn"
+                                                title="Next page"
+                                            >
+                                                ▶
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="pdf-toolbar-separator"
+                                        ></div>
+                                        <div class="pdf-toolbar-group">
+                                            <button
+                                                class="pdf-toolbar-btn"
+                                                title="Zoom out"
+                                            >
+                                                −
+                                            </button>
+                                            <span class="pdf-zoom-label"
+                                                >100%</span
+                                            >
+                                            <button
+                                                class="pdf-toolbar-btn"
+                                                title="Zoom in"
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                        <span class="pdf-toolbar-title"
+                                            >Design_System_Manual.pdf</span
+                                        >
+                                        <div class="pdf-toolbar-group">
+                                            <button
+                                                class="pdf-toolbar-btn"
+                                                title="Search"
+                                            >
+                                                🔍
+                                            </button>
+                                            <button
+                                                class="pdf-toolbar-btn"
+                                                title="Download"
+                                            >
+                                                📥
+                                            </button>
+                                            <button
+                                                class="pdf-toolbar-btn"
+                                                title="Print"
+                                            >
+                                                🖨
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="pdf-viewport">
+                                        <div class="pdf-page">
+                                            <h3>
+                                                Chapter 1: Introduction to
+                                                Design Tokens
+                                            </h3>
+                                            <p>
+                                                Design tokens are the visual
+                                                design atoms of the design
+                                                system — specifically, they are
+                                                named entities that store visual
+                                                design attributes. We use them
+                                                in place of hard-coded values in
+                                                order to maintain a scalable and
+                                                consistent visual system.
+                                            </p>
+                                            <p>
+                                                The benefits of a token-based
+                                                approach include: centralized
+                                                theming, platform-agnostic
+                                                design values, and predictable
+                                                component behavior across the
+                                                entire product surface.
+                                            </p>
+                                            <p
+                                                style="
+                                                    color: #888;
+                                                    font-size: 12px;
+                                                    text-align: center;
+                                                    margin-top: 2em;
+                                                "
+                                            >
+                                                — Page 1 of 24 —
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Slideshow Embedding -->
+                                <h2>Slideshow</h2>
+
+                                <p>
+                                    Interactive presentations with custom
+                                    navigation controls and slide indicators:
+                                </p>
+
+                                <div class="slideshow" data-slideshow>
+                                    <div class="slideshow-viewport">
+                                        <div class="slideshow-slide active">
+                                            <span class="slide-icon">🎨</span>
+                                            <h2>Design System Overview</h2>
+                                            <p>
+                                                Building consistent, scalable
+                                                interfaces with the Espresso &
+                                                Ember theme
+                                            </p>
+                                            <span class="slide-number">01</span>
+                                        </div>
+                                        <div class="slideshow-slide">
+                                            <span class="slide-icon">🧩</span>
+                                            <h2>Component Architecture</h2>
+                                            <p>
+                                                Token-based components that
+                                                adapt to any context while
+                                                maintaining visual cohesion
+                                            </p>
+                                            <span class="slide-number">02</span>
+                                        </div>
+                                        <div class="slideshow-slide">
+                                            <span class="slide-icon">📐</span>
+                                            <h2>The 4px Grid System</h2>
+                                            <p>
+                                                Mathematical consistency through
+                                                a spacing scale built on
+                                                multiples of 4 pixels
+                                            </p>
+                                            <span class="slide-number">03</span>
+                                        </div>
+                                        <div class="slideshow-slide">
+                                            <span class="slide-icon">♿</span>
+                                            <h2>Accessibility First</h2>
+                                            <p>
+                                                WCAG-compliant contrast,
+                                                keyboard navigation, and
+                                                semantic HTML throughout
+                                            </p>
+                                            <span class="slide-number">04</span>
+                                        </div>
+                                    </div>
+                                    <div class="slideshow-nav">
+                                        <button
+                                            class="slideshow-nav-btn"
+                                            data-slide-prev
+                                            disabled
+                                        >
+                                            ◀ Prev
+                                        </button>
+                                        <div class="slideshow-dots">
+                                            <button
+                                                class="slideshow-dot active"
+                                                data-slide-goto="0"
+                                            ></button>
+                                            <button
+                                                class="slideshow-dot"
+                                                data-slide-goto="1"
+                                            ></button>
+                                            <button
+                                                class="slideshow-dot"
+                                                data-slide-goto="2"
+                                            ></button>
+                                            <button
+                                                class="slideshow-dot"
+                                                data-slide-goto="3"
+                                            ></button>
+                                        </div>
+                                        <span class="slideshow-counter"
+                                            >1 / 4</span
+                                        >
+                                        <button
+                                            class="slideshow-nav-btn"
+                                            data-slide-next
+                                        >
+                                            Next ▶
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Window Component -->
+                                <h2>Window Component</h2>
+
+                                <p>
+                                    A macOS-style window chrome for showcasing
+                                    terminal output, code examples, or
+                                    application previews:
+                                </p>
+
+                                <div class="window">
+                                    <div class="window-titlebar">
+                                        <div class="window-dots">
+                                            <span
+                                                class="window-dot close"
+                                            ></span>
+                                            <span
+                                                class="window-dot minimize"
+                                            ></span>
+                                            <span
+                                                class="window-dot maximize"
+                                            ></span>
+                                        </div>
+                                        <span class="window-title"
+                                            >Terminal — zsh</span
+                                        >
+                                    </div>
+                                    <div class="window-body">
+                                        <pre><code style="color: var(--success);">$ npm run dev</code>
+<code>
+  VITE v7.2.4  ready in 124 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://192.168.1.42:5173/
+  ➜  press h + enter to show help</code></pre>
+                                    </div>
+                                </div>
+
+                                <div class="window">
+                                    <div class="window-titlebar">
+                                        <div class="window-dots">
+                                            <span
+                                                class="window-dot close"
+                                            ></span>
+                                            <span
+                                                class="window-dot minimize"
+                                            ></span>
+                                            <span
+                                                class="window-dot maximize"
+                                            ></span>
+                                        </div>
+                                        <span class="window-title"
+                                            >app.ts — Visual Studio Code</span
+                                        >
+                                    </div>
+                                    <div class="window-body">
+                                        <pre><code>import { DesignSystem } from './tokens';
+import { renderEditor } from './editor';
+
+const theme = new DesignSystem('espresso-ember');
+theme.apply(document.documentElement);
+
+renderEditor('#app', { theme, autofocus: true });</code></pre>
+                                    </div>
+                                </div>
+
+                                <!-- Address -->
+                                <h2>Address</h2>
+
+                                <p>
+                                    Contact information with clickable fields:
+                                </p>
+
+                                <address>
+                                    <div class="address-name">
+                                        Espresso Design Studios
+                                    </div>
+                                    <div
+                                        class="address-field"
+                                        onclick="
+                                            navigator.clipboard.writeText(
+                                                '742 Ember Lane, Suite 200, San Francisco, CA 94102',
+                                            )
+                                        "
+                                    >
+                                        <span class="address-field-label"
+                                            >Address</span
+                                        >
+                                        <span class="address-field-value"
+                                            >742 Ember Lane, Suite 200<br />San
+                                            Francisco, CA 94102</span
+                                        >
+                                    </div>
+                                    <div
+                                        class="address-field"
+                                        onclick="
+                                            window.location.href =
+                                                'mailto:hello@espresso.design'
+                                        "
+                                    >
+                                        <span class="address-field-label"
+                                            >Email</span
+                                        >
+                                        <span class="address-field-value"
+                                            ><a
+                                                href="mailto:hello@espresso.design"
+                                                >hello@espresso.design</a
+                                            ></span
+                                        >
+                                    </div>
+                                    <div
+                                        class="address-field"
+                                        onclick="
+                                            window.location.href =
+                                                'tel:+15558675309'
+                                        "
+                                    >
+                                        <span class="address-field-label"
+                                            >Phone</span
+                                        >
+                                        <span class="address-field-value"
+                                            ><a href="tel:+15558675309"
+                                                >+1 (555) 867-5309</a
+                                            ></span
+                                        >
+                                    </div>
+                                </address>
+
+                                <!-- Abbreviations -->
+                                <h2>Abbreviations</h2>
+
+                                <p>
+                                    Abbreviations display a dotted underline and
+                                    reveal their full form on hover. This design
+                                    system uses
+                                    <abbr title="Cascading Style Sheets"
+                                        >CSS</abbr
+                                    >
+                                    custom properties, follows
+                                    <abbr
+                                        title="Web Content Accessibility Guidelines"
+                                        >WCAG</abbr
+                                    >
+                                    standards, and is compatible with all modern
+                                    <abbr
+                                        title="Application Programming Interfaces"
+                                        >API</abbr
+                                    >s. The
+                                    <abbr title="HyperText Markup Language"
+                                        >HTML</abbr
+                                    >
+                                    structure supports
+                                    <abbr title="Search Engine Optimization"
+                                        >SEO</abbr
+                                    >
+                                    best practices and
+                                    <abbr title="Document Object Model"
+                                        >DOM</abbr
+                                    >
+                                    manipulation.
+                                </p>
+
+                                <!-- Keyboard Buttons -->
+                                <h2>Keyboard Buttons</h2>
+
+                                <p>
+                                    Keyboard shortcuts are displayed with
+                                    realistic keycap styling. Common operations
+                                    include:
+                                </p>
+
+                                <ul>
+                                    <li>
+                                        Save document:
+                                        <span class="kbd-combo"
+                                            ><kbd>Ctrl</kbd
+                                            ><span class="kbd-plus">+</span
+                                            ><kbd>S</kbd></span
+                                        >
+                                    </li>
+                                    <li>
+                                        Bold text:
+                                        <span class="kbd-combo"
+                                            ><kbd>Ctrl</kbd
+                                            ><span class="kbd-plus">+</span
+                                            ><kbd>B</kbd></span
+                                        >
+                                    </li>
+                                    <li>
+                                        Find & replace:
+                                        <span class="kbd-combo"
+                                            ><kbd>Ctrl</kbd
+                                            ><span class="kbd-plus">+</span
+                                            ><kbd>Shift</kbd
+                                            ><span class="kbd-plus">+</span
+                                            ><kbd>H</kbd></span
+                                        >
+                                    </li>
+                                    <li>
+                                        Undo:
+                                        <span class="kbd-combo"
+                                            ><kbd>Ctrl</kbd
+                                            ><span class="kbd-plus">+</span
+                                            ><kbd>Z</kbd></span
+                                        >
+                                    </li>
+                                    <li>
+                                        Toggle sidebar:
+                                        <span class="kbd-combo"
+                                            ><kbd>Ctrl</kbd
+                                            ><span class="kbd-plus">+</span
+                                            ><kbd>\\</kbd></span
+                                        >
+                                    </li>
+                                    <li>
+                                        Enter command palette:
+                                        <span class="kbd-combo"
+                                            ><kbd>Ctrl</kbd
+                                            ><span class="kbd-plus">+</span
+                                            ><kbd>Shift</kbd
+                                            ><span class="kbd-plus">+</span
+                                            ><kbd>P</kbd></span
+                                        >
+                                    </li>
+                                </ul>
+
+                                <p>
+                                    Individual keys: <kbd>Enter</kbd>
+                                    <kbd>Esc</kbd> <kbd>Tab</kbd>
+                                    <kbd>Space</kbd> <kbd>↑</kbd> <kbd>↓</kbd>
+                                    <kbd>←</kbd> <kbd>→</kbd>
+                                    <kbd>Backspace</kbd> <kbd>Delete</kbd>
+                                </p>
+
+                                <!-- Progress Bars -->
+                                <h2>Progress Bars</h2>
+
+                                <p>
+                                    Progress indicators with gradient fills and
+                                    semantic color variants:
+                                </p>
+
+                                <div class="progress-container">
+                                    <div class="progress-header">
+                                        <span class="progress-label"
+                                            >Design Tokens</span
+                                        >
+                                        <span class="progress-value">92%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div
+                                            class="progress-fill accent"
+                                            style="width: 92%"
+                                        ></div>
+                                    </div>
+                                </div>
+
+                                <div class="progress-container">
+                                    <div class="progress-header">
+                                        <span class="progress-label"
+                                            >Component Library</span
+                                        >
+                                        <span class="progress-value">78%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div
+                                            class="progress-fill success"
+                                            style="width: 78%"
+                                        ></div>
+                                    </div>
+                                </div>
+
+                                <div class="progress-container">
+                                    <div class="progress-header">
+                                        <span class="progress-label"
+                                            >Documentation</span
+                                        >
+                                        <span class="progress-value">53%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div
+                                            class="progress-fill warning"
+                                            style="width: 53%"
+                                        ></div>
+                                    </div>
+                                </div>
+
+                                <div class="progress-container">
+                                    <div class="progress-header">
+                                        <span class="progress-label"
+                                            >Critical Issues</span
+                                        >
+                                        <span class="progress-value">12%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div
+                                            class="progress-fill error"
+                                            style="width: 12%"
+                                        ></div>
+                                    </div>
+                                </div>
+
+                                <div class="progress-container">
+                                    <div class="progress-header">
+                                        <span class="progress-label"
+                                            >Upload Progress</span
+                                        >
+                                        <span class="progress-value">65%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div
+                                            class="progress-fill info striped"
+                                            style="width: 65%"
+                                        ></div>
+                                    </div>
+                                </div>
+
+                                <!-- Text Formatting -->
+                                <h2>Text Formatting</h2>
+
+                                <h3>Highlighting</h3>
+
+                                <p>
+                                    Highlighted text draws attention to key
+                                    terms:
+                                    <mark>default accent highlight</mark> uses
+                                    the ember orange,
+                                    <span class="highlight-yellow"
+                                        >yellow highlight</span
+                                    >
+                                    for general emphasis,
+                                    <span class="highlight-green"
+                                        >green highlight</span
+                                    >
+                                    for positive annotations,
+                                    <span class="highlight-blue"
+                                        >blue highlight</span
+                                    >
+                                    for informational notes, and
+                                    <span class="highlight-red"
+                                        >red highlight</span
+                                    >
+                                    for critical markers.
+                                </p>
+
+                                <h3>Italic</h3>
+
+                                <p>
+                                    Standard <em>italic text</em> uses the
+                                    default font, while
+                                    <span class="italic"
+                                        >serif italic text</span
+                                    >
+                                    adds an editorial quality with the Charter
+                                    font family.
+                                </p>
+
+                                <h3>Strikethrough</h3>
+
+                                <p>
+                                    Strikethrough text indicates
+                                    <del>removed content</del> or
+                                    <s>deprecated features</s>. The red
+                                    strikethrough line clearly signals
+                                    <del>this item is no longer valid</del>.
+                                </p>
+
+                                <h3>Underline</h3>
+
+                                <p>
+                                    <u>Underlined text</u> uses the accent color
+                                    for a warm, intentional emphasis. This is
+                                    distinct from links —
+                                    <u>underlines are decorative</u> while
+                                    <a href="#">links are interactive</a>.
+                                </p>
+
+                                <h3>Combined Formatting</h3>
+
+                                <p>
+                                    Text can combine multiple styles:
+                                    <strong><em>bold italic</em></strong
+                                    >,
+                                    <mark
+                                        ><strong>highlighted bold</strong></mark
+                                    >, <u><em>underline italic</em></u
+                                    >, <del><em>deleted italic</em></del
+                                    >, and even
+                                    <mark
+                                        ><strong
+                                            ><u>all three at once</u></strong
+                                        ></mark
+                                    >.
+                                </p>
+
+                                <!-- Conclusion -->
+                                <hr />
+
+                                <h2>Summary</h2>
+
+                                <p>
+                                    This stylesheet demonstrates modern CSS
+                                    architecture with a token-based design
+                                    system, minimal focused aesthetic,
+                                    accessibility-first approach, performance
+                                    optimization, responsive design, and
+                                    extensible structure.
+                                </p>
+
+                                <p>
+                                    The
+                                    <strong>espresso & ember</strong> palette
+                                    creates a warm, focused writing environment.
+                                    The systematic approach to spacing,
+                                    typography, and color ensures a
+                                    professional, polished result that scales
+                                    beautifully across devices.
+                                </p>
+
+                                <div class="callout success">
+                                    <div class="callout-content">
+                                        <p>
+                                            You've reached the end of the
+                                            comprehensive style guide. All
+                                            design tokens, components, and
+                                            patterns are now demonstrated and
+                                            ready for use.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <script type="module" src="/src/main.ts"></script>
+    </body>
+</html>
